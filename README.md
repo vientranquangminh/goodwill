@@ -12,7 +12,8 @@ Clone the repository
 - Flutter version manager (recommend): [fvm](https://fvm.app/)
 - Use: flutter --version to check Flutter version
 
-## Getting Started
+## Design
+- Figma: [design](https://www.figma.com/community/file/1216043752712853958)
 
 ### Setup
 
