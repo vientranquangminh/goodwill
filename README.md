@@ -1,16 +1,24 @@
-# goodwill
+# Goodwill - CAPSTONE 2 - CS02SE.27
 
-A new Flutter project.
+## Usage
+
+Clone the repository
+
+`git clone git@github.com:vientranquangminh/goodwill.git`
+
+## Prerequisite
+
+- Flutter 3.7.7
+- Flutter version manager (recommend): [fvm](https://fvm.app/)
+- Use: flutter --version to check Flutter version
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Setup
 
-A few resources to get you started if this is your first Flutter project:
+- Run code generator:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+    - `flutter pub run build_runner build --delete-conflicting-outputs` 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Run
+- click run button or use this command `flutter run lib/main.dart`
