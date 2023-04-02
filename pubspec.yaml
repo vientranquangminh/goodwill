@@ -48,6 +48,13 @@ dependencies:
   retrofit_generator: ^6.0.0+1
   get_it: ^7.2.0
 
+  # firebase
+  firebase_auth: ^4.1.4
+  firebase_core: ^2.3.0
+  cloud_firestore: ^4.1.0
+  firebase_core_platform_interface: 4.5.2
+  firebase_storage: ^11.0.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

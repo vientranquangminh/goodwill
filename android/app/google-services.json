@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "481055608603",
+    "project_id": "goodwill-83933",
+    "storage_bucket": "goodwill-83933.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481055608603:android:5071c17110990c45358dbe",
+        "android_client_info": {
+          "package_name": "com.example.goodwill"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481055608603-ti1u1qkeubjqeut3v38tol2skga0duub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsygct_Fd9N8qwFx0MtYI5SWLgNgfopxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481055608603-ti1u1qkeubjqeut3v38tol2skga0duub.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
