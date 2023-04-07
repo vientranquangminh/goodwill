@@ -3,6 +3,7 @@ import '../page/manage_post.dart';
 import '../page/profile.dart';
 import '../page/home_page.dart';
 import '../page/post.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyPageController extends StatefulWidget {
   const MyPageController({super.key});
@@ -30,26 +31,28 @@ class _MyPageControllerState extends State<MyPageController> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
+
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
-            label: 'Home',
+            icon: const Icon(Icons.home_filled),
+            label: appLocalizations?.labelHome ?? '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.article_outlined),
-            label: 'Manage Posts',
+            icon: const Icon(Icons.article_outlined),
+            label: appLocalizations?.managePosts ?? '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.post_add),
-            label: 'Post',
+            icon: const Icon(Icons.post_add),
+            label: appLocalizations?.createPost ?? '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Person',
+            icon: const Icon(Icons.person),
+            label: appLocalizations?.person ?? '',
           ),
         ],
         currentIndex: _selectedIndex,

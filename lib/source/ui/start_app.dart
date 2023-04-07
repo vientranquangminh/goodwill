@@ -3,7 +3,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/custom_elevated_button.dart';
 import 'package:goodwill/source/ui/components/page_controller.dart';
-import 'package:goodwill/source/ui/get_jokes_screen.dart';
 
 class StartApp extends StatelessWidget {
   const StartApp({super.key});
@@ -28,9 +27,9 @@ class StartApp extends StatelessWidget {
               textColor: Colors.white,
               customFunction: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const MyPageController()));
+                  context,
+                  MaterialPageRoute(builder: (_) => const MyPageController()),
+                );
               },
             ),
           )
