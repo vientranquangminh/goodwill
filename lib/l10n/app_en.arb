@@ -5,8 +5,8 @@
     "fetching": "Fetching...",
     "empty": "Empty",
     "getJokes": "Get Jokes",
-    "labelHome": "Home",
+    "home": "Home",
     "managePosts": "Manage Posts",
-    "createPost": "Post",
+    "post": "Post",
     "person": "Person"
 }
