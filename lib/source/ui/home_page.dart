@@ -27,8 +27,8 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.only(top: 40),
             child: CustomElevatedButton(
               text: appLocalizations?.start ?? '',
-              textColor: Colors.white,
-              buttonColor: Colors.black,
+              textColor: ColorName.white,
+              buttonColor: ColorName.black,
               customFunction: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (_) => const GetJokesScreen()));

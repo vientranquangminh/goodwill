@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/blocs/joke_cubit.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/loading/fetching_screen.dart';
@@ -35,7 +36,7 @@ class _GetJokesScreenState extends State<GetJokesScreen> {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
+            color: ColorName.white,
           ),
           onPressed: () {
             Navigator.pop(context);
