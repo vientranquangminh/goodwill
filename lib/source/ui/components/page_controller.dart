@@ -40,7 +40,7 @@ class _MyPageControllerState extends State<MyPageController> {
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.home_filled),
-            label: appLocalizations?.labelHome ?? '',
+            label: appLocalizations?.home ?? '',
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.article_outlined),
@@ -48,7 +48,7 @@ class _MyPageControllerState extends State<MyPageController> {
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.post_add),
-            label: appLocalizations?.createPost ?? '',
+            label: appLocalizations?.post ?? '',
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.person),

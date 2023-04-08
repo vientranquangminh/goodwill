@@ -1,6 +1,6 @@
 {
     "goodwill": "Goodwill",
-    "thisIsHomePage": "This is home page of good will",
+    "startPageOfGoodWill": "Start page of good will",
     "getJokesScreen": "Get Jokes Screen",
     "fetching": "Fetching...",
     "empty": "Empty",
@@ -8,5 +8,6 @@
     "home": "Home",
     "managePosts": "Manage Posts",
     "post": "Post",
-    "person": "Person"
+    "person": "Person",
+    "start": "Start"
 }
