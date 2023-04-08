@@ -1,14 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:goodwill/app_config.dart';
 import 'package:goodwill/source/app.dart';
-import 'package:goodwill/source/injection/injector.dart';
-import 'firebase_options.dart';
 
 void main() async {
+  AppConfiguration.ensureAppConfiguration();
   WidgetsFlutterBinding.ensureInitialized();
-  await initDependenciesInjection();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   runApp(const App());
 }
