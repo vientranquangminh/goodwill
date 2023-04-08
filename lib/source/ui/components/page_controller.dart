@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../page/manage_post.dart';
 import '../page/profile.dart';
-import '../page/home_page.dart';
+import '../page/home/home_page.dart';
 import '../page/post.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
