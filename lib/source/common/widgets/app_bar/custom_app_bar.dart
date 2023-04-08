@@ -9,9 +9,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
       this.leading,
       this.actions,
       this.tabBar,
-      this.backgroundColor,
+      this.backgroundColor = Colors.black,
       this.iconColor,
       this.titleColor,
+      this.elevation = 0.0,
       this.toolbarHeight})
       : super(key: key);
   final String title;
@@ -22,7 +23,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
   final Color? backgroundColor;
   final Color? iconColor;
   final Color? titleColor;
-  
+  final double? elevation;
+
   @override
   Size get preferredSize => Size.fromHeight(toolbarHeight ?? 65);
   @override
@@ -31,8 +33,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
       automaticallyImplyLeading: false,
       leading: leading,
       iconTheme: IconThemeData(color: iconColor),
-      backgroundColor: backgroundColor, // Colors.red
-      elevation: 0.0,
+      backgroundColor: backgroundColor,
+      elevation: elevation,
       title: Text(
         title,
         style: TextStyle(
