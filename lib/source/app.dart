@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/ui/start_app.dart';
 import 'package:goodwill/gen/fonts.gen.dart';
-import 'package:goodwill/source/ui/home_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class App extends StatelessWidget {
@@ -10,11 +10,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: FontFamily.workSans
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: FontFamily.workSans),
       title: appLocalizations?.goodwill ?? '',
-      home: const HomePage(),
+      home: const StartApp(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
     );

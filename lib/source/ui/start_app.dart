@@ -4,10 +4,10 @@ import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/custom_elevated_button.dart';
-import 'package:goodwill/source/ui/get_jokes_screen.dart';
+import 'package:goodwill/source/ui/components/page_controller.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class StartApp extends StatelessWidget {
+  const StartApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,10 @@ class HomePage extends StatelessWidget {
               textColor: ColorName.white,
               buttonColor: ColorName.black,
               customFunction: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const GetJokesScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const MyPageController()),
+                );
               },
             ),
           )

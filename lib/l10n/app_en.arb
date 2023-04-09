@@ -4,5 +4,10 @@
     "getJokesScreen": "Get Jokes Screen",
     "fetching": "Fetching...",
     "empty": "Empty",
+    "getJokes": "Get Jokes",
+    "home": "Home",
+    "managePosts": "Manage Posts",
+    "post": "Post",
+    "person": "Person",
     "start": "Start"
 }
