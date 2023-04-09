@@ -14,7 +14,7 @@ class StartApp extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         backgroundColor: ColorName.black,
-        title: AppLocalizations.of(context)?.goodwill ?? '',
+        title: appLocalizations?.goodwill ?? '',
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

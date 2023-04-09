@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:goodwill/gen/assets.gen.dart';
+import 'package:goodwill/gen/colors.gen.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/models/categories_model.dart';
 import 'package:goodwill/source/models/post_model.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/categories_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
 import 'package:goodwill/source/ui/page/home/get_greeting.dart';
 
-import '../../../models/categories_model.dart';
 import 'components/title_of_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,10 +33,10 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 25,
                         backgroundImage:
-                            AssetImage("assets/images/home_page/person.jpg"),
+                            AssetImage(Assets.images.homePage.person.path),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
@@ -42,32 +44,12 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              GetGreeting.greeting(),
+                              GetGreeting.greeting(context),
                               style: const TextStyle(
                                   color: Colors.grey, fontSize: 16),
                             ),
                             const SizedBox(height: 8),
-                            // StreamBuilder<DocumentSnapshot>(
-                            //   stream: patient,
-                            //   builder: ((context, snapshot) {
-                            //     if (snapshot.hasError) {
-                            //       return const Text('Something went wrong');
-                            //     }
-                            //     if (snapshot.connectionState ==
-                            //         ConnectionState.waiting) {
-                            //       return const Text("Loading...",
-                            //           style: TextStyle(
-                            //               fontWeight: FontWeight.bold,
-                            //               fontSize: 20));
-                            //     }
-                            //     return Text(snapshot.data!.get('nickname'),
-                            //         style: const TextStyle(
-                            //           fontWeight: FontWeight.bold,
-                            //           fontSize: 20,
-                            //         ));
-                            //   }),
-                            // )
-                            const Text("Turtle",
+                            const Text("Turtle", // dummy text
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -81,11 +63,9 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       IconButton(
                           onPressed: () {},
-                          icon:
-                              SvgPicture.asset('assets/svgs/notification.svg')),
+                          icon: Assets.svgs.notification.svg()),
                       IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset('assets/svgs/message.svg'))
+                          onPressed: () {}, icon: Assets.svgs.message.svg())
                     ],
                   )
                 ],
@@ -102,6 +82,7 @@ class _HomePageState extends State<HomePage> {
                                 offset: Offset(0.5, 2))
                           ]),
                       child: TextField(
+                        cursorColor: ColorName.black,
                         maxLines: 1,
                         style:
                             const TextStyle(fontSize: 14, color: Colors.black),
@@ -115,19 +96,16 @@ class _HomePageState extends State<HomePage> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16))),
                           fillColor: Colors.grey.shade100,
-                          hintText: 'Search',
+                          hintText: context.localizations.search,
                           hintStyle: const TextStyle(
                               fontSize: 14.0, color: Colors.grey),
                           suffixIcon: IconButton(
-                              icon: SvgPicture.asset(
-                                'assets/svgs/filter.svg',
-                                color: Colors.black,
-                              ),
+                              icon: Assets.svgs.filter.svg(color: Colors.black),
                               onPressed: () {}),
                         ),
                       ))),
               const BannerAds(),
-              const TitleOfList(title: "Explore categories"),
+              TitleOfList(title: context.localizations.exploreCategories),
               SizedBox(
                 height: 200,
                 child: GridView.count(
@@ -138,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                       return CategoriesCard(categories: listCategories[index]);
                     })),
               ),
-              const TitleOfList(title: "Post for you"),
+              TitleOfList(title: context.localizations.postForYou),
               GridView.count(
                 physics: const NeverScrollableScrollPhysics(),
                 childAspectRatio: 0.70,

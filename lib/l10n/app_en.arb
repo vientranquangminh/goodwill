@@ -9,5 +9,12 @@
     "managePosts": "Manage Posts",
     "post": "Post",
     "person": "Person",
-    "start": "Start"
+    "start": "Start",
+    "ok": "Ok",
+    "search": "Search",
+    "goodMorning": "Good Morning 👋",
+    "goodAfternoon": "Good Afternoon 👋",
+    "goodEvening": "Good Evening 👋",
+    "exploreCategories": "Explore categories",
+    "postForYou": "Post for you"
 }
