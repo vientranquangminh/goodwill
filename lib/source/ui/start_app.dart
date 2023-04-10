@@ -4,6 +4,8 @@ import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/custom_elevated_button.dart';
 import 'package:goodwill/source/ui/components/page_controller.dart';
+import 'package:goodwill/source/ui/page/sign_in/sign_in.dart';
+import 'package:goodwill/source/ui/page/sign_in/sign_up.dart';
 
 class StartApp extends StatelessWidget {
   const StartApp({super.key});
@@ -32,7 +34,7 @@ class StartApp extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const MyPageController(),
+                      builder: (_) => const SignUpScreen(),
                     ));
               },
             ),
