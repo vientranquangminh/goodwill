@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:goodwill/gen/colors.gen.dart';
+import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/ui/start_app.dart';
 import 'package:goodwill/gen/fonts.gen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,13 +12,22 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: FontFamily.workSans),
-      title: appLocalizations?.goodwill ?? '',
-      home: const StartApp(),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
+    return ScreenUtilInit(
+      builder: (BuildContext context, Widget? child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              fontFamily: FontFamily.workSans,
+              appBarTheme: AppBarTheme(
+                  backgroundColor: ColorName.black,
+                  elevation: 0.0,
+                  titleTextStyle: context.appBarTextStyle)),
+          title: appLocalizations?.goodwill ?? '',
+          home: const StartApp(),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        );
+      },
     );
   }
 }
