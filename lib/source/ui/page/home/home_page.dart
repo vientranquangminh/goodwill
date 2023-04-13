@@ -7,7 +7,6 @@ import 'package:goodwill/source/models/post_model.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/categories_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
-import 'package:goodwill/source/ui/page/home/get_greeting.dart';
 
 import 'components/title_of_list.dart';
 
@@ -44,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              GetGreeting.greeting(context),
+                              context.greeting(),
                               style: const TextStyle(
                                   color: Colors.grey, fontSize: 16),
                             ),
