@@ -4,7 +4,7 @@ import 'package:goodwill/source/app.dart';
 
 void main() async {
   // Make sure Firebase has been initialized be4 run App
-  await AppConfiguration.ensureAppConfiguration();
   WidgetsFlutterBinding.ensureInitialized();
+  await AppConfiguration.ensureAppConfiguration();
   runApp(const App());
 }

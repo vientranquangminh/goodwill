@@ -39,6 +39,7 @@ dependencies:
   flutter_platform_widgets: ^3.2.0
   email_validator: ^2.1.17
   loading_indicator: ^3.1.0
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:

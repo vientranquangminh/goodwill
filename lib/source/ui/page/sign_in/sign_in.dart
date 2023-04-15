@@ -1,9 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/routes.dart';
+
+import '../../../service/auth_service.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({
@@ -61,14 +62,14 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(height: 44.0),
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email address';
-                    } else if (!EmailValidator.validate(value)) {
-                      return 'Please enter a valid email address';
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please enter your email address';
+                  //   } else if (!EmailValidator.validate(value)) {
+                  //     return 'Please enter a valid email address';
+                  //   }
+                  //   return null;
+                  // },
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -92,14 +93,14 @@ class _SignInScreenState extends State<SignInScreen> {
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _passwordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    } else if (value.length < 8) {
-                      return "Length of password's characters must be 8 or greater";
-                    }
-                    return null;
-                  },
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please enter your password';
+                  //   } else if (value.length < 8) {
+                  //     return "Length of password's characters must be 8 or greater";
+                  //   }
+                  //   return null;
+                  // },
                   obscureText: _passwordVisible,
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -140,8 +141,16 @@ class _SignInScreenState extends State<SignInScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100.0)),
                     fillColor: Colors.black,
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        // TODO: Sign in
+                        String email = _emailController.text;
+                        String password = _passwordController.text;
+
+                        var userCredential =
+                            await AuthService.signInWithEmailAndPassword(
+                                email, password);
+                        if (userCredential == null) return;
                         Navigator.pushNamed(context, Routes.pageController);
                       }
                     },
@@ -153,6 +162,12 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 const SizedBox(
                   height: 25.0,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.signUp);
+                  },
+                  child: const Text('Sign up'),
                 ),
                 GestureDetector(
                   onTap: () {},

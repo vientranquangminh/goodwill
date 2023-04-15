@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/routes.dart';
+import 'package:goodwill/source/service/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -183,10 +184,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100.0)),
                     fillColor: Colors.black,
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacementNamed(
-                            context, Routes.fillProfile);
+                        // TODO: SIGN UP
+                        String email = _emailController.text;
+                        String password = _passwordController.text;
+                        var newUserCredential =
+                            await AuthService.signUp(email, password);
+                        if (newUserCredential == null) return;
+                        Navigator.pushNamed(context, Routes.pageController);
                       }
                     },
                     child: const Text(

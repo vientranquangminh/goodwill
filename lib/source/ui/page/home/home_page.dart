@@ -9,6 +9,7 @@ import 'package:goodwill/source/ui/page/home/components/categories_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
 import 'package:goodwill/source/ui/page/home/get_greeting.dart';
 
+import '../../../service/auth_service.dart';
 import 'components/title_of_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,113 +22,123 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage:
-                            AssetImage(Assets.images.homePage.person.path),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              GetGreeting.greeting(context),
-                              style: const TextStyle(
-                                  color: Colors.grey, fontSize: 16),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text("Turtle", // dummy text
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                ))
-                          ],
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundImage:
+                              AssetImage(Assets.images.homePage.person.path),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Assets.svgs.notification.svg()),
-                      IconButton(
-                          onPressed: () {}, icon: Assets.svgs.message.svg())
-                    ],
-                  )
-                ],
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 3,
-                                offset: Offset(0.5, 2))
-                          ]),
-                      child: TextField(
-                        cursorColor: ColorName.black,
-                        maxLines: 1,
-                        style:
-                            const TextStyle(fontSize: 14, color: Colors.black),
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                          filled: true,
-                          prefixIcon:
-                              const Icon(Icons.search, color: Colors.black),
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16))),
-                          fillColor: Colors.grey.shade100,
-                          hintText: context.localizations.search,
-                          hintStyle: const TextStyle(
-                              fontSize: 14.0, color: Colors.grey),
-                          suffixIcon: IconButton(
-                              icon: Assets.svgs.filter.svg(color: Colors.black),
-                              onPressed: () {}),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                GetGreeting.greeting(context),
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 16),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text("Turtle", // dummy text
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ))
+                            ],
+                          ),
                         ),
-                      ))),
-              const BannerAds(),
-              TitleOfList(title: context.localizations.exploreCategories),
-              SizedBox(
-                height: 200,
-                child: GridView.count(
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 15.0,
-                    children: List.generate(listCategories.length, (index) {
-                      return CategoriesCard(categories: listCategories[index]);
-                    })),
-              ),
-              TitleOfList(title: context.localizations.postForYou),
-              GridView.count(
-                physics: const NeverScrollableScrollPhysics(),
-                childAspectRatio: 0.70,
-                crossAxisSpacing: 15,
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                children: List.generate(listPostModel.length, (index) {
-                  return PostCard(postCard: listPostModel[index]);
-                }),
-              )
-            ],
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: Assets.svgs.notification.svg()),
+                        IconButton(
+                            onPressed: () {}, icon: Assets.svgs.message.svg()),
+                        IconButton(
+                          onPressed: () {
+                            AuthService.signOut();
+                          },
+                          icon: const Icon(Icons.arrow_forward),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 3,
+                                  offset: Offset(0.5, 2))
+                            ]),
+                        child: TextField(
+                          cursorColor: ColorName.black,
+                          maxLines: 1,
+                          style: const TextStyle(
+                              fontSize: 14, color: Colors.black),
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            filled: true,
+                            prefixIcon:
+                                const Icon(Icons.search, color: Colors.black),
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16))),
+                            fillColor: Colors.grey.shade100,
+                            hintText: context.localizations.search,
+                            hintStyle: const TextStyle(
+                                fontSize: 14.0, color: Colors.grey),
+                            suffixIcon: IconButton(
+                                icon:
+                                    Assets.svgs.filter.svg(color: Colors.black),
+                                onPressed: () {}),
+                          ),
+                        ))),
+                const BannerAds(),
+                TitleOfList(title: context.localizations.exploreCategories),
+                SizedBox(
+                  height: 200,
+                  child: GridView.count(
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 15.0,
+                      children: List.generate(listCategories.length, (index) {
+                        return CategoriesCard(
+                            categories: listCategories[index]);
+                      })),
+                ),
+                TitleOfList(title: context.localizations.postForYou),
+                GridView.count(
+                  physics: const NeverScrollableScrollPhysics(),
+                  childAspectRatio: 0.70,
+                  crossAxisSpacing: 15,
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  children: List.generate(listPostModel.length, (index) {
+                    return PostCard(postCard: listPostModel[index]);
+                  }),
+                )
+              ],
+            ),
           ),
         ),
       ),
