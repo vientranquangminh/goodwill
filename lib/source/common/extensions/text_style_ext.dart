@@ -31,4 +31,18 @@ extension PlatFormThemeDataExtension on BuildContext {
           fontWeight: FontWeight.w500,
         ),
       );
+
+  TextStyle? get blackS20W700 => platformThemeData(
+        this,
+        material: (data) => data.textTheme.labelLarge?.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize16,
+          fontWeight: FontWeight.w700,
+        ),
+        cupertino: (data) => data.textTheme.textStyle.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize16,
+          fontWeight: FontWeight.w700,
+        ),
+      );
 }

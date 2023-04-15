@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../../models/categories_model.dart';
+import 'package:goodwill/gen/colors.gen.dart';
+import 'package:goodwill/source/models/categories_model.dart';
 
 class CategoriesCard extends StatelessWidget {
   const CategoriesCard({Key? key, required this.categories}) : super(key: key);
-  final Categories categories;
+  final Category categories;
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-            height: 55,
-            width: 55,
+            height: 55.w,
+            width: 55.h,
             decoration: BoxDecoration(
                 color: Colors.grey.shade200, shape: BoxShape.circle),
             child: SvgPicture.asset(
@@ -21,7 +22,8 @@ class CategoriesCard extends StatelessWidget {
               height: 5,
               width: 5,
               fit: BoxFit.none,
-              color: Colors.black,
+              colorFilter:
+                  const ColorFilter.mode(ColorName.black, BlendMode.srcIn),
             )),
         const SizedBox(
           height: 6,

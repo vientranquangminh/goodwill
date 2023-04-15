@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AppBarAction extends StatelessWidget {
-  static const actionHomePage = 'actionHomePage';
 
   final String action;
 

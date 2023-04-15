@@ -4,8 +4,9 @@ import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/models/categories_model.dart';
 import 'package:goodwill/source/models/post_model.dart';
+import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
-import 'package:goodwill/source/ui/page/home/components/categories_card.dart';
+import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
 
 import 'components/title_of_list.dart';
@@ -61,7 +62,9 @@ class _HomePageState extends State<HomePage> {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, Routes.category);
+                          },
                           icon: Assets.svgs.notification.svg()),
                       IconButton(
                           onPressed: () {}, icon: Assets.svgs.message.svg())
