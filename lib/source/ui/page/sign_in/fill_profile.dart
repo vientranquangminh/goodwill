@@ -1,15 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodwill/gen/assets.gen.dart';
-import 'package:goodwill/source/app.dart';
-import 'package:goodwill/source/routes.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/custom_texfield.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/gender.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/input_date_of_birth.dart';
-import 'package:goodwill/source/ui/page/sign_in/component/show_dialog.dart';
-import 'package:intl/intl.dart';
 
 class FillProfileScreen extends StatefulWidget {
   const FillProfileScreen({Key? key}) : super(key: key);
@@ -143,14 +139,17 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      showDialog(
-                        context: context,
-                        builder: (context) => const DialogBuilder(),
-                      );
-                      Timer(const Duration(seconds: 3), () {
-                        Navigator.pushNamed(context, Routes.pageController);
-                      });
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) => const DialogBuilder(),
+                      // );
+                      // Timer(const Duration(seconds: 3), () {
+                      //   Navigator.pushNamed(context, Routes.pageController);
+                      // });
+
+                      // TODO: Add a new profile if not exist
                     }
+                    UserProfileService.addUserProfile(UserProfile.sample);
                   },
                   style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
