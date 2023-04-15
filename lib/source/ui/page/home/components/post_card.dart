@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goodwill/source/models/post_model.dart';
 
-import '../../post.dart';
-
 class PostCard extends StatelessWidget {
   const PostCard({super.key, required this.postCard});
   final PostModel postCard;
@@ -40,6 +38,5 @@ class PostCard extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

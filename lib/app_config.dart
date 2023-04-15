@@ -16,7 +16,7 @@ class AppConfiguration {
 
   static Future<void> ensureAppConfiguration() async {
     await ScreenUtil.ensureScreenSize();
-    await initDependenciesInjection();
+    // await initDependenciesInjection();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
