@@ -5,10 +5,8 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Post"),
-      ),
+    return SafeArea(
+      child: AppBar(title: const Text("Personal Profile")),
     );
   }
 }
