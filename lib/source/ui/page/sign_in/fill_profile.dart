@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
+import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/custom_texfield.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/gender.dart';
@@ -149,7 +151,8 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
 
                       // TODO: Add a new profile if not exist
                     }
-                    UserProfileService.addUserProfile(UserProfile.sample);
+                    // test when press 'sign up' button
+                    _testFillProfile();
                   },
                   style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
@@ -165,6 +168,28 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _testFillProfile() async {
+    // _addSampleUserProfileWithCurrentUserId();
+    _getMyUserProfile();
+  }
+
+  Future<void> _getMyUserProfile() async {
+    final myUid = AuthService.userId;
+    UserProfile? currentUserProfile =
+        await UserProfileService.getUserProfile(myUid ?? '');
+    debugPrint('current userProfile: ${currentUserProfile?.toJson()}');
+  }
+
+  void _addSampleUserProfileWithCurrentUserId() {
+    final submitUserProfile = UserProfile.sample;
+    if (AuthService.userId != null) {
+      submitUserProfile.id = AuthService.userId!;
+    } else {
+      debugPrint('No user Id');
+    }
+    UserProfileService.addUserProfile(submitUserProfile);
   }
 
   _getGender(value) {

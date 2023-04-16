@@ -14,7 +14,7 @@ class UserProfileRepository {
 
   Future<void> add(UserProfile userProfile) async {
     if (await isUserProfileExist(userProfile)) {
-      _debugPrint('User profile already exists');
+      _debugPrint('UserProfile already exists');
       return;
     }
 
@@ -30,10 +30,16 @@ class UserProfileRepository {
     });
   }
 
-  Future<bool> isUserProfileExist(UserProfile userProfile) async {
-    final id = userProfile.id;
-    final doc = await userProfilesRef.doc(id).get();
-    return doc.exists;
+  Future<UserProfile?> get(String id) async {
+    final docRef = userProfilesRef.doc(id).withConverter(
+        fromFirestore: UserProfile.fromFirestore,
+        toFirestore: (UserProfile userProfile, _) => userProfile.toMap());
+    final docSnap = await docRef.get();
+    final userProfile = docSnap.data();
+    if (userProfile == null) {
+      _debugPrint('No document with docId-$id found');
+    }
+    return userProfile;
   }
 
   // TODO: Update
@@ -43,5 +49,11 @@ class UserProfileRepository {
     final id = userProfile.id;
     await userProfilesRef.doc(id).delete();
     _debugPrint('Delete user ${userProfile.id} complete');
+  }
+
+  Future<bool> isUserProfileExist(UserProfile userProfile) async {
+    final id = userProfile.id;
+    final doc = await userProfilesRef.doc(id).get();
+    return doc.exists;
   }
 }

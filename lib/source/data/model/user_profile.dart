@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserProfile {
   String id;
   String? fullName;
@@ -19,6 +21,10 @@ class UserProfile {
     this.phoneNumber,
     this.address,
   });
+
+  set setId(String id) {
+    this.id = id;
+  }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -51,6 +57,14 @@ class UserProfile {
 
   factory UserProfile.fromJson(String source) =>
       UserProfile.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  factory UserProfile.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options) {
+    final dataMap = snapshot.data();
+
+    return UserProfile.fromMap(dataMap ?? {});
+  }
 
   UserProfile copyWith({
     String? id,

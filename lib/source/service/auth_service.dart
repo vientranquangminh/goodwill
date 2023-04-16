@@ -7,7 +7,11 @@ import 'package:goodwill/source/util/firebase_auth_helper.dart';
 class AuthService {
   static final _instance = FirebaseAuth.instance;
 
-  static Stream<User?> get user {
+  static String? get userId {
+    return _instance.currentUser?.uid;
+  }
+
+  static Stream<User?> get authChanges {
     return _instance.authStateChanges();
   }
 
