@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:goodwill/gen/assets.gen.dart';
 
 class Category {
@@ -25,6 +26,11 @@ class Category {
         path: path ?? this.path,
         rating: rating ?? this.rating,
         quantity: quantity ?? this.quantity);
+  }
+
+  @override
+  String toString() {
+    return 'Category(icon: $icon, title: $title, rating: $rating, quantity: $quantity, path: $path)';
   }
 }
 

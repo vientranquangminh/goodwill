@@ -6,7 +6,7 @@ import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/models/categories_model.dart';
-import 'package:goodwill/source/models/post_model.dart';
+import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
 
 class CategoryPage extends StatelessWidget {
@@ -41,8 +41,12 @@ class CategoryPage extends StatelessWidget {
                   crossAxisSpacing: 15,
                   shrinkWrap: true,
                   crossAxisCount: 2,
-                  children: List.generate(listPostModel.length, (index) {
-                    return ProductCard(category: listCategories[index]);
+                  children: List.generate(listCategories.length, (index) {
+                    return GestureDetector(
+                      onTap: () {
+                        context.pushNamedWithParam(Routes.productDetails, listCategories[index]);
+                      },
+                      child: ProductCard(category: listCategories[index]));
                   }),
                 ),
               ],
