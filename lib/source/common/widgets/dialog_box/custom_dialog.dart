@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:goodwill/source/common/widgets/custom_button/custom_elevated_button.dart';
-import 'package:goodwill/source/common/widgets/custom_button/custom_text_button.dart';
+import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
+import 'package:goodwill/source/common/widgets/custom_button/primary_outline_button.dart';
 import 'package:goodwill/source/resources/app_assets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,12 +27,10 @@ class AppDialogs {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.roboto(
-                    fontSize: 14,
-                    color: Colors.grey),
+                style: GoogleFonts.roboto(fontSize: 14, color: Colors.grey),
               ),
               const SizedBox(height: 16),
-              CustomElevatedButton(
+              PrimaryButton(
                 text: 'OK',
                 customFunction: () => Navigator.pop(context),
               ),
@@ -84,7 +82,7 @@ class AppDialogs {
                 ),
               ),
               const SizedBox(height: 16),
-              CustomElevatedButton(
+              PrimaryButton(
                 text: buttonTitle,
                 customFunction: () {
                   if (buttonOnPressed != null) buttonOnPressed();
@@ -147,7 +145,7 @@ class AppDialogs {
               Row(
                 children: <Widget>[
                   Expanded(
-                    child: CustomTextButton(
+                    child: PrimaryOutlineButton(
                       text: leftButtonTitle,
                       customFunction: () {
                         if (leftOnPressed != null) leftOnPressed();
@@ -157,7 +155,7 @@ class AppDialogs {
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                    child: CustomElevatedButton(
+                    child: PrimaryButton(
                       text: rightButtonTitle,
                       customFunction: () {
                         if (rightOnPressed != null) rightOnPressed();
@@ -205,5 +203,4 @@ class AppDialogs {
           );
         });
   }
-
 }

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:goodwill/source/common/widgets/custom_button/custom_elevated_button.dart';
+import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 
 class CustomBottomSheet extends StatelessWidget {
-  const CustomBottomSheet({
-    Key? key,
-    required this.title,
-    required this.content,
-    required this.negativeButtonText,
-    required this.positiveButtonText,
-    required this.negativeButtonFunction,
-    required this.positiveButtonFunction,
-    required this.bottomSheetHeight,
-    this.titleColor = Colors.black,
-    this.negativeButtonColor = Colors.lightBlue,
-    this.positiveButtonColor = Colors.blue,
-    this.negativeTextColor = Colors.black,
-    this.positiveTextColor = Colors.black
-  }) : super(key: key);
+  const CustomBottomSheet(
+      {Key? key,
+      required this.title,
+      required this.content,
+      required this.negativeButtonText,
+      required this.positiveButtonText,
+      required this.negativeButtonFunction,
+      required this.positiveButtonFunction,
+      required this.bottomSheetHeight,
+      this.titleColor = Colors.black,
+      this.negativeButtonColor = Colors.lightBlue,
+      this.positiveButtonColor = Colors.blue,
+      this.negativeTextColor = Colors.black,
+      this.positiveTextColor = Colors.black})
+      : super(key: key);
 
   final String title;
   final Widget content;
@@ -43,9 +43,7 @@ class CustomBottomSheet extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                  color: titleColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
+                  color: titleColor, fontSize: 16, fontWeight: FontWeight.w500),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -59,7 +57,7 @@ class CustomBottomSheet extends StatelessWidget {
                   margin: const EdgeInsets.all(20),
                   width: size.width / 3,
                   height: size.height / 18,
-                  child: CustomElevatedButton(
+                  child: PrimaryButton(
                     text: negativeButtonText,
                     buttonColor: negativeButtonColor,
                     textColor: negativeTextColor,
@@ -71,7 +69,7 @@ class CustomBottomSheet extends StatelessWidget {
                   margin: const EdgeInsets.all(20),
                   width: size.width / 3,
                   height: size.height / 18,
-                  child: CustomElevatedButton(
+                  child: PrimaryButton(
                     text: positiveButtonText,
                     buttonColor: positiveButtonColor,
                     textColor: positiveTextColor,

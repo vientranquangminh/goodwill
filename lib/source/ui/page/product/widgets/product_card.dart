@@ -37,7 +37,7 @@ class _ProductCardState extends State<ProductCard> {
               const SizedBox(height: 10),
               Text(
                 widget.category.title,
-                style: context.blackS20W700,
+                style: context.blackS16W700,
               ),
               const SizedBox(height: 5),
               Row(
@@ -58,20 +58,17 @@ class _ProductCardState extends State<ProductCard> {
                   SizedBox(
                     width: 4.w,
                   ),
-                  Container(
-                    padding: EdgeInsets.all(4.w),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(8.r)),
-                      color: const Color.fromARGB(255, 214, 214, 214),
-                    ),
-                    child: Text(context.localizations.sold(9724)),
-                  )
+                  QuantitySoldContainer(
+                    color: const Color.fromARGB(255, 214, 214, 214),
+                    radius: 4.r,
+                    text: context.localizations.sold('1,234'),
+                  ),
                 ],
               ),
               const SizedBox(height: 5),
               Text(
                 '\$320.99',
-                style: context.blackS20W700,
+                style: context.blackS16W700,
               )
             ],
           ),
@@ -89,6 +86,32 @@ class _ProductCardState extends State<ProductCard> {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class QuantitySoldContainer extends StatelessWidget {
+  const QuantitySoldContainer(
+      {super.key,
+      this.text = '',
+      this.color = ColorName.black,
+      this.radius = 0.0});
+  final String text;
+  final Color color;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(4.w),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        color: color,
+      ),
+      child: Text(
+        text,
+        style: context.blackS12W500,
       ),
     );
   }
