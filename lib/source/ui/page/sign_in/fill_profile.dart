@@ -69,10 +69,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(8)),
                               child: IconButton(
-                                icon: SvgPicture.asset(
-                                  'assets/svgs/edit-pen.svg',
-                                  color: Colors.white,
-                                ),
+                                icon: Assets.svgs.editPen.svg(),
                                 onPressed: () {},
                               ),
                             )),
