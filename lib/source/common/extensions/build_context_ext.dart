@@ -25,6 +25,9 @@ extension BuildContextExt on BuildContext {
   void popUntil(String routeName) =>
       Navigator.popUntil(this, ModalRoute.withName(routeName));
 
-  Object? getParam() => (ModalRoute.of(this)?.settings.arguments ??
-        <String, dynamic>{});
+  void pushAndRemoveUntil(String routeName) => Navigator.of(this)
+      .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+
+  Object? getParam() =>
+      (ModalRoute.of(this)?.settings.arguments ?? <String, dynamic>{});
 }
