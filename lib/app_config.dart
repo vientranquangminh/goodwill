@@ -15,14 +15,10 @@ class AppConfiguration {
   static RegExp usernamePattern = RegExp(r'^[a-zA-Z\d_\-=@.]+$');
 
   static Future<void> ensureAppConfiguration() async {
-    /**
-     * enSureScreenSize() stop Firebase from initializing, so for now
-     * We comment it 
-     */
-    // await ScreenUtil.ensureScreenSize();
-    await initDependenciesInjection();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    await ScreenUtil.ensureScreenSize();
+    // await initDependenciesInjection();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   }
 }

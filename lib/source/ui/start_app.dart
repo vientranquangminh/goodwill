@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
-import 'package:goodwill/source/common/widgets/custom_button/custom_elevated_button.dart';
+import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:goodwill/source/ui/page/auth_wrapper/auth_wrapper.dart';
 
 class StartApp extends StatelessWidget {
@@ -24,7 +24,7 @@ class StartApp extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 40),
-            child: CustomElevatedButton(
+            child: PrimaryButton(
               text: appLocalizations?.start ?? '',
               textColor: ColorName.white,
               buttonColor: ColorName.black,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goodwill/source/common/widgets/custom_button/custom_elevated_button.dart';
+import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomDialogErrorBox extends StatefulWidget {
@@ -72,7 +72,7 @@ class CustomDialogErrorBoxState extends State<CustomDialogErrorBox>
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: CustomElevatedButton(
+            child: PrimaryButton(
               text: 'Ok',
               customFunction: () {
                 Navigator.pop(context);

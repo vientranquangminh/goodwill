@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
-
-import '../page/home/home_page.dart';
-import '../page/manage_post.dart';
-import '../page/post.dart';
-import '../page/profile.dart';
+import 'package:goodwill/source/ui/page/home/home_page.dart';
+import 'package:goodwill/source/ui/page/manage_post.dart';
+import 'package:goodwill/source/ui/page/post.dart';
+import 'package:goodwill/source/ui/page/profile.dart';
 
 class MyPageController extends StatefulWidget {
   const MyPageController({super.key});
@@ -59,6 +58,7 @@ class _MyPageControllerState extends State<MyPageController> {
         selectedItemColor: selectedColor,
         onTap: _onItemTapped,
       ),
-    ).animate().fadeIn(duration: const Duration(milliseconds: 400));
+    ).animate().fadeIn(
+        duration: const Duration(milliseconds: 400));
   }
 }

@@ -9,6 +9,11 @@
     "managePosts": "Manage Posts",
     "post": "Post",
     "person": "Person",
+    "getJokes": "Get Jokes",
+    "home": "Home",
+    "managePosts": "Manage Posts",
+    "post": "Post",
+    "person": "Person",
     "start": "Start",
     "ok": "Ok",
     "search": "Search",
@@ -16,5 +21,14 @@
     "goodAfternoon": "Good Afternoon 👋",
     "goodEvening": "Good Evening 👋",
     "exploreCategories": "Explore categories",
-    "postForYou": "Post for you"
+    "postForYou": "Post for you",
+    "clothes": "Clothes",
+    "sold": "{quantity} sold",
+    "description": "Description",
+    "size": "Size",
+    "color": "Color",
+    "reviews": "{quantity} reviews",
+    "quantity": "Quantity",
+    "totalPrice": "Total price",
+    "addToCart": "Add to Cart"
 }

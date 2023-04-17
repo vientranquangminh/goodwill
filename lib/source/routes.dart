@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/ui/page/product/category_page.dart';
+import 'package:goodwill/source/ui/page/product/product_details_page.dart';
 import 'package:goodwill/source/ui/page/profile.dart';
 import 'package:goodwill/source/ui/page/sign_in/fill_profile.dart';
 import 'package:goodwill/source/ui/page/sign_in/sign_in.dart';
@@ -16,6 +18,8 @@ class Routes {
   static const pageController = '/pageController';
   static const post = '/post';
   static const profile = '/profile';
+  static const category = '/category';
+  static const productDetails = '/product-details';
 }
 
 var customRoutes = <String, WidgetBuilder>{
@@ -24,5 +28,9 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.fillProfile: (context) => const FillProfileScreen(),
   Routes.pageController: (context) => const MyPageController(),
   Routes.post: (context) => const Post(),
-  Routes.profile: (context) => const Profile()
+  Routes.profile: (context) => const Profile(),
+  Routes.startApp: (context) => const StartApp(),
+  Routes.category: (context) => const CategoryPage(),
+  Routes.post: (context) => const Post(),
+  Routes.productDetails: (context) => const ProductDetailsPage(),
 };

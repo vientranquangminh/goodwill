@@ -31,4 +31,60 @@ extension PlatFormThemeDataExtension on BuildContext {
           fontWeight: FontWeight.w500,
         ),
       );
+
+  TextStyle? get blackS16W700 => platformThemeData(
+        this,
+        material: (data) => data.textTheme.labelLarge?.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize16,
+          fontWeight: FontWeight.w700,
+        ),
+        cupertino: (data) => data.textTheme.textStyle.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize16,
+          fontWeight: FontWeight.w700,
+        ),
+      );
+
+  TextStyle? get blackS16W500 => platformThemeData(
+        this,
+        material: (data) => data.textTheme.labelLarge?.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize16,
+          fontWeight: FontWeight.w500,
+        ),
+        cupertino: (data) => data.textTheme.textStyle.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize16,
+          fontWeight: FontWeight.w500,
+        ),
+      );
+
+  TextStyle? get blackS20W700 => platformThemeData(
+        this,
+        material: (data) => data.textTheme.labelLarge?.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize20,
+          fontWeight: FontWeight.w700,
+        ),
+        cupertino: (data) => data.textTheme.textStyle.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize20,
+          fontWeight: FontWeight.w700,
+        ),
+      );
+
+  TextStyle? get blackS10W400 => platformThemeData(
+        this,
+        material: (data) => data.textTheme.labelLarge?.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize10,
+          fontWeight: FontWeight.w400,
+        ),
+        cupertino: (data) => data.textTheme.textStyle.copyWith(
+          color: ColorName.black,
+          fontSize: Dimens.fontSize10,
+          fontWeight: FontWeight.w400,
+        ),
+      );
 }

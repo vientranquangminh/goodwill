@@ -17,6 +17,8 @@ class App extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
+          initialRoute: Routes.startApp,
+          routes: customRoutes,
           theme: ThemeData(
               fontFamily: FontFamily.workSans,
               appBarTheme: AppBarTheme(
@@ -24,11 +26,8 @@ class App extends StatelessWidget {
                   elevation: 0.0,
                   titleTextStyle: context.appBarTextStyle)),
           title: appLocalizations?.goodwill ?? '',
-          home: const StartApp(),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          initialRoute: Routes.startApp,
-          routes: customRoutes,
         );
       },
     );
