@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/routes.dart';
 
 import '../../../models/chat_model/message_model.dart';
 import 'room_chat_screen.dart';
 
-class ChatDoctorScreen extends StatelessWidget {
-  const ChatDoctorScreen({Key? key}) : super(key: key);
+class ChatScreen extends StatelessWidget {
+  const ChatScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +32,7 @@ class ChatDoctorScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return RoomChatScreen(
-                          user: recentChats[index].sender,
-                        );
-                      }));
+                      context.pushNamedWithParam(Routes.roomChatScreen, recentChats[index].sender);
                     },
                     child: Container(
                         margin: EdgeInsets.only(top: 24.h),

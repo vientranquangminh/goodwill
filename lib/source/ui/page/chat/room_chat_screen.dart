@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/ui/page/chat/widgets/input_message.dart';
 
 import '../../../models/chat_model/message_model.dart';
 import '../../../models/chat_model/user_model.dart';
 
 class RoomChatScreen extends StatefulWidget {
-  const RoomChatScreen({Key? key, required this.user}) : super(key: key);
+  const RoomChatScreen({Key? key}) : super(key: key);
 
   @override
   State<RoomChatScreen> createState() => _RoomChatScreenState();
-  final User user;
 }
 
 class _RoomChatScreenState extends State<RoomChatScreen> {
   @override
   Widget build(BuildContext context) {
+    final User user = context.getParam() as User;
     return ScreenUtilInit(
       designSize: const Size(428, 882),
       builder: (context, child) {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              widget.user.name,
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              user.name.toString(),
+              style: const TextStyle(color: Colors.black, fontSize: 20),
             ),
             backgroundColor: Colors.white,
             leading: const BackButton(

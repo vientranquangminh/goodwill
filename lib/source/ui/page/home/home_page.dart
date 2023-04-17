@@ -69,10 +69,7 @@ class _HomePageState extends State<HomePage> {
                           icon: Assets.svgs.notification.svg()),
                       IconButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChatDoctorScreen()));
+                            context.pushNamed(Routes.chatScreen);
                           },
                           icon: Assets.svgs.message.svg())
                     ],
