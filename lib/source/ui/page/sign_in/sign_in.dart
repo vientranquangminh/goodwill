@@ -151,7 +151,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             await AuthService.signInWithEmailAndPassword(
                                 email, password);
                         if (userCredential == null) return;
-                        Navigator.pushNamed(context, Routes.pageController);
+                        Navigator.pushNamed(context, Routes.myPageController);
                       }
                     },
                     child: const Text(

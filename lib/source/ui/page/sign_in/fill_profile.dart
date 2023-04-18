@@ -149,7 +149,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         builder: (context) => const DialogBuilder(),
                       );
                       Timer(const Duration(seconds: 3), () {
-                        Navigator.pushNamed(context, Routes.pageController);
+                        Navigator.pushNamed(context, Routes.myPageController);
                       });
 
                       // TODO: Add a new profile if not exist
