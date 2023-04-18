@@ -27,7 +27,6 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
-  final TextEditingController _datetimeController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   String? textGender;
   @override
@@ -37,8 +36,8 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
     _phoneNumberController.dispose();
     _nameController.dispose();
     _nicknameController.dispose();
-    _datetimeController.dispose();
     _dateInput.dispose();
+    _addressController.dispose();
   }
 
   final _formKey = GlobalKey<FormState>();
