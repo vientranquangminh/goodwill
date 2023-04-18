@@ -140,11 +140,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         String email = _emailController.text;
                         String password = _passwordController.text;
 
-                        var userCredential =
-                            await AuthService.signInWithEmailAndPassword(
-                                email, password);
-                        if (userCredential == null) return;
-                        context.pushNamed(Routes.myPageController);
+                        await AuthService.signInWithEmailAndPassword(
+                            email, password);
                       }
                     },
                     child: const Text(

@@ -72,7 +72,12 @@ class _HomePageState extends State<HomePage> {
                           onPressed: () {
                             context.pushNamed(Routes.chatScreen);
                           },
-                          icon: Assets.svgs.message.svg())
+                          icon: Assets.svgs.message.svg()),
+                      IconButton(
+                          onPressed: () {
+                            AuthService.signOut();
+                          },
+                          icon: Icon(Icons.arrow_forward))
                     ],
                   )
                 ],

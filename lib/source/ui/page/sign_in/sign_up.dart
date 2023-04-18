@@ -193,7 +193,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         var newUserCredential =
                             await AuthService.signUp(email, password);
                         if (newUserCredential == null) return;
-                        context.pushNamed(Routes.fillProfile);
+                        Navigator.pushReplacementNamed(
+                            context, Routes.fillProfile);
                       }
                     },
                     child: const Text(

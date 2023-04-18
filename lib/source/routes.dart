@@ -37,7 +37,6 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.startApp: (context) => const StartApp(),
   Routes.myPageController: (context) => const MyPageController(),
   Routes.category: (context) => const CategoryPage(),
-  Routes.post: (context) => const Post(),
   Routes.productDetails: (context) => const ProductDetailsPage(),
   Routes.roomChatScreen: (context) => const RoomChatScreen(),
   Routes.chatScreen: (context) => const ChatScreen()
