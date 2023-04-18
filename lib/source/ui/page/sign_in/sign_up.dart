@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:goodwill/gen/assets.gen.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 
@@ -192,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         var newUserCredential =
                             await AuthService.signUp(email, password);
                         if (newUserCredential == null) return;
-                        Navigator.pushNamed(context, Routes.fillProfile);
+                        context.pushNamed(Routes.fillProfile);
                       }
                     },
                     child: const Text(

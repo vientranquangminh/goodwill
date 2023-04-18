@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodwill/gen/assets.gen.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
@@ -148,7 +149,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         builder: (context) => const DialogBuilder(),
                       );
                       Timer(const Duration(seconds: 3), () {
-                        Navigator.pushNamed(context, Routes.myPageController);
+                        context.pushNamed(Routes.myPageController);
                       });
 
                       // TODO: Add a new profile if not exist

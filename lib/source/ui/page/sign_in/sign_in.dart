@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:goodwill/gen/assets.gen.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/routes.dart';
 
 import '../../../service/auth_service.dart';
@@ -93,14 +94,6 @@ class _SignInScreenState extends State<SignInScreen> {
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _passwordController,
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please enter your password';
-                  //   } else if (value.length < 8) {
-                  //     return "Length of password's characters must be 8 or greater";
-                  //   }
-                  //   return null;
-                  // },
                   obscureText: _passwordVisible,
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -151,7 +144,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             await AuthService.signInWithEmailAndPassword(
                                 email, password);
                         if (userCredential == null) return;
-                        Navigator.pushNamed(context, Routes.myPageController);
+                        context.pushNamed(Routes.myPageController);
                       }
                     },
                     child: const Text(
