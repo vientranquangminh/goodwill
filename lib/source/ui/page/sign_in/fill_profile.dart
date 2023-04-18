@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +10,10 @@ import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/custom_texfield.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/gender.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/input_date_of_birth.dart';
+import 'package:intl/intl.dart';
+
+import '../../../routes.dart';
+import 'component/show_dialog.dart';
 
 class FillProfileScreen extends StatefulWidget {
   const FillProfileScreen({Key? key}) : super(key: key);
@@ -138,18 +144,31 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) => const DialogBuilder(),
-                      // );
-                      // Timer(const Duration(seconds: 3), () {
-                      //   Navigator.pushNamed(context, Routes.pageController);
-                      // });
+                      showDialog(
+                        context: context,
+                        builder: (context) => const DialogBuilder(),
+                      );
+                      Timer(const Duration(seconds: 3), () {
+                        Navigator.pushNamed(context, Routes.pageController);
+                      });
 
                       // TODO: Add a new profile if not exist
+
+                      final DateFormat format = DateFormat('dd-MM-yyyy');
+
+                      final submitUserProfile = UserProfile(
+                        id: AuthService.userId ?? "Abc",
+                        fullName: _nameController.text,
+                        phoneNumber: _phoneNumberController.text,
+                        address: _addressController.text,
+                        gender: textGender,
+                        dateOfBirth: format.parse(_dateInput.text),
+                        nickName: _nicknameController.text,
+                      );
+                      print(submitUserProfile);
+                      UserProfileService.addUserProfile(submitUserProfile);
                     }
                     // test when press 'sign up' button
-                    _testFillProfile();
                   },
                   style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
