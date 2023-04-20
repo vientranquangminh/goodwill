@@ -5,9 +5,6 @@ import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
-import 'package:goodwill/source/models/categories_model.dart';
-import 'package:goodwill/source/routes.dart';
-import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({super.key});

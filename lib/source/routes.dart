@@ -11,8 +11,6 @@ import 'package:goodwill/source/ui/page/sign_in/sign_up.dart';
 import 'package:goodwill/source/ui/start_app.dart';
 import 'package:goodwill/source/ui/page/chat/room_chat_screen.dart';
 
-import 'ui/components/page_controller.dart';
-import 'ui/page/post.dart';
 
 class Routes {
   static const startApp = '/';
