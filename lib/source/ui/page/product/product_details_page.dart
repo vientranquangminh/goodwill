@@ -9,6 +9,7 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button_with_icon.dart';
 import 'package:goodwill/source/models/categories_model.dart';
+import 'package:goodwill/source/models/post_model.dart';
 import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
 import 'package:goodwill/source/ui/page/product/widgets/select_color_widget.dart';
 import 'package:goodwill/source/ui/page/product/widgets/select_size_widget.dart';
@@ -25,8 +26,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final arguments = context.getParam() as Category;
-
+    final arguments = context.getParam() as PostModel;
     log(arguments.toString());
     return Scaffold(
       body: SafeArea(

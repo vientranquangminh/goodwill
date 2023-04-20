@@ -34,22 +34,7 @@ class CategoryPage extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Column(
-              children: [
-                GridView.count(
-                  physics: const NeverScrollableScrollPhysics(),
-                  childAspectRatio: 0.70,
-                  crossAxisSpacing: 15,
-                  shrinkWrap: true,
-                  crossAxisCount: 2,
-                  children: List.generate(listCategories.length, (index) {
-                    return GestureDetector(
-                      onTap: () {
-                        context.pushNamedWithParam(Routes.productDetails, listCategories[index]);
-                      },
-                      child: ProductCard(category: listCategories[index]));
-                  }),
-                ),
-              ],
+              children: [],
             ),
           ),
         ));
