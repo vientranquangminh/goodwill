@@ -3,9 +3,7 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/models/post_model.dart';
 import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
 
-import '../../../../models/categories_model.dart';
 import '../../../../routes.dart';
-import 'container_product.dart';
 
 class MyListProduct extends StatelessWidget {
   const MyListProduct({

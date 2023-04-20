@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodwill/source/models/post_model.dart';
 
 class ContainerProduct extends StatelessWidget {

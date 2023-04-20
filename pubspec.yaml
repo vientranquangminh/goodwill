@@ -37,6 +37,9 @@ dependencies:
   flutter_screenutil: ^5.7.0
   flutter_animate: ^4.1.1+1
   flutter_platform_widgets: ^3.2.0
+  email_validator: ^2.1.17
+  loading_indicator: ^3.1.0
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +71,7 @@ flutter:
     - assets/videos/
     - assets/svgs/
     - assets/images/home_page/
+    - assets/images/sign_in/
     - assets/images/message_screen/
     - assets/images/manage_post/
 

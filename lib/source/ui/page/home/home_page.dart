@@ -5,7 +5,6 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/models/categories_model.dart';
 import 'package:goodwill/source/models/post_model.dart';
 import 'package:goodwill/source/routes.dart';
-import 'package:goodwill/source/ui/page/chat/chat_screen.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
@@ -71,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                           onPressed: () {
                             context.pushNamed(Routes.chatScreen);
                           },
-                          icon: Assets.svgs.message.svg())
+                          icon: Assets.svgs.message.svg()),
                     ],
                   )
                 ],
@@ -88,6 +87,7 @@ class _HomePageState extends State<HomePage> {
                                 offset: Offset(0.5, 2))
                           ]),
                       child: TextField(
+                        onTap: () => context.pushNamed(Routes.searchScreen),
                         cursorColor: ColorName.black,
                         maxLines: 1,
                         style:
@@ -106,8 +106,9 @@ class _HomePageState extends State<HomePage> {
                           hintStyle: const TextStyle(
                               fontSize: 14.0, color: Colors.grey),
                           suffixIcon: IconButton(
-                              icon: Assets.svgs.filter.svg(color: Colors.black),
-                              onPressed: () {}),
+                            icon: Assets.svgs.filter.svg(color: Colors.black),
+                            onPressed: () {},
+                          ),
                         ),
                       ))),
               const BannerAds(),
@@ -130,7 +131,10 @@ class _HomePageState extends State<HomePage> {
                 shrinkWrap: true,
                 crossAxisCount: 2,
                 children: List.generate(listPostModel.length, (index) {
-                  return PostCard(postCard: listPostModel[index]);
+                  return GestureDetector(
+                      onTap: () => context.pushNamedWithParam(
+                          Routes.productDetails, listPostModel[index]),
+                      child: PostCard(postCard: listPostModel[index]));
                 }),
               )
             ],

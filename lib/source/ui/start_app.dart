@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
-import 'package:goodwill/source/routes.dart';
+import 'package:goodwill/source/ui/page/auth_wrapper/auth_wrapper.dart';
 
 class StartApp extends StatelessWidget {
   const StartApp({super.key});
@@ -29,7 +29,11 @@ class StartApp extends StatelessWidget {
               textColor: ColorName.white,
               buttonColor: ColorName.black,
               customFunction: () {
-                Navigator.pushNamed(context, Routes.myPageController);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const AuthWrapper(),
+                    ));
               },
             ),
           )
