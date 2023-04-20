@@ -11,6 +11,7 @@ import 'package:goodwill/source/ui/page/sign_in/sign_up.dart';
 import 'package:goodwill/source/ui/start_app.dart';
 import 'package:goodwill/source/ui/page/chat/room_chat_screen.dart';
 
+import 'ui/page/search/search_product.dart';
 
 class Routes {
   static const startApp = '/';
@@ -24,6 +25,7 @@ class Routes {
   static const productDetails = '/product-details';
   static const chatScreen = '/chat-screen';
   static const roomChatScreen = '/room-chat';
+  static const searchScreen = '/search-screen';
 }
 
 var customRoutes = <String, WidgetBuilder>{
@@ -37,5 +39,6 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.category: (context) => const CategoryPage(),
   Routes.productDetails: (context) => const ProductDetailsPage(),
   Routes.roomChatScreen: (context) => const RoomChatScreen(),
-  Routes.chatScreen: (context) => const ChatScreen()
+  Routes.chatScreen: (context) => const ChatScreen(),
+  Routes.searchScreen: (context) => const SearchScreen()
 };

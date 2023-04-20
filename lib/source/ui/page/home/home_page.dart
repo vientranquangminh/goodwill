@@ -87,6 +87,7 @@ class _HomePageState extends State<HomePage> {
                                 offset: Offset(0.5, 2))
                           ]),
                       child: TextField(
+                        onTap: () => context.pushNamed(Routes.searchScreen),
                         cursorColor: ColorName.black,
                         maxLines: 1,
                         style:
@@ -105,8 +106,9 @@ class _HomePageState extends State<HomePage> {
                           hintStyle: const TextStyle(
                               fontSize: 14.0, color: Colors.grey),
                           suffixIcon: IconButton(
-                              icon: Assets.svgs.filter.svg(color: Colors.black),
-                              onPressed: () {}),
+                            icon: Assets.svgs.filter.svg(color: Colors.black),
+                            onPressed: () {},
+                          ),
                         ),
                       ))),
               const BannerAds(),
@@ -129,7 +131,10 @@ class _HomePageState extends State<HomePage> {
                 shrinkWrap: true,
                 crossAxisCount: 2,
                 children: List.generate(listPostModel.length, (index) {
-                  return PostCard(postCard: listPostModel[index]);
+                  return GestureDetector(
+                      onTap: () => context.pushNamedWithParam(
+                          Routes.productDetails, listPostModel[index]),
+                      child: PostCard(postCard: listPostModel[index]));
                 }),
               )
             ],
