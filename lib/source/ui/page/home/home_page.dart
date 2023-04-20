@@ -5,12 +5,10 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/models/categories_model.dart';
 import 'package:goodwill/source/models/post_model.dart';
 import 'package:goodwill/source/routes.dart';
-import 'package:goodwill/source/ui/page/chat/chat_screen.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
 
-import '../../../service/auth_service.dart';
 import 'components/title_of_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -73,11 +71,6 @@ class _HomePageState extends State<HomePage> {
                             context.pushNamed(Routes.chatScreen);
                           },
                           icon: Assets.svgs.message.svg()),
-                      IconButton(
-                          onPressed: () {
-                            AuthService.signOut();
-                          },
-                          icon: Icon(Icons.arrow_forward))
                     ],
                   )
                 ],

@@ -5,7 +5,6 @@ import 'package:goodwill/source/ui/page/search/widgets/my_list_product.dart';
 import 'package:goodwill/source/ui/page/search/widgets/not_found_screen.dart';
 
 import '../../../models/post_model.dart';
-import '../product/widgets/product_card.dart';
 import 'widgets/title_tabbar.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -79,7 +78,7 @@ class _SearchScreenState extends State<SearchScreen>
                         ),
                         onPressed: () {}),
                   ),
-                  onChanged: searchDoctor),
+                  onChanged: searchProduct),
             ),
             SizedBox(
               height: 30,
@@ -151,33 +150,16 @@ class _SearchScreenState extends State<SearchScreen>
     );
   }
 
-  // void searchDoctor(String query, List<PostModel> doctorList) {
-  //   final suggestions = doctorList.where((doctor) {
-  //     final doctorName = doctor.doctorName.toLowerCase();
-
-  //     final searchLower = query.toLowerCase();
-
-  //     return doctorName.contains(searchLower);
-  //   }).toList();
-
-  //   setState(() {
-  //     if (query.isNotEmpty) {
-  //       posts = suggestions;
-  //     } else {
-  //       posts = doctorList;
-  //     }
-  //   });
-  // }
-  void searchDoctor(String query) {
-    final all = compareDoctorName(query, listPostModel).toList();
-    final clothesSearch = compareDoctorName(query, clothes).toList();
-    final shoesSearch = compareDoctorName(query, shoes).toList();
-    final bagsSearch = compareDoctorName(query, bags).toList();
-    final electronicSearch = compareDoctorName(query, electronic).toList();
-    final watchSearch = compareDoctorName(query, watch).toList();
-    final jewelrySearch = compareDoctorName(query, jewelry).toList();
-    final kitchenSearch = compareDoctorName(query, kitchen).toList();
-    final toysSearch = compareDoctorName(query, toys).toList();
+  void searchProduct(String query) {
+    final all = compareProductName(query, listPostModel).toList();
+    final clothesSearch = compareProductName(query, clothes).toList();
+    final shoesSearch = compareProductName(query, shoes).toList();
+    final bagsSearch = compareProductName(query, bags).toList();
+    final electronicSearch = compareProductName(query, electronic).toList();
+    final watchSearch = compareProductName(query, watch).toList();
+    final jewelrySearch = compareProductName(query, jewelry).toList();
+    final kitchenSearch = compareProductName(query, kitchen).toList();
+    final toysSearch = compareProductName(query, toys).toList();
 
     setState(() {
       if (query.isNotEmpty) {
@@ -223,7 +205,7 @@ class _SearchScreenState extends State<SearchScreen>
   }
 
   // ignore: non_constant_identifier_names
-  Iterable<PostModel> compareDoctorName(String query, List<PostModel> list) {
+  Iterable<PostModel> compareProductName(String query, List<PostModel> list) {
     return list.where((doctor) {
       final doctorName = doctor.name.toLowerCase();
 
