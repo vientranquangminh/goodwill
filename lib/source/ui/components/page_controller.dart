@@ -58,7 +58,6 @@ class _MyPageControllerState extends State<MyPageController> {
         selectedItemColor: selectedColor,
         onTap: _onItemTapped,
       ),
-    ).animate().fadeIn(
-        duration: const Duration(milliseconds: 400));
+    ).animate().fadeIn(duration: const Duration(milliseconds: 400));
   }
 }
