@@ -7,10 +7,11 @@ import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/models/categories_model.dart';
+import 'package:goodwill/source/models/post_model.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({super.key, required this.category});
-  final Category category;
+  final PostModel category;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -31,22 +32,21 @@ class _ProductCardState extends State<ProductCard> {
                     color: Colors.grey.shade300),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16.0),
-                  child: Image(image: AssetImage(widget.category.path)),
+                  child: Image(image: AssetImage(widget.category.image)),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                widget.category.title,
+                widget.category.name,
                 style: context.blackS16W700,
               ),
               const SizedBox(height: 5),
               Row(
                 children: [
-                  const Icon(Icons.star_half),
-                  SizedBox(
-                    width: 4.w,
+                  Text(
+                    widget.category.location,
+                    style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
-                  const Text('4.8'),
                   SizedBox(
                     width: 4.w,
                   ),
