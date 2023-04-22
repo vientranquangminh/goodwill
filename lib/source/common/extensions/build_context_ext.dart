@@ -28,6 +28,8 @@ extension BuildContextExt on BuildContext {
   void pushAndRemoveUntil(String routeName) => Navigator.of(this)
       .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
 
+  void pushReplacementNamed(String routeName) => Navigator.pushReplacementNamed(this, routeName);
+
   Object? getParam() =>
       (ModalRoute.of(this)?.settings.arguments ?? <String, dynamic>{});
 }

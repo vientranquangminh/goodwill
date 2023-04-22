@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:goodwill/source/enum/firebase_auth_code.dart ';
 import 'package:goodwill/source/util/firebase_auth_helper.dart';
 
 class AuthService {

@@ -5,6 +5,7 @@ import 'package:goodwill/source/ui/page/home/home_page.dart';
 import 'package:goodwill/source/ui/page/manage_post.dart';
 import 'package:goodwill/source/ui/page/post.dart';
 import 'package:goodwill/source/ui/page/profile.dart';
+import 'package:goodwill/source/ui/page/profile/profile_page.dart';
 
 class MyPageController extends StatefulWidget {
   const MyPageController({super.key});
@@ -27,7 +28,7 @@ class _MyPageControllerState extends State<MyPageController> {
     HomePage(),
     ManagePost(),
     Post(),
-    Profile()
+    ProfilePage()
   ];
 
   @override

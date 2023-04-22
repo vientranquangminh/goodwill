@@ -40,13 +40,14 @@ dependencies:
   email_validator: ^2.1.17
   loading_indicator: ^3.1.0
   fluttertoast: ^8.2.1
+  flutter_switch: ^0.3.2
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.17.0
   flutter_lints: ^2.0.0
   build_runner: ^2.3.3
   flutter_gen_runner: ^5.2.0

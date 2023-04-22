@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                       IconButton(
                           onPressed: () {
                             context.pushNamed(Routes.chatScreen);
+                            
                           },
                           icon: Assets.svgs.message.svg()),
                     ],
