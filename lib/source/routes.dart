@@ -5,6 +5,9 @@ import 'package:goodwill/source/ui/page/post.dart';
 import 'package:goodwill/source/ui/page/product/category_page.dart';
 import 'package:goodwill/source/ui/page/product/product_details_page.dart';
 import 'package:goodwill/source/ui/page/profile.dart';
+import 'package:goodwill/source/ui/page/profile/edit_profile.dart';
+import 'package:goodwill/source/ui/page/profile/notification_screen.dart';
+import 'package:goodwill/source/ui/page/profile/security_screen.dart';
 import 'package:goodwill/source/ui/page/sign_in/fill_profile.dart';
 import 'package:goodwill/source/ui/page/sign_in/sign_in.dart';
 import 'package:goodwill/source/ui/page/sign_in/sign_up.dart';
@@ -26,6 +29,9 @@ class Routes {
   static const chatScreen = '/chat-screen';
   static const roomChatScreen = '/room-chat';
   static const searchScreen = '/search-screen';
+  static const editProfile = '/edit-profile';
+  static const notification = '/notification';
+  static const security = '/security';
 }
 
 var customRoutes = <String, WidgetBuilder>{
@@ -40,5 +46,8 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.productDetails: (context) => const ProductDetailsPage(),
   Routes.roomChatScreen: (context) => const RoomChatScreen(),
   Routes.chatScreen: (context) => const ChatScreen(),
-  Routes.searchScreen: (context) => const SearchScreen()
+  Routes.searchScreen: (context) => const SearchScreen(),
+  Routes.editProfile: (context) => const EditProfilePage(),
+  Routes.notification: (context) => const NotificationPage(),
+  Routes.security: (context) => const SecurityPage(),
 };
