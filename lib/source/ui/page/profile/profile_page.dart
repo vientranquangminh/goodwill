@@ -1,16 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';
+import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/ui/page/profile/widgets/edit_profile_widgets/bottom_sheet_logout.dart';
-
-import 'edit_profile.dart';
-import 'notification_screen.dart';
-import 'security_screen.dart';
+import 'package:goodwill/source/util/constant.dart';
 
 final Map<String, dynamic> profileScreenData = {
   'Profile': [
@@ -30,6 +30,10 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProfile = context.watch<UserProfile?>();
+    String _fullName = userProfile?.fullName ?? Constant.UNKNOWN;
+    String _phoneNumber = userProfile?.phoneNumber ?? Constant.FAKE_PHONENUMBER;
+
     return Scaffold(
       backgroundColor: ColorName.white,
       appBar: AppBar(
@@ -56,17 +60,21 @@ class ProfilePage extends StatelessWidget {
                 radius: 60,
                 backgroundImage: AssetImage(Assets.images.homePage.person.path),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-                child: Text('Vien Tran Quang Minh',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  // 'Vien Tran Quang Minh',
+                  _fullName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 20),
+                ),
               ),
               const SizedBox(height: 4),
               Text(
-                '0844444444',
+                // '0844444444',
+                _phoneNumber,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: TextStyle(
@@ -110,6 +118,8 @@ class ProfilePage extends StatelessWidget {
                                   }),
                                   function2: (() {
                                     log('Logout');
+                                    Navigator.pop(context);
+                                    AuthService.signOut();
                                     context.pushAndRemoveUntil(Routes.startApp);
                                   }),
                                 );

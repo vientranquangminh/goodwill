@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/models/categories_model.dart';
 import 'package:goodwill/source/models/post_model.dart';
 import 'package:goodwill/source/routes.dart';
+import 'package:goodwill/source/service/auth_service.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
@@ -19,8 +23,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late String _userName;
+  late String _userAvatarImagePath;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    _userAvatarImagePath = Assets.images.homePage.person.path;
+    super.initState();
+  }
+
+  String _getUserName(BuildContext context) {
+    final user = context.watch<UserProfile?>();
+    debugPrint('User Profile: ${user.toString()}');
+    if (user == null) {
+      return AuthService.user?.email ?? 'Anonymous user';
+    }
+    return user.nickName ?? user.fullName ?? 'Guest ${user.id.hashCode}';
+  }
+
   @override
   Widget build(BuildContext context) {
+    _userName = _getUserName(context);
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(
@@ -35,8 +61,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       CircleAvatar(
                         radius: 25,
-                        backgroundImage:
-                            AssetImage(Assets.images.homePage.person.path),
+                        backgroundImage: AssetImage(_userAvatarImagePath),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
@@ -49,11 +74,13 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.grey, fontSize: 16),
                             ),
                             const SizedBox(height: 8),
-                            const Text("Turtle", // dummy text
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                ))
+                            Text(
+                              _userName,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -69,7 +96,6 @@ class _HomePageState extends State<HomePage> {
                       IconButton(
                           onPressed: () {
                             context.pushNamed(Routes.chatScreen);
-                            
                           },
                           icon: Assets.svgs.message.svg()),
                     ],
