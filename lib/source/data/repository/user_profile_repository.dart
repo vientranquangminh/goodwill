@@ -30,6 +30,32 @@ class UserProfileRepository {
     });
   }
 
+  // TODO: Update
+  Future<void> update(UserProfile userProfile) async {
+    final id = userProfile.id;
+    DocumentReference docRef = userProfilesRef.doc(id);
+    debugPrint(userProfile.toMap().toString());
+    docRef
+        .update(userProfile.toMap())
+        .then((value) => debugPrint('User ${userProfile.fullName} added'))
+        .onError((error, stackTrace) {
+      _debugPrint('Error $error');
+      _debugPrint('Stack $stackTrace');
+    });
+  }
+
+  Future<void> delete(UserProfile userProfile) async {
+    final id = userProfile.id;
+    await userProfilesRef.doc(id).delete();
+    _debugPrint('Delete user ${userProfile.id} complete');
+  }
+
+  Future<bool> isUserProfileExist(UserProfile userProfile) async {
+    final id = userProfile.id;
+    final doc = await userProfilesRef.doc(id).get();
+    return doc.exists;
+  }
+
   Future<UserProfile?> get(String id) async {
     final docRef = userProfilesRef.doc(id).withConverter(
         fromFirestore: UserProfile.fromFirestore,
@@ -42,18 +68,11 @@ class UserProfileRepository {
     return userProfile;
   }
 
-  // TODO: Update
-  void update(UserProfile userProfile) {}
-
-  Future<void> delete(UserProfile userProfile) async {
-    final id = userProfile.id;
-    await userProfilesRef.doc(id).delete();
-    _debugPrint('Delete user ${userProfile.id} complete');
-  }
-
-  Future<bool> isUserProfileExist(UserProfile userProfile) async {
-    final id = userProfile.id;
-    final doc = await userProfilesRef.doc(id).get();
-    return doc.exists;
+  Stream<UserProfile?> getStream(String id) {
+    final docRef = userProfilesRef.doc(id).withConverter(
+        fromFirestore: UserProfile.fromFirestore,
+        toFirestore: (UserProfile userProfile, _) => userProfile.toMap());
+    final docSnaps = docRef.snapshots();
+    return docSnaps.map((docSnapshot) => docSnapshot.data());
   }
 }

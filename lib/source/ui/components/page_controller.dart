@@ -21,6 +21,7 @@ class _MyPageControllerState extends State<MyPageController> {
   int _selectedIndex = 0;
   Color? selectedColor = Colors.black;
   late Future<UserProfile?> _userProfileFuture;
+  late Stream<UserProfile?> _userProfileStream;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -39,13 +40,16 @@ class _MyPageControllerState extends State<MyPageController> {
   void initState() {
     // TODO: implement initState
     _userProfileFuture = UserProfileService.getMyUserProfile();
+    _userProfileStream = UserProfileService.getMyUserProfileStream();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureProvider<UserProfile?>.value(
-      value: _userProfileFuture,
+    // return FutureProvider<UserProfile?>.value(
+    return StreamProvider<UserProfile?>.value(
+      // value: _userProfileFuture,
+      value: _userProfileStream,
       initialData: null,
       child: Scaffold(
         body: _widgetOptions.elementAt(_selectedIndex),

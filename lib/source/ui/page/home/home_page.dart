@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/models/categories_model.dart';
 import 'package:goodwill/source/models/post_model.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
-import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
@@ -24,28 +24,33 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late String _userName;
-  late String _userAvatarImagePath;
+  late String _userProfilePicture;
 
   @override
   void initState() {
     // TODO: implement initState
 
-    _userAvatarImagePath = Assets.images.homePage.person.path;
+    // _userAvatarImagePath = Assets.images.homePage.person.path;
     super.initState();
   }
 
   String _getUserName(BuildContext context) {
     final user = context.watch<UserProfile?>();
-    debugPrint('User Profile: ${user.toString()}');
     if (user == null) {
       return AuthService.user?.email ?? 'Anonymous user';
     }
     return user.nickName ?? user.fullName ?? 'Guest ${user.id.hashCode}';
   }
 
+  String _getAvatar(BuildContext context) {
+    final user = context.watch<UserProfile?>();
+    return user?.profilePicture ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
     _userName = _getUserName(context);
+    _userProfilePicture = _getAvatar(context);
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -59,9 +64,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage(_userAvatarImagePath),
+                      Avatar(
+                        imagePath: _userProfilePicture,
+                        size: const Size(50, 50),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),

@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class InputDate extends StatefulWidget {
-  InputDate({Key? key, required this.dateInput, required this.date, required this.getDateChange, required this.isDateChange})
+  InputDate(
+      {Key? key,
+      required this.dateInput,
+      required this.date,
+      required this.getDateChange,
+      required this.isDateChange})
       : super(key: key);
-  
+
   final Function(bool value) getDateChange;
   final TextEditingController dateInput;
   final String date;
@@ -54,10 +59,10 @@ class _InputDateState extends State<InputDate> {
               lastDate: DateTime.now());
           if (pickedDate != null) {
             // remove this line
-            // String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+            String formattedDate = DateFormat('dd-MM-yyyy').format(pickedDate);
             setState(() {
               widget.getDateChange(true);
-              widget.dateInput.text = pickedDate.toString();
+              widget.dateInput.text = formattedDate;
             });
           }
         },
