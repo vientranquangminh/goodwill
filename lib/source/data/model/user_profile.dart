@@ -2,9 +2,11 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:goodwill/source/util/constant.dart';
 
 class UserProfile {
   String id;
+  String? profilePicture;
   String? fullName;
   String? nickName;
   DateTime? dateOfBirth;
@@ -14,6 +16,7 @@ class UserProfile {
 
   UserProfile({
     required this.id,
+    this.profilePicture,
     this.fullName,
     this.nickName,
     this.dateOfBirth,
@@ -29,18 +32,23 @@ class UserProfile {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'fullName': fullName,
-      'nickName': nickName,
-      'dateOfBirth': dateOfBirth?.millisecondsSinceEpoch,
-      'gender': gender,
-      'phoneNumber': phoneNumber,
-      'address': address,
+      if (profilePicture != null) 'profilePicture': profilePicture,
+      if (fullName != null) 'fullName': fullName,
+      if (nickName != null) 'nickName': nickName,
+      if (dateOfBirth != null)
+        'dateOfBirth': dateOfBirth?.millisecondsSinceEpoch,
+      if (gender != null) 'gender': gender,
+      if (phoneNumber != null) 'phoneNumber': phoneNumber,
+      if (address != null) 'address': address,
     };
   }
 
   factory UserProfile.fromMap(Map<String, dynamic> map) {
     return UserProfile(
       id: map['id'] as String,
+      profilePicture: map['profilePicture'] != null
+          ? map['profilePicture'] as String
+          : null,
       fullName: map['fullName'] != null ? map['fullName'] as String : null,
       nickName: map['nickName'] != null ? map['nickName'] as String : null,
       dateOfBirth: map['dateOfBirth'] != null
@@ -68,6 +76,7 @@ class UserProfile {
 
   UserProfile copyWith({
     String? id,
+    String? profilePicture,
     String? fullName,
     String? nickName,
     DateTime? dateOfBirth,
@@ -77,6 +86,7 @@ class UserProfile {
   }) {
     return UserProfile(
       id: id ?? this.id,
+      profilePicture: profilePicture ?? this.profilePicture,
       fullName: fullName ?? this.fullName,
       nickName: nickName ?? this.nickName,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
@@ -89,6 +99,7 @@ class UserProfile {
   static UserProfile get sample {
     return UserProfile(
         id: 'uniqueId',
+        profilePicture: Constant.SAMPLE_AVATAR_URL,
         fullName: 'Do Minh Thanh',
         nickName: 'Lil rua',
         dateOfBirth: DateTime.utc(2001),
@@ -99,7 +110,7 @@ class UserProfile {
 
   @override
   String toString() {
-    return 'UserProfile(id: $id, fullName: $fullName, nickName: $nickName, dateOfBirth: $dateOfBirth, gender: $gender, phoneNumber: $phoneNumber, address: $address)';
+    return 'UserProfile(id: $id, profilePicture: $profilePicture, fullName: $fullName, nickName: $nickName, dateOfBirth: $dateOfBirth, gender: $gender, phoneNumber: $phoneNumber, address: $address)';
   }
 
   @override
@@ -107,6 +118,7 @@ class UserProfile {
     if (identical(this, other)) return true;
 
     return other.id == id &&
+        other.profilePicture == profilePicture &&
         other.fullName == fullName &&
         other.nickName == nickName &&
         other.dateOfBirth == dateOfBirth &&
@@ -118,6 +130,7 @@ class UserProfile {
   @override
   int get hashCode {
     return id.hashCode ^
+        profilePicture.hashCode ^
         fullName.hashCode ^
         nickName.hashCode ^
         dateOfBirth.hashCode ^

@@ -6,6 +6,12 @@ import 'package:goodwill/source/util/firebase_auth_helper.dart';
 class AuthService {
   static final _instance = FirebaseAuth.instance;
 
+  AuthService._();
+
+  static User? get user {
+    return _instance.currentUser;
+  }
+
   static String? get userId {
     return _instance.currentUser?.uid;
   }

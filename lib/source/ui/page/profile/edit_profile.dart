@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/colors.gen.dart';
@@ -7,6 +8,9 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/app_toast/app_toast.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
+import 'package:goodwill/source/service/auth_service.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/profile/widgets/edit_profile_widgets/gender.dart';
 import 'package:goodwill/source/ui/page/profile/widgets/edit_profile_widgets/input_date.dart';
 import 'package:intl/intl.dart';
@@ -25,8 +29,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
-
   final TextEditingController _addressController = TextEditingController();
+
   String textGender = 'Male';
   bool isDateChange = false;
   final _formKey = GlobalKey<FormState>();
@@ -125,6 +129,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     AppToasts.showToast(
                         context: context,
                         title: context.localizations.updateSuccessfully);
+
+                    String _fullName = _nameController.text;
+                    String _nickName = _nicknameController.text;
+                    DateTime _dob =
+                        DateFormat('dd-MM-yyyy').parse(_dateInput.text);
+                    String _gender = textGender;
+                    String _phoneNumber = _phoneNumberController.text;
+                    String _address = _addressController.text;
+
+                    UserProfile up = UserProfile(
+                      id: AuthService.userId!,
+                      fullName: _fullName,
+                      nickName: _nickName,
+                      dateOfBirth: _dob,
+                      gender: _gender,
+                      phoneNumber: _phoneNumber,
+                      address: _address,
+                    );
+
+                    UserProfileService.updateUserProfile(up);
                   } else {
                     AppToasts.showErrorToast(
                         context: context,
