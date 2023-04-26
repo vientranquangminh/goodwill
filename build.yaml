@@ -1,0 +1,6 @@
+targets:
+  $default:
+    builders:
+      svg_builder:
+        options:
+          excludeClipBehavior: true
