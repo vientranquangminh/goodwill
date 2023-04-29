@@ -4,7 +4,7 @@ import 'package:goodwill/source/ui/components/page_controller.dart';
 import 'package:goodwill/source/ui/page/cart_product/cart_product.dart';
 import 'package:goodwill/source/ui/page/category/category_page.dart';
 import 'package:goodwill/source/ui/page/chat/chat_screen.dart';
-import 'package:goodwill/source/ui/page/post.dart';
+import 'package:goodwill/source/ui/page/post/post.dart';
 import 'package:goodwill/source/ui/page/product/product_details_page.dart';
 import 'package:goodwill/source/ui/page/profile.dart';
 import 'package:goodwill/source/ui/page/profile/change_language/change_language_page.dart';

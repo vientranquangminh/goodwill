@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:goodwill/source/data/model/article_model.dart';
 import 'package:goodwill/source/service/article_service.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
 import 'package:goodwill/source/ui/page/article/dummy/list_article.dart';
 import 'package:goodwill/source/util/file_helper.dart';
@@ -76,7 +78,8 @@ class _PostState extends State<Post> {
             },
             child: const Text('Browse Images'),
           ),
-          Expanded(
+          SizedBox(
+            height: 10.h,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3),
@@ -88,24 +91,6 @@ class _PostState extends State<Post> {
               },
             ),
           ),
-          Expanded(
-            child: Center(
-              child: Container(
-                decoration: const BoxDecoration(color: Colors.blueAccent),
-                child: TextButton(
-                    onPressed: () {
-                      _submit();
-                    },
-                    child: const Text(
-                      'Submit posts',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-              ),
-            ),
-          )
         ],
       ),
     );

@@ -4,7 +4,7 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/home/home_page.dart';
 import 'package:goodwill/source/ui/page/manage_post.dart';
-import 'package:goodwill/source/ui/page/post.dart';
+import 'package:goodwill/source/ui/page/post/post.dart';
 import 'package:goodwill/source/ui/page/profile/profile_page.dart';
 import 'package:provider/provider.dart';
 
