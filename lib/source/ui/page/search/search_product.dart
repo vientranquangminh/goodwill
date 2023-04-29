@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodwill/source/ui/page/search/widgets/my_list_product.dart';
 import 'package:goodwill/source/ui/page/search/widgets/not_found_screen.dart';
 
+import '../../../../gen/assets.gen.dart';
 import '../../../models/post_model.dart';
 import 'widgets/title_tabbar.dart';
 
@@ -41,6 +42,10 @@ class _SearchScreenState extends State<SearchScreen>
     TabController tabController = TabController(length: 9, vsync: this);
     return Scaffold(
       appBar: AppBar(
+        title: const Text(
+          "Search Item",
+          style: TextStyle(color: Colors.black, fontSize: 20),
+        ),
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.grey[50],
         elevation: 0.0,
@@ -72,10 +77,7 @@ class _SearchScreenState extends State<SearchScreen>
                     hintText: 'Search',
                     hintStyle: const TextStyle(fontSize: 16.0),
                     suffixIcon: IconButton(
-                        icon: SvgPicture.asset(
-                          'assets/images/home_page/filter.svg',
-                          color: Colors.black,
-                        ),
+                        icon: Assets.svgs.filter.svg(color: Colors.black),
                         onPressed: () {}),
                   ),
                   onChanged: searchProduct),

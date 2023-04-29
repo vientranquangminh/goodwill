@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
               const BannerAds(),
               TitleOfList(title: context.localizations.exploreCategories),
               SizedBox(
-                height: 200,
+                height: MediaQuery.of(context).size.height / 4,
                 child: GridView.count(
                     physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: 4,
