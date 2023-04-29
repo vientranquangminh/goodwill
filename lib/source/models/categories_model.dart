@@ -36,7 +36,7 @@ class Category {
 
 List<Category> listCategories = [
   Category(
-      icon: 'assets/svgs/casual-t-shirt-.svg',
+      icon: 'assets/svgs/casual_t_shirt.svg',
       title: 'Clothes',
       path: Assets.images.homePage.item.path),
   Category(
@@ -48,7 +48,7 @@ List<Category> listCategories = [
       title: 'Bags',
       path: Assets.images.homePage.item.path),
   Category(
-      icon: 'assets/svgs/electronic-devices.svg',
+      icon: 'assets/svgs/electronic_devices.svg',
       title: 'Electronics',
       path: Assets.images.homePage.item.path),
   Category(
@@ -64,7 +64,7 @@ List<Category> listCategories = [
       title: 'Kitchen',
       path: Assets.images.homePage.item.path),
   Category(
-      icon: 'assets/svgs/sister-and-brother.svg',
+      icon: 'assets/svgs/sister_and_brother.svg',
       title: 'Toys',
       path: Assets.images.homePage.item.path),
 ];
