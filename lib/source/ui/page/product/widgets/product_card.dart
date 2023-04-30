@@ -23,6 +23,7 @@ class _ProductCardState extends State<ProductCard> {
     String _imageUrl = widget.category.images?[0] ?? '';
     String _title = widget.category.title ?? '';
     String _location = widget.category.location ?? 'Da Nang';
+    int _price = widget.category.price ?? 0;
 
     return SizedBox(
       child: Stack(
@@ -73,7 +74,7 @@ class _ProductCardState extends State<ProductCard> {
               ),
               const SizedBox(height: 5),
               Text(
-                '\$320.99',
+                "\$ $_price",
                 style: context.blackS16W700,
               )
             ],
