@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
@@ -48,6 +47,7 @@ class UserProfileService {
     final res = await _uploadFileToCloudStorage(file);
     if (res != null) {
       String newProfilePicture = await res.ref.getDownloadURL();
+      debugPrint(newProfilePicture);
       final currenUserProfile = await getMyUserProfile();
       currenUserProfile!.profilePicture = newProfilePicture;
 

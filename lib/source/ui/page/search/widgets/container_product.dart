@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goodwill/source/data/model/post_model.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
 
 class ContainerProduct extends StatelessWidget {
   const ContainerProduct({
@@ -8,7 +8,7 @@ class ContainerProduct extends StatelessWidget {
     required this.index,
   }) : super(key: key);
 
-  final List<PostModel> post;
+  final List<ProductModel> post;
   final int index;
 
   @override

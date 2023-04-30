@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:goodwill/source/data/model/post_model.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/ui/page/search/widgets/my_list_product.dart';
 import 'package:goodwill/source/ui/page/search/widgets/not_found_screen.dart';
 
@@ -17,29 +17,29 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen>
     with TickerProviderStateMixin {
-  List<PostModel> posts = PostModel.listPostModel;
-  List<PostModel> clothes = PostModel.listPostModel
+  List<ProductModel> posts = ProductModel.listPostModel;
+  List<ProductModel> clothes = ProductModel.listPostModel
       .where((element) => element.category == 'Clothes')
       .toList();
-  List<PostModel> shoes = PostModel.listPostModel
+  List<ProductModel> shoes = ProductModel.listPostModel
       .where((element) => element.category == 'Shoes')
       .toList();
-  List<PostModel> bags = PostModel.listPostModel
+  List<ProductModel> bags = ProductModel.listPostModel
       .where((element) => element.category == 'Bags')
       .toList();
-  List<PostModel> electronic = PostModel.listPostModel
+  List<ProductModel> electronic = ProductModel.listPostModel
       .where((element) => element.category == 'Electronics')
       .toList();
-  List<PostModel> watch = PostModel.listPostModel
+  List<ProductModel> watch = ProductModel.listPostModel
       .where((element) => element.category == 'Watch')
       .toList();
-  List<PostModel> jewelry = PostModel.listPostModel
+  List<ProductModel> jewelry = ProductModel.listPostModel
       .where((element) => element.category == 'Jewelry')
       .toList();
-  List<PostModel> kitchen = PostModel.listPostModel
+  List<ProductModel> kitchen = ProductModel.listPostModel
       .where((element) => element.category == 'Kitchen')
       .toList();
-  List<PostModel> toys = PostModel.listPostModel
+  List<ProductModel> toys = ProductModel.listPostModel
       .where((element) => element.category == 'Toys')
       .toList();
   final TextEditingController _searchController = TextEditingController();
@@ -160,7 +160,7 @@ class _SearchScreenState extends State<SearchScreen>
   }
 
   void searchProduct(String query) {
-    final all = compareProductName(query, PostModel.listPostModel).toList();
+    final all = compareProductName(query, ProductModel.listPostModel).toList();
     final clothesSearch = compareProductName(query, clothes).toList();
     final shoesSearch = compareProductName(query, shoes).toList();
     final bagsSearch = compareProductName(query, bags).toList();
@@ -182,31 +182,31 @@ class _SearchScreenState extends State<SearchScreen>
         kitchen = kitchenSearch;
         toys = toysSearch;
       } else {
-        posts = PostModel.listPostModel;
-        clothes = PostModel.listPostModel
+        posts = ProductModel.listPostModel;
+        clothes = ProductModel.listPostModel
             .where((element) => element.category == 'Clothes')
             .toList();
 
-        shoes = PostModel.listPostModel
+        shoes = ProductModel.listPostModel
             .where((element) => element.category == 'Shoes')
             .toList();
 
-        bags = PostModel.listPostModel
+        bags = ProductModel.listPostModel
             .where((element) => element.category == 'Bags')
             .toList();
-        electronic = PostModel.listPostModel
+        electronic = ProductModel.listPostModel
             .where((element) => element.category == 'Electronic')
             .toList();
-        jewelry = PostModel.listPostModel
+        jewelry = ProductModel.listPostModel
             .where((element) => element.category == 'Jewelry')
             .toList();
-        watch = PostModel.listPostModel
+        watch = ProductModel.listPostModel
             .where((element) => element.category == 'Watch')
             .toList();
-        kitchen = PostModel.listPostModel
+        kitchen = ProductModel.listPostModel
             .where((element) => element.category == 'Kitchen')
             .toList();
-        toys = PostModel.listPostModel
+        toys = ProductModel.listPostModel
             .where((element) => element.category == 'Toys')
             .toList();
       }
@@ -214,7 +214,8 @@ class _SearchScreenState extends State<SearchScreen>
   }
 
   // ignore: non_constant_identifier_names
-  Iterable<PostModel> compareProductName(String query, List<PostModel> list) {
+  Iterable<ProductModel> compareProductName(
+      String query, List<ProductModel> list) {
     return list.where((doctor) {
       final doctorName = doctor.title!.toLowerCase();
 
