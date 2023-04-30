@@ -1,17 +1,21 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
-import 'package:goodwill/source/data/model/post_model.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/models/categories_model.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
+import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
+import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
 
 import 'components/title_of_list.dart';
 
@@ -25,7 +29,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late String _userName;
   late String _userProfilePicture;
-  late List<PostModel> _posts;
+  late List<ProductModel> _posts;
 
   @override
   void initState() {
@@ -52,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     _userName = _getUserName(context);
     _userProfilePicture = _getAvatar(context);
-    _posts = PostModel.listPostModel;
+    _posts = ProductModel.listPostModel;
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -158,23 +162,46 @@ class _HomePageState extends State<HomePage> {
                     })),
               ),
               TitleOfList(title: context.localizations.postForYou),
-              GridView.count(
-                physics: const NeverScrollableScrollPhysics(),
-                childAspectRatio: 0.70,
-                crossAxisSpacing: 15,
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                children: List.generate(_posts.length, (index) {
-                  return GestureDetector(
-                      onTap: () => context.pushNamedWithParam(
-                          Routes.productDetails, _posts[index]),
-                      child: PostCard(postCard: _posts[index]));
-                }),
-              )
+              _buildProductItems(),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class _buildProductItems extends StatelessWidget {
+  const _buildProductItems({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<ProductModel>?>(
+        future: ProductService.getAllProducts(),
+        builder: (context, snapshot) {
+          debugPrint(snapshot.data.toString());
+          if (snapshot.hasData) {
+            List<ProductModel> _posts = snapshot.data!;
+            return GridView.count(
+              physics: const NeverScrollableScrollPhysics(),
+              childAspectRatio: 0.70,
+              crossAxisSpacing: 15,
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              children: List.generate(_posts.length, (index) {
+                return GestureDetector(
+                    onTap: () => context.pushNamedWithParam(
+                        Routes.productDetails, _posts[index]),
+                    child: PostCard(postCard: _posts[index]));
+              }),
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text('Loading');
+          }
+          return Text('Dont know');
+        });
   }
 }

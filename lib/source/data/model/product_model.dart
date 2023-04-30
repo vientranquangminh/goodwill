@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:goodwill/source/data/model/basic_model.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 
-class PostModel extends BasicModel {
+class ProductModel extends BasicModel {
   String? ownerId;
   String? title;
   String? description;
@@ -17,7 +17,7 @@ class PostModel extends BasicModel {
   List<String>? images;
   String? location;
 
-  PostModel({
+  ProductModel({
     String? id,
     this.ownerId,
     this.title,
@@ -43,8 +43,8 @@ class PostModel extends BasicModel {
     };
   }
 
-  factory PostModel.fromMap(Map<String, dynamic> map) {
-    return PostModel(
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
+    return ProductModel(
       ownerId: map['ownerId'] != null ? map['ownerId'] as String : null,
       title: map['title'] != null ? map['title'] as String : null,
       description:
@@ -54,9 +54,7 @@ class PostModel extends BasicModel {
       createdAt: map['createdAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
           : null,
-      images: map['images'] != null
-          ? List<String>.from(map['images'] as List<String>)
-          : null,
+      images: map['images'] != null ? List.from(map['images']) : null,
       location: map['location'] != null ? map['location'] as String : null,
     );
   }
@@ -64,15 +62,15 @@ class PostModel extends BasicModel {
   @override
   String toJson() => json.encode(toMap());
 
-  factory PostModel.fromJson(String source) =>
-      PostModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ProductModel.fromJson(String source) =>
+      ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  factory PostModel.fromFirestore(
+  factory ProductModel.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) {
     final dataMap = snapshot.data();
 
-    return PostModel.fromMap(dataMap ?? {});
+    return ProductModel.fromMap(dataMap ?? {});
   }
 
   @override
@@ -80,7 +78,7 @@ class PostModel extends BasicModel {
     return 'TestProduct(ownerId: $ownerId, title: $title, description: $description, category: $category, price: $price, createdAt: $createdAt, images: $images, location: $location)';
   }
 
-  PostModel copyWith({
+  ProductModel copyWith({
     String? ownerId,
     String? title,
     String? description,
@@ -90,7 +88,7 @@ class PostModel extends BasicModel {
     List<String>? images,
     String? location,
   }) {
-    return PostModel(
+    return ProductModel(
       ownerId: ownerId ?? this.ownerId,
       title: title ?? this.title,
       description: description ?? this.description,
@@ -103,7 +101,7 @@ class PostModel extends BasicModel {
   }
 
   @override
-  bool operator ==(covariant PostModel other) {
+  bool operator ==(covariant ProductModel other) {
     if (identical(this, other)) return true;
 
     return other.ownerId == ownerId &&
@@ -128,8 +126,8 @@ class PostModel extends BasicModel {
         location.hashCode;
   }
 
-  static PostModel get sample {
-    return PostModel(
+  static ProductModel get sample {
+    return ProductModel(
       title: "iphone",
       ownerId: AuthService.userId,
       description: "an iPhone",
@@ -139,38 +137,48 @@ class PostModel extends BasicModel {
     );
   }
 
-  static List<PostModel> get listPostModel {
+  static List<ProductModel> get listPostModel {
     return [
-      PostModel(
-          images: ["assets/images/home_page/item.png"],
+      ProductModel(
+          images: [
+            "https://firebasestorage.googleapis.com/v0/b/goodwill-83933.appspot.com/o/images%2Fproducts%2Fitem.png?alt=media&token=a84bb3a0-a38b-4156-8d7d-bd9e2e6d5ec5"
+          ],
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),
           category: "Clothes",
           location: "Da Nang"),
-      PostModel(
-          images: ["assets/images/home_page/item.png"],
+      ProductModel(
+          images: [
+            "https://firebasestorage.googleapis.com/v0/b/goodwill-83933.appspot.com/o/images%2Fproducts%2Fitem.png?alt=media&token=a84bb3a0-a38b-4156-8d7d-bd9e2e6d5ec5"
+          ],
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),
           category: "Toys",
           location: "Da Nang"),
-      PostModel(
-          images: ["assets/images/home_page/item.png"],
+      ProductModel(
+          images: [
+            "https://firebasestorage.googleapis.com/v0/b/goodwill-83933.appspot.com/o/images%2Fproducts%2Fitem.png?alt=media&token=a84bb3a0-a38b-4156-8d7d-bd9e2e6d5ec5"
+          ],
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),
           category: "Kitchen",
           location: "Da Nang"),
-      PostModel(
-          images: ["assets/images/home_page/item.png"],
+      ProductModel(
+          images: [
+            "https://firebasestorage.googleapis.com/v0/b/goodwill-83933.appspot.com/o/images%2Fproducts%2Fitem.png?alt=media&token=a84bb3a0-a38b-4156-8d7d-bd9e2e6d5ec5"
+          ],
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),
           category: "Shoes",
           location: "Da Nang"),
-      PostModel(
-          images: ["assets/images/home_page/item.png"],
+      ProductModel(
+          images: [
+            "https://firebasestorage.googleapis.com/v0/b/goodwill-83933.appspot.com/o/images%2Fproducts%2Fitem.png?alt=media&token=a84bb3a0-a38b-4156-8d7d-bd9e2e6d5ec5"
+          ],
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),

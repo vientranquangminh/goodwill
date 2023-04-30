@@ -7,11 +7,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
-import 'package:goodwill/source/data/model/post_model.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({super.key, required this.category});
-  final PostModel category;
+  final ProductModel category;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -36,7 +36,9 @@ class _ProductCardState extends State<ProductCard> {
                     color: Colors.grey.shade300),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16.0),
-                  child: Image(image: CachedNetworkImageProvider(_imageUrl)),
+                  child: Image(
+                    image: CachedNetworkImageProvider(_imageUrl),
+                  ),
                 ),
               ),
               const SizedBox(height: 10),

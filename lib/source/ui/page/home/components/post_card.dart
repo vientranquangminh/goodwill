@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:goodwill/source/data/model/post_model.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:intl/intl.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({super.key, required this.postCard});
-  final PostModel postCard;
+  final ProductModel postCard;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class PostCard extends StatelessWidget {
     String _postCardTitle = postCard.title ?? '';
     int _price = postCard.price ?? 0;
     String _time =
-        postCard.createdAt?.toIso8601String() ?? 'More than 100 years';
+        DateFormat('dd-MM-yyyy').format(postCard.createdAt ?? DateTime(2020));
     String _location = postCard.location ?? 'Default location';
 
     return SizedBox(
