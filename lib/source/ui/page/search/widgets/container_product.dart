@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goodwill/source/models/post_model.dart';
+import 'package:goodwill/source/data/model/post_model.dart';
 
 class ContainerProduct extends StatelessWidget {
   const ContainerProduct({
@@ -10,8 +10,12 @@ class ContainerProduct extends StatelessWidget {
 
   final List<PostModel> post;
   final int index;
+
   @override
   Widget build(BuildContext context) {
+    String _imgUrl = post[index].images?[0] ?? '';
+    String _title = post[index].title ?? '';
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
@@ -26,8 +30,8 @@ class ContainerProduct extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  child: Image.asset(
-                    post[index].image,
+                  child: Image.network(
+                    _imgUrl,
                     height: 100,
                     width: 100,
                   ),
@@ -44,7 +48,7 @@ class ContainerProduct extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              post[index].name,
+                              _title,
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,

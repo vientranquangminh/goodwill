@@ -4,9 +4,9 @@ import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
+import 'package:goodwill/source/data/model/post_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/models/categories_model.dart';
-import 'package:goodwill/source/models/post_model.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
@@ -25,6 +25,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late String _userName;
   late String _userProfilePicture;
+  late List<PostModel> _posts;
 
   @override
   void initState() {
@@ -51,6 +52,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     _userName = _getUserName(context);
     _userProfilePicture = _getAvatar(context);
+    _posts = PostModel.listPostModel;
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -162,11 +164,11 @@ class _HomePageState extends State<HomePage> {
                 crossAxisSpacing: 15,
                 shrinkWrap: true,
                 crossAxisCount: 2,
-                children: List.generate(listPostModel.length, (index) {
+                children: List.generate(_posts.length, (index) {
                   return GestureDetector(
                       onTap: () => context.pushNamedWithParam(
-                          Routes.productDetails, listPostModel[index]),
-                      child: PostCard(postCard: listPostModel[index]));
+                          Routes.productDetails, _posts[index]),
+                      child: PostCard(postCard: _posts[index]));
                 }),
               )
             ],
