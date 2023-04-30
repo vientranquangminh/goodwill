@@ -1,9 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,11 +13,9 @@ import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart'
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
-import 'package:goodwill/source/service/cloud_storage_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/profile/widgets/edit_profile_widgets/bottom_sheet_logout.dart';
 import 'package:goodwill/source/util/constant.dart';
-import 'package:goodwill/source/util/file_helper.dart';
 
 final Map<String, dynamic> profileScreenData = {
   'Profile': [
@@ -276,7 +272,7 @@ _onTap(BuildContext context, item) {
     case 'Security':
       return context.pushNamed(Routes.security);
     case 'Language':
-      return log('Language');
+      return context.pushNamed(Routes.changeLanguage);
     case 'Dark Mode':
       return log('Dark Mode');
     case 'Help Center':

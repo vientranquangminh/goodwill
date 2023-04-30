@@ -5,6 +5,7 @@ import 'package:goodwill/source/ui/page/post.dart';
 import 'package:goodwill/source/ui/page/product/category_page.dart';
 import 'package:goodwill/source/ui/page/product/product_details_page.dart';
 import 'package:goodwill/source/ui/page/profile.dart';
+import 'package:goodwill/source/ui/page/profile/change_language/change_language_page.dart';
 import 'package:goodwill/source/ui/page/profile/edit_profile.dart';
 import 'package:goodwill/source/ui/page/profile/notification_screen.dart';
 import 'package:goodwill/source/ui/page/profile/security_screen.dart';
@@ -32,6 +33,7 @@ class Routes {
   static const editProfile = '/edit-profile';
   static const notification = '/notification';
   static const security = '/security';
+  static const changeLanguage = '/change-language';
 }
 
 var customRoutes = <String, WidgetBuilder>{
@@ -50,4 +52,5 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.editProfile: (context) => const EditProfilePage(),
   Routes.notification: (context) => const NotificationPage(),
   Routes.security: (context) => const SecurityPage(),
+  Routes.changeLanguage: (context) => const ChangePasswordPage()
 };
