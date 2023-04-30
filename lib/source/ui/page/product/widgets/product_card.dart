@@ -1,12 +1,13 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
-import 'package:goodwill/source/models/post_model.dart';
+import 'package:goodwill/source/data/model/post_model.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({super.key, required this.category});
@@ -19,6 +20,10 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
+    String _imageUrl = widget.category.images?[0] ?? '';
+    String _title = widget.category.title ?? '';
+    String _location = widget.category.location ?? 'Da Nang';
+
     return SizedBox(
       child: Stack(
         children: [
@@ -31,19 +36,19 @@ class _ProductCardState extends State<ProductCard> {
                     color: Colors.grey.shade300),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16.0),
-                  child: Image(image: AssetImage(widget.category.image)),
+                  child: Image(image: CachedNetworkImageProvider(_imageUrl)),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                widget.category.name,
+                _title,
                 style: context.blackS16W700,
               ),
               const SizedBox(height: 5),
               Row(
                 children: [
                   Text(
-                    widget.category.location,
+                    _location,
                     style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
