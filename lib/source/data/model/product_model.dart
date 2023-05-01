@@ -137,7 +137,7 @@ class ProductModel extends BasicModel {
     );
   }
 
-  static List<ProductModel> get listPostModel {
+  static List<ProductModel> get sampleProductModels {
     return [
       ProductModel(
           images: [

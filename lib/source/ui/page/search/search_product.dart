@@ -17,29 +17,29 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen>
     with TickerProviderStateMixin {
-  List<ProductModel> posts = ProductModel.listPostModel;
-  List<ProductModel> clothes = ProductModel.listPostModel
+  List<ProductModel> posts = ProductModel.sampleProductModels;
+  List<ProductModel> clothes = ProductModel.sampleProductModels
       .where((element) => element.category == 'Clothes')
       .toList();
-  List<ProductModel> shoes = ProductModel.listPostModel
+  List<ProductModel> shoes = ProductModel.sampleProductModels
       .where((element) => element.category == 'Shoes')
       .toList();
-  List<ProductModel> bags = ProductModel.listPostModel
+  List<ProductModel> bags = ProductModel.sampleProductModels
       .where((element) => element.category == 'Bags')
       .toList();
-  List<ProductModel> electronic = ProductModel.listPostModel
+  List<ProductModel> electronic = ProductModel.sampleProductModels
       .where((element) => element.category == 'Electronics')
       .toList();
-  List<ProductModel> watch = ProductModel.listPostModel
+  List<ProductModel> watch = ProductModel.sampleProductModels
       .where((element) => element.category == 'Watch')
       .toList();
-  List<ProductModel> jewelry = ProductModel.listPostModel
+  List<ProductModel> jewelry = ProductModel.sampleProductModels
       .where((element) => element.category == 'Jewelry')
       .toList();
-  List<ProductModel> kitchen = ProductModel.listPostModel
+  List<ProductModel> kitchen = ProductModel.sampleProductModels
       .where((element) => element.category == 'Kitchen')
       .toList();
-  List<ProductModel> toys = ProductModel.listPostModel
+  List<ProductModel> toys = ProductModel.sampleProductModels
       .where((element) => element.category == 'Toys')
       .toList();
   final TextEditingController _searchController = TextEditingController();
@@ -160,7 +160,8 @@ class _SearchScreenState extends State<SearchScreen>
   }
 
   void searchProduct(String query) {
-    final all = compareProductName(query, ProductModel.listPostModel).toList();
+    final all =
+        compareProductName(query, ProductModel.sampleProductModels).toList();
     final clothesSearch = compareProductName(query, clothes).toList();
     final shoesSearch = compareProductName(query, shoes).toList();
     final bagsSearch = compareProductName(query, bags).toList();
@@ -182,31 +183,31 @@ class _SearchScreenState extends State<SearchScreen>
         kitchen = kitchenSearch;
         toys = toysSearch;
       } else {
-        posts = ProductModel.listPostModel;
-        clothes = ProductModel.listPostModel
+        posts = ProductModel.sampleProductModels;
+        clothes = ProductModel.sampleProductModels
             .where((element) => element.category == 'Clothes')
             .toList();
 
-        shoes = ProductModel.listPostModel
+        shoes = ProductModel.sampleProductModels
             .where((element) => element.category == 'Shoes')
             .toList();
 
-        bags = ProductModel.listPostModel
+        bags = ProductModel.sampleProductModels
             .where((element) => element.category == 'Bags')
             .toList();
-        electronic = ProductModel.listPostModel
+        electronic = ProductModel.sampleProductModels
             .where((element) => element.category == 'Electronic')
             .toList();
-        jewelry = ProductModel.listPostModel
+        jewelry = ProductModel.sampleProductModels
             .where((element) => element.category == 'Jewelry')
             .toList();
-        watch = ProductModel.listPostModel
+        watch = ProductModel.sampleProductModels
             .where((element) => element.category == 'Watch')
             .toList();
-        kitchen = ProductModel.listPostModel
+        kitchen = ProductModel.sampleProductModels
             .where((element) => element.category == 'Kitchen')
             .toList();
-        toys = ProductModel.listPostModel
+        toys = ProductModel.sampleProductModels
             .where((element) => element.category == 'Toys')
             .toList();
       }

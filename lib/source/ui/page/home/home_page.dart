@@ -15,7 +15,6 @@ import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
-import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
 import 'package:goodwill/source/util/asyncsnapshot_helper.dart';
 
 import 'components/title_of_list.dart';
@@ -57,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     _userName = _getUserName(context);
     _userProfilePicture = _getAvatar(context);
-    _posts = ProductModel.listPostModel;
+    _posts = ProductModel.sampleProductModels;
 
     return SafeArea(
       child: SingleChildScrollView(
