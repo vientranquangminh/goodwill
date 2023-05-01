@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:goodwill/source/ui/components/page_controller.dart';
+import 'package:goodwill/source/ui/page/category/category_page.dart';
 import 'package:goodwill/source/ui/page/chat/chat_screen.dart';
 import 'package:goodwill/source/ui/page/post.dart';
-import 'package:goodwill/source/ui/page/product/category_page.dart';
 import 'package:goodwill/source/ui/page/product/product_details_page.dart';
 import 'package:goodwill/source/ui/page/profile.dart';
 import 'package:goodwill/source/ui/page/profile/change_language/change_language_page.dart';
@@ -33,6 +33,8 @@ class Routes {
   static const editProfile = '/edit-profile';
   static const notification = '/notification';
   static const security = '/security';
+
+  static pushNamed() {}
   static const changeLanguage = '/change-language';
 }
 

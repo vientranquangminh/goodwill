@@ -68,34 +68,40 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Avatar(
-                        imagePath: _userProfilePicture,
-                        size: const Size(50, 50),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              context.greeting(),
-                              style: const TextStyle(
-                                  color: Colors.grey, fontSize: 16),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              _userName,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            )
-                          ],
+                  Flexible(
+                    child: Row(
+                      children: [
+                        Avatar(
+                          imagePath: _userProfilePicture,
+                          size: const Size(50, 50),
                         ),
-                      ),
-                    ],
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  context.greeting(),
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 16),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  _userName,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Row(
                     children: [
@@ -158,7 +164,15 @@ class _HomePageState extends State<HomePage> {
                     crossAxisCount: 4,
                     mainAxisSpacing: 15.0,
                     children: List.generate(listCategories.length, (index) {
-                      return CategoriesCard(categories: listCategories[index]);
+                      List listPost = _posts
+                          .where((element) =>
+                              element.category == listCategories[index].title)
+                          .toList();
+                      return GestureDetector(
+                          onTap: () => context.pushNamedWithParam(
+                              Routes.category, listPost),
+                          child: CategoriesCard(
+                              categories: listCategories[index]));
                     })),
               ),
               TitleOfList(title: context.localizations.postForYou),
@@ -186,7 +200,7 @@ class _buildProductItems extends StatelessWidget {
             List<ProductModel> _posts = snapshot.data!;
             return GridView.count(
               physics: const NeverScrollableScrollPhysics(),
-              childAspectRatio: 0.70,
+              childAspectRatio: 0.67,
               crossAxisSpacing: 15,
               shrinkWrap: true,
               crossAxisCount: 2,
