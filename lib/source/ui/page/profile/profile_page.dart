@@ -65,7 +65,7 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
           backgroundColor: ColorName.white,
           elevation: 0.0,
-          leading: Assets.svgs.mainIcon.svg(color: Colors.blue),
+          leading: Assets.svgs.mainIcon.svg(),
           title: const Text(
             "Profile",
             style: TextStyle(color: Colors.black),
@@ -97,18 +97,18 @@ class ProfilePage extends StatelessWidget {
                         right: -25,
                         child: RawMaterialButton(
                           elevation: 2.0,
-                          fillColor: Color(0xFFF5F6F9),
-                          child: const Icon(
-                            Icons.camera_alt_outlined,
-                            color: Colors.black,
-                          ),
-                          padding: EdgeInsets.all(16.0),
-                          shape: CircleBorder(),
+                          fillColor: const Color(0xFFF5F6F9),
+                          padding: const EdgeInsets.all(16.0),
+                          shape: const CircleBorder(),
                           onPressed: () {
                             browseImages(
                                 handleFile:
                                     UserProfileService.updateProfilePicture);
                           },
+                          child: const Icon(
+                            Icons.camera_alt_outlined,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ],

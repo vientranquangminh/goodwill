@@ -10,6 +10,10 @@ import 'package:provider/provider.dart';
 
 import '../../data/model/user_profile.dart';
 
+import '../page/article/article_screen.dart';
+
+import '../page/article/article_screen.dart';
+
 class MyPageController extends StatefulWidget {
   const MyPageController({super.key});
 
@@ -33,6 +37,7 @@ class _MyPageControllerState extends State<MyPageController> {
     HomePage(),
     ManagePost(),
     Post(),
+    ArticlePage(),
     ProfilePage()
   ];
 
@@ -67,6 +72,10 @@ class _MyPageControllerState extends State<MyPageController> {
             BottomNavigationBarItem(
               icon: const Icon(Icons.post_add),
               label: context.localizations.post,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.article),
+              label: context.localizations.article,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.person),

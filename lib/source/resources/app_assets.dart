@@ -1,4 +1,3 @@
-
 class AppAssets {
   // Images
   static const String imagePath = 'assets/images';
@@ -33,6 +32,7 @@ class AppAssets {
   static const String imgThaiFlag = '$imagePath/img_thai_flag.png';
   static const String imgInternationalPassport =
       '$imagePath/img_international_passport.jpg';
+  static const String imgAvatarDefault = '$imagePath/raiden_shogun.png';
 
   // Icons
   static const String iconPath = 'assets/icons';

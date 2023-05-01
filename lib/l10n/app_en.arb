@@ -52,6 +52,8 @@
     "updateFailed": "Update failed",
     "update": "Update",
     "address": "Address",
+    "article": "Article",
+    "createArticle": "Create Article"
     "changeLanguage": "Change language",
     "vietnamese": "Vietnamese",
     "unitedKingdom": "United Kingdom"

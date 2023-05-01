@@ -43,7 +43,7 @@ class Avatar extends StatelessWidget {
     return ColoredBox(
       color: const Color(0xFF3D70B2),
       child: Image.asset(
-        AppAssets.icAvatarDefault,
+        AppAssets.imgAvatarDefault,
         fit: BoxFit.cover,
         width: size.width,
         height: size.height,
