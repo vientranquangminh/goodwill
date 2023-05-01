@@ -16,6 +16,7 @@ import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
 import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
+import 'package:goodwill/source/util/asyncsnapshot_helper.dart';
 
 import 'components/title_of_list.dart';
 
@@ -193,6 +194,7 @@ class _buildProductItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<ProductModel>?>(
+<<<<<<< HEAD
         future: ProductService.getAllProducts(),
         builder: (context, snapshot) {
           debugPrint(snapshot.data.toString());
@@ -217,5 +219,26 @@ class _buildProductItems extends StatelessWidget {
           }
           return Text('Dont know');
         });
+=======
+      future: ProductService.getAllProducts(),
+      builder: (context, snapshot) => AsyncSnapshotHelper.handleAsyncSnapshot(
+          context, snapshot, onFinishFetchingData: (data) {
+        List<ProductModel> _posts = data ?? [];
+        return GridView.count(
+          physics: const NeverScrollableScrollPhysics(),
+          childAspectRatio: 0.70,
+          crossAxisSpacing: 15,
+          shrinkWrap: true,
+          crossAxisCount: 2,
+          children: List.generate(_posts.length, (index) {
+            return GestureDetector(
+                onTap: () => context.pushNamedWithParam(
+                    Routes.productDetails, _posts[index]),
+                child: PostCard(postCard: _posts[index]));
+          }),
+        );
+      }),
+    );
+>>>>>>> f4cf59d (Create helper methods to handle AsyncSnapshot)
   }
 }
