@@ -34,32 +34,34 @@ class ProductModel extends BasicModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'ownerId': ownerId,
       'title': title,
       'description': description,
       'category': category,
+      'status': status,
       'price': price,
       'createdAt': createdAt?.millisecondsSinceEpoch,
       'images': images,
       'location': location,
-      'status': status,
     };
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
+      id: map['id'] != null ? map['id'] as String : null,
       ownerId: map['ownerId'] != null ? map['ownerId'] as String : null,
       title: map['title'] != null ? map['title'] as String : null,
       description:
           map['description'] != null ? map['description'] as String : null,
       category: map['category'] != null ? map['category'] as String : null,
+      status: map['status'] != null ? map['status'] as String : null,
       price: map['price'] != null ? map['price'] as int : null,
       createdAt: map['createdAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
           : null,
       images: map['images'] != null ? List.from(map['images']) : null,
       location: map['location'] != null ? map['location'] as String : null,
-      status: map['status'] != null ? map['status'] as String : null,
     );
   }
 
@@ -79,10 +81,11 @@ class ProductModel extends BasicModel {
 
   @override
   String toString() {
-    return 'TestProduct(ownerId: $ownerId, title: $title, description: $description, category: $category, price: $price, createdAt: $createdAt, images: $images, location: $location, status: $status)';
+    return 'ProductModel(id: $id, ownerId: $ownerId, title: $title, description: $description, category: $category, status: $status, price: $price, createdAt: $createdAt, images: $images, location: $location)';
   }
 
   ProductModel copyWith({
+    String? id,
     String? ownerId,
     String? title,
     String? description,
@@ -94,15 +97,16 @@ class ProductModel extends BasicModel {
     String? location,
   }) {
     return ProductModel(
+      id: this.id,
       ownerId: ownerId ?? this.ownerId,
       title: title ?? this.title,
       description: description ?? this.description,
       category: category ?? this.category,
+      status: status ?? this.status,
       price: price ?? this.price,
       createdAt: createdAt ?? this.createdAt,
       images: images ?? this.images,
       location: location ?? this.location,
-      status: status ?? this.status,
     );
   }
 
@@ -110,28 +114,30 @@ class ProductModel extends BasicModel {
   bool operator ==(covariant ProductModel other) {
     if (identical(this, other)) return true;
 
-    return other.ownerId == ownerId &&
+    return other.id == id &&
+        other.ownerId == ownerId &&
         other.title == title &&
         other.description == description &&
         other.category == category &&
+        other.status == status &&
         other.price == price &&
         other.createdAt == createdAt &&
         listEquals(other.images, images) &&
-        other.location == location &&
-        other.status == status;
+        other.location == location;
   }
 
   @override
   int get hashCode {
-    return ownerId.hashCode ^
+    return id.hashCode ^
+        ownerId.hashCode ^
         title.hashCode ^
         description.hashCode ^
         category.hashCode ^
+        status.hashCode ^
         price.hashCode ^
         createdAt.hashCode ^
         images.hashCode ^
-        location.hashCode ^
-        status.hashCode;
+        location.hashCode;
   }
 
   static ProductModel get sample {

@@ -16,8 +16,10 @@ class ManagePost extends StatefulWidget {
 class _ManagePostState extends State<ManagePost> with TickerProviderStateMixin {
   late TabController _tabController;
   late String _userName;
-  final Future<List<ProductModel>?> _future =
-      ProductService.getAllProductsFrom(AuthService.userId!);
+  // final Future<List<ProductModel>?> _future =
+  //     ProductService.getAllProductsFrom(AuthService.userId!);
+  final Stream<List<ProductModel>?> _stream =
+      ProductService.getStreamAllProductsFrom(AuthService.userId!);
 
   @override
   void initState() {
@@ -32,9 +34,9 @@ class _ManagePostState extends State<ManagePost> with TickerProviderStateMixin {
     String _userName =
         user?.getDisplayName() ?? AuthService.user?.email ?? 'Anonymous user';
 
-    return FutureProvider<List<ProductModel>?>.value(
+    return StreamProvider<List<ProductModel>?>.value(
         initialData: [],
-        value: _future,
+        value: _stream,
         builder: (context, snapshot) {
           final products =
               Provider.of<List<ProductModel>?>(context, listen: true);

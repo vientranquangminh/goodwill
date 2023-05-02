@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/service/product_service.dart';
+import 'package:goodwill/source/util/constant.dart';
 
 class PostInfo extends StatelessWidget {
   const PostInfo({
     super.key,
-    required this.imagePath,
-    required this.title,
-    required this.price,
+    required this.productModel,
   });
 
-  final String imagePath;
-  final String title;
-  final int price;
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
-    // final String _imagePath = "assets/images/manage_post/iphone.jpg";
-    // final String _title = 'iPhone 14 Pro Max (2nd)';
-    // final int _price = 30000000;
+    final String imagePath =
+        productModel.images?[0] ?? Constant.SAMPLE_AVATAR_URL;
+    final String title = productModel.title ?? Constant.UNKNOWN;
+    final int price = productModel.price ?? 0;
 
     final TextStyle _titleStyle = TextStyle(fontWeight: FontWeight.bold);
     final TextStyle _priceStyle =
@@ -59,9 +60,28 @@ class PostInfo extends StatelessWidget {
                 const Spacer(),
                 Column(
                   children: [
-                    IconButton(
+                    PopupMenuButton(
                       icon: const Icon(Icons.more_vert),
-                      onPressed: () {},
+                      itemBuilder: (BuildContext context) => [
+                        PopupMenuItem(
+                          child: TextButton(
+                            child: const Text('Edit'),
+                            onPressed: () {
+                              debugPrint('Button edit pressed');
+                            },
+                          ),
+                        ),
+                        PopupMenuItem(
+                          child: TextButton(
+                            child: const Text('Delete'),
+                            onPressed: () {
+                              debugPrint('Button delete pressed');
+                              ProductService.deleteProduct(productModel)
+                                  .then((_) => context.pop());
+                            },
+                          ),
+                        )
+                      ],
                     ),
                   ],
                 )

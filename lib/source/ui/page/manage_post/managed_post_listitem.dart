@@ -25,9 +25,7 @@ class ManagedPostListItem extends StatelessWidget {
             children: [
               Expanded(
                 child: PostInfo(
-                  imagePath: images?[0] ?? Constant.SAMPLE_AVATAR_URL,
-                  title: title,
-                  price: price,
+                  productModel: productModel,
                 ),
               ),
               // Interaction buttons

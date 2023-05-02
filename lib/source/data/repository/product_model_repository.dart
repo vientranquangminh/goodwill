@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/repository/basic_repository.dart';
 import 'package:goodwill/source/service/auth_service.dart';
@@ -42,6 +43,7 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
 
   @override
   Future<void> delete(ProductModel element) {
+    debugPrint(element.toString());
     return deleteWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
   }
 
@@ -76,6 +78,14 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
             (collectionRef != null) ? collectionRef : _productsCollectionRef);
   }
 
+  @override
+  Stream<ProductModel?> getStream(String elementId,
+      {CollectionReference? collectionRef}) {
+    return getStreamElementFromCollectionRef(elementId,
+        collectionRef:
+            (collectionRef != null) ? collectionRef : _productsCollectionRef);
+  }
+
   /// This function will return all PostModel objects
   /// from collection reference given
   ///
@@ -85,6 +95,14 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
   @override
   Future<List<ProductModel>?> getAll({CollectionReference? collectionRef}) {
     return getAllElementsFromCollectionRef(
+        collectionRef:
+            (collectionRef != null) ? collectionRef : _productsCollectionRef);
+  }
+
+  @override
+  Stream<List<ProductModel>?> getStreamAll(
+      {CollectionReference? collectionRef}) {
+    return getStreamAllElementsFromCollectionRef(
         collectionRef:
             (collectionRef != null) ? collectionRef : _productsCollectionRef);
   }
