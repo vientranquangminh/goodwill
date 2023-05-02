@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
@@ -15,7 +14,6 @@ import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
-import 'package:goodwill/source/util/asyncsnapshot_helper.dart';
 import 'package:provider/provider.dart';
 
 import 'components/title_of_list.dart';

@@ -14,8 +14,8 @@ class ShowingTabbarView extends StatefulWidget {
 }
 
 class _ShowingTabbarViewState extends State<ShowingTabbarView>
-// with AutomaticKeepAliveClientMixin {
-{
+    with AutomaticKeepAliveClientMixin {
+// {
   @override
   Widget build(BuildContext context) {
     if (widget.products == null || widget.products!.isEmpty) {
@@ -31,4 +31,8 @@ class _ShowingTabbarViewState extends State<ShowingTabbarView>
                   ManagedPostListItem(productModel: widget.products![index]));
         }));
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
