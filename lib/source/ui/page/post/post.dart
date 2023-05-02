@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,8 +11,6 @@ import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/post/widgets/rounded_container.dart';
-import 'package:goodwill/source/ui/page/product/widgets/select_color_widget.dart';
-import 'package:goodwill/source/ui/page/profile/widgets/edit_profile_widgets/textfield_custom.dart';
 import 'package:goodwill/source/util/file_helper.dart';
 
 enum people { Individual, Professional }
@@ -26,7 +26,7 @@ class _PostState extends State<Post> {
   String? dropdownValue;
   bool valueFirst = false;
   List<File> images = [];
-  Controller = TextEditingController();
+  // var Controller = TextEditingController();
   var items = [
     'Clothes',
     'Shoes',
@@ -131,8 +131,9 @@ class _PostState extends State<Post> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 20.h),
-                height: 120.h,
-                width: double.infinity,
+                // height: 120.h,
+                // width: double.infinity,
+                padding: EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(12.r)),
                   border: Border.all(
@@ -141,68 +142,93 @@ class _PostState extends State<Post> {
                       width: 1),
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Assets.images.raidenShogun.image(height: 50, width: 50),
-                    SizedBox(
-                      height: 10.h,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Images: ${images.length}/6',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: (images.isEmpty || images.length > 6)
+                                    ? Colors.red
+                                    : Colors.green),
+                          ),
+                        ),
+                        Spacer(),
+                        IconButton(
+                          onPressed: () {
+                            FileHelper.browseImages(handleFiles: (files) {
+                              setState(() {
+                                images = files;
+                              });
+                            });
+                          },
+                          icon: const Icon(Icons.camera_alt),
+                        ),
+                      ],
                     ),
-                    // Text(
-                    //   'From 01-06 images',
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //     fontSize: 16.sp,
-                    //     color: ColorName.black,
-                    //   ),
-                    // )
-                    Column(
-        children: [
-          TextButton(
-            onPressed: () {},
-            child: const Text('Test'),
-          ),
-          TextButton(
-            onPressed: () {
-              FileHelper.browseImages(handleFiles: (files) {
-                setState(() {
-                  images = files;
-                });
-              });
-            },
-            child: const Text('Browse Images'),
-          ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3),
-              itemCount: images.length,
-              itemBuilder: (context, int index) {
-                return Card(
-                  child: Image.file(images[index]),
-                );
-              },
-            ),
-          ),
-          Expanded(
-            child: Center(
-              child: Container(
-                decoration: const BoxDecoration(color: Colors.blueAccent),
-                child: TextButton(
-                    onPressed: () {
-                      _submit();
-                    },
-                    child: const Text(
-                      'Submit posts',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-              ),
-            ),
-          )
-        ],
-      ),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4),
+                      itemCount: images.length,
+                      itemBuilder: (context, int index) {
+                        return SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: Container(
+                            margin: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: (index <= 5)
+                                        ? Image.file(
+                                            images[index],
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Opacity(
+                                            opacity: 0.4,
+                                            child: Image.file(
+                                              images[index],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: -20,
+                                  right: -20,
+                                  child: IconButton(
+                                    icon: const Icon(Icons.cancel),
+                                    onPressed: () {
+                                      // TODO: Remove image from gridview
+                                      setState(() {
+                                        images.removeAt(index);
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
