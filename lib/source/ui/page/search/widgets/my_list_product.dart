@@ -17,7 +17,6 @@ class MyListProduct extends StatelessWidget {
     return FutureBuilder<List<ProductModel>?>(
         future: ProductService.getAllProducts(),
         builder: (context, snapshot) {
-          debugPrint(snapshot.data.toString());
           if (snapshot.hasData) {
             List<ProductModel> _posts = snapshot.data!;
             return GridView.count(

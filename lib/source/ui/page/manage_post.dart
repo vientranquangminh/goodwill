@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/manage_post/showing_tabbar_view.dart';
 
 class ManagePost extends StatefulWidget {
@@ -12,6 +14,7 @@ class _ManagePostState extends State<ManagePost>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late TabController _tabController;
   late String _userName;
+  final Future<List<ProductModel>?> _future = ProductService.getAllProducts();
 
   @override
   void initState() {
@@ -26,30 +29,48 @@ class _ManagePostState extends State<ManagePost>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          UserProfileWidget(
-            userName: _userName,
-          ),
-          AppBar(
-            automaticallyImplyLeading: false,
-            title: TabBar(
-              controller: _tabController,
-              tabs: tabs,
-              indicatorColor: Colors.white,
-              indicatorWeight: 5.0,
+    return FutureBuilder<List<ProductModel>?>(
+        future: _future,
+        builder: (context, snapshot) {
+          return SafeArea(
+            child: Column(
+              children: [
+                UserProfileWidget(
+                  userName: _userName,
+                ),
+                AppBar(
+                  automaticallyImplyLeading: false,
+                  title: TabBar(
+                    controller: _tabController,
+                    tabs: tabs,
+                    indicatorColor: Colors.white,
+                    indicatorWeight: 5.0,
+                  ),
+                ),
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: <Widget>[
+                      ShowingTabbarView(
+                        products: [],
+                      ),
+                      ListView(
+                        children: [
+                          Text('No posts in this category'),
+                        ],
+                      ),
+                      ListView(
+                        children: [
+                          Text('No posts in this category'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: tabViews,
-            ),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 }
 
@@ -98,16 +119,16 @@ List<Widget> tabs = const <Widget>[
   ),
 ];
 
-List<Widget> tabViews = <Widget>[
-  ShowingTabbarView(),
-  ListView(
-    children: [
-      Text('No posts in this category'),
-    ],
-  ),
-  ListView(
-    children: [
-      Text('No posts in this category'),
-    ],
-  ),
-];
+// List<Widget> tabViews = <Widget>[
+//   ShowingTabbarView(),
+//   ListView(
+//     children: [
+//       Text('No posts in this category'),
+//     ],
+//   ),
+//   ListView(
+//     children: [
+//       Text('No posts in this category'),
+//     ],
+//   ),
+// ];

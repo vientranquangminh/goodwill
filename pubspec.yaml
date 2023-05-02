@@ -78,6 +78,7 @@ flutter:
     - assets/images/sign_in/
     - assets/images/message_screen/
     - assets/images/manage_post/
+    - assets/images/change_language/
 
   fonts:
     - family: Work Sans
