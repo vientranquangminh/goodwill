@@ -59,12 +59,16 @@ class UserProfileService {
     final user = AuthService.user;
     if (user == null) return null;
 
-    String extension = FileHelper.getFileExtension(file);
-    String dest = 'images/${user.email}/profilePicture/avatar$extension';
+    // String extension = FileHelper.getFileExtension(file);
+    // String dest = 'images/users/${user.email}/profilePicture/avatar$extension';
+
+    String dest = FileHelper.getStorageAvatarPath(file);
+
     try {
       return CloudStorageService.uploadImage(file, destination: dest);
     } on FirebaseException catch (e) {
       debugPrint('Error to load this image ${e.message}');
     }
+    return null;
   }
 }

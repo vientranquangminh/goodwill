@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/service/product_service.dart';
+import 'package:goodwill/source/util/constant.dart';
 
 class PostInfo extends StatelessWidget {
   const PostInfo({
     super.key,
+    required this.productModel,
   });
+
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
-    final String _imagePath = "assets/images/manage_post/iphone.jpg";
-    final String _title = 'iPhone 14 Pro Max (2nd)';
-    final double _price = 30000000;
+    final String imagePath =
+        productModel.images?[0] ?? Constant.SAMPLE_AVATAR_URL;
+    final String title = productModel.title ?? Constant.UNKNOWN;
+    final int price = productModel.price ?? 0;
 
     final TextStyle _titleStyle = TextStyle(fontWeight: FontWeight.bold);
     final TextStyle _priceStyle =
@@ -21,8 +28,11 @@ class PostInfo extends StatelessWidget {
         children: [
           Flexible(
             flex: 2,
-            child: Image(
-              image: AssetImage(_imagePath),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Image(
+                image: NetworkImage(imagePath),
+              ),
             ),
           ),
           Flexible(
@@ -37,11 +47,11 @@ class PostInfo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _title,
+                        title,
                         style: _titleStyle,
                       ),
                       Text(
-                        '$_price đ',
+                        '$price đ',
                         style: _priceStyle,
                       ),
                       const Text('12:05 13/04/2023'),
@@ -51,9 +61,28 @@ class PostInfo extends StatelessWidget {
                 const Spacer(),
                 Column(
                   children: [
-                    IconButton(
+                    PopupMenuButton(
                       icon: const Icon(Icons.more_vert),
-                      onPressed: () {},
+                      itemBuilder: (BuildContext context) => [
+                        PopupMenuItem(
+                          child: TextButton(
+                            child: const Text('Edit'),
+                            onPressed: () {
+                              debugPrint('Button edit pressed');
+                            },
+                          ),
+                        ),
+                        PopupMenuItem(
+                          child: TextButton(
+                            child: const Text('Delete'),
+                            onPressed: () {
+                              debugPrint('Button delete pressed');
+                              ProductService.deleteProduct(productModel)
+                                  .then((_) => context.pop());
+                            },
+                          ),
+                        )
+                      ],
                     ),
                   ],
                 )

@@ -16,6 +16,7 @@ import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/profile/widgets/edit_profile_widgets/bottom_sheet_logout.dart';
 import 'package:goodwill/source/util/constant.dart';
+import 'package:goodwill/source/util/file_helper.dart';
 
 final Map<String, dynamic> profileScreenData = {
   'Profile': [
@@ -32,25 +33,6 @@ final Map<String, dynamic> profileScreenData = {
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
-
-  void browseImages({Function(File)? handleFile}) async {
-    final res = await FilePicker.platform.pickFiles(
-      allowMultiple: false,
-      type: FileType.image,
-    );
-    if (res == null) {
-      Fluttertoast.showToast(msg: "Fail to browse this image");
-      return;
-    }
-
-    String filePath = res.files.single.path!;
-    File file = File(filePath);
-    if (!file.existsSync()) {
-      debugPrint('File does not exist');
-      return;
-    }
-    (handleFile != null) ? handleFile(file) : null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +83,7 @@ class ProfilePage extends StatelessWidget {
                           padding: const EdgeInsets.all(16.0),
                           shape: const CircleBorder(),
                           onPressed: () {
-                            browseImages(
+                            FileHelper.browseSingleImage(
                                 handleFile:
                                     UserProfileService.updateProfilePicture);
                           },

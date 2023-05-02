@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
@@ -15,7 +14,7 @@ import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
-import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
+import 'package:provider/provider.dart';
 
 import 'components/title_of_list.dart';
 
@@ -29,15 +28,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late String _userName;
   late String _userProfilePicture;
-  late List<ProductModel> _posts;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    // _userAvatarImagePath = Assets.images.homePage.person.path;
-    super.initState();
-  }
+  final Future<List<ProductModel>?> _future = ProductService.getAllProducts();
 
   String _getUserName(BuildContext context) {
     final user = context.watch<UserProfile?>();
@@ -56,166 +47,185 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     _userName = _getUserName(context);
     _userProfilePicture = _getAvatar(context);
-    _posts = ProductModel.listPostModel;
 
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Row(
+    return FutureProvider<List<ProductModel>?>.value(
+        initialData: [],
+        value: _future,
+        builder: (context, snapshot) {
+          final products =
+              Provider.of<List<ProductModel>?>(context, listen: true);
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Avatar(
-                          imagePath: _userProfilePicture,
-                          size: const Size(50, 50),
-                        ),
                         Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  context.greeting(),
-                                  style: const TextStyle(
-                                      color: Colors.grey, fontSize: 16),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  _userName,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                          child: Row(
+                            children: [
+                              Avatar(
+                                imagePath: _userProfilePicture,
+                                size: const Size(50, 50),
+                              ),
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        context.greeting(),
+                                        style: const TextStyle(
+                                            color: Colors.grey, fontSize: 16),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        _userName,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
+                                    ],
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
+                        Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, Routes.category);
+                                },
+                                icon: Assets.svgs.notification.svg()),
+                            IconButton(
+                                onPressed: () {
+                                  context.pushNamed(Routes.chatScreen);
+                                },
+                                icon: Assets.svgs.message.svg()),
+                          ],
+                        )
                       ],
                     ),
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, Routes.category);
-                          },
-                          icon: Assets.svgs.notification.svg()),
-                      IconButton(
-                          onPressed: () {
-                            context.pushNamed(Routes.chatScreen);
-                          },
-                          icon: Assets.svgs.message.svg()),
-                    ],
-                  )
-                ],
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 24),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 3,
+                                      offset: Offset(0.5, 2))
+                                ]),
+                            child: TextField(
+                              onTap: () =>
+                                  context.pushNamed(Routes.searchScreen),
+                              cursorColor: ColorName.black,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  fontSize: 14, color: Colors.black),
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: InputDecoration(
+                                filled: true,
+                                prefixIcon: const Icon(Icons.search,
+                                    color: Colors.black),
+                                border: const OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(16))),
+                                fillColor: Colors.grey.shade100,
+                                hintText: context.localizations.search,
+                                hintStyle: const TextStyle(
+                                    fontSize: 14.0, color: Colors.grey),
+                                suffixIcon: IconButton(
+                                  icon: Assets.svgs.filter
+                                      .svg(color: Colors.black),
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ))),
+                    const BannerAds(),
+                    TitleOfList(title: context.localizations.exploreCategories),
+                    _buildSearchProducts(
+                      searchingProducts: products ?? [],
+                    ),
+                    TitleOfList(title: context.localizations.postForYou),
+                    _buildForYouProducts(
+                      forYouProducts: products ?? [],
+                    ),
+                  ],
+                ),
               ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 3,
-                                offset: Offset(0.5, 2))
-                          ]),
-                      child: TextField(
-                        onTap: () => context.pushNamed(Routes.searchScreen),
-                        cursorColor: ColorName.black,
-                        maxLines: 1,
-                        style:
-                            const TextStyle(fontSize: 14, color: Colors.black),
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                          filled: true,
-                          prefixIcon:
-                              const Icon(Icons.search, color: Colors.black),
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16))),
-                          fillColor: Colors.grey.shade100,
-                          hintText: context.localizations.search,
-                          hintStyle: const TextStyle(
-                              fontSize: 14.0, color: Colors.grey),
-                          suffixIcon: IconButton(
-                            icon: Assets.svgs.filter.svg(color: Colors.black),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ))),
-              const BannerAds(),
-              TitleOfList(title: context.localizations.exploreCategories),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 4,
-                child: GridView.count(
-                    physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 15.0,
-                    children: List.generate(listCategories.length, (index) {
-                      List listPost = _posts
-                          .where((element) =>
-                              element.category == listCategories[index].title)
-                          .toList();
-                      return GestureDetector(
-                          onTap: () => context.pushNamedWithParam(
-                              Routes.category, listPost),
-                          child: CategoriesCard(
-                              categories: listCategories[index]));
-                    })),
-              ),
-              TitleOfList(title: context.localizations.postForYou),
-              _buildProductItems(),
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        });
+  }
+}
+
+class _buildSearchProducts extends StatelessWidget {
+  const _buildSearchProducts({
+    super.key,
+    required this.searchingProducts,
+  });
+
+  final List<ProductModel> searchingProducts;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 4,
+      child: GridView.count(
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisCount: 4,
+          mainAxisSpacing: 15.0,
+          children: List.generate(listCategories.length, (index) {
+            List listPost = searchingProducts!
+                .where((element) =>
+                    element.category == listCategories[index].title)
+                .toList();
+            return GestureDetector(
+                onTap: () =>
+                    context.pushNamedWithParam(Routes.category, listPost),
+                child: CategoriesCard(categories: listCategories[index]));
+          })),
     );
   }
 }
 
-class _buildProductItems extends StatelessWidget {
-  const _buildProductItems({
+class _buildForYouProducts extends StatelessWidget {
+  const _buildForYouProducts({
     super.key,
+    required this.forYouProducts,
   });
+
+  final List<ProductModel> forYouProducts;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ProductModel>?>(
-        future: ProductService.getAllProducts(),
-        builder: (context, snapshot) {
-          debugPrint(snapshot.data.toString());
-          if (snapshot.hasData) {
-            List<ProductModel> _posts = snapshot.data!;
-            return GridView.count(
-              physics: const NeverScrollableScrollPhysics(),
-              childAspectRatio: 0.67,
-              crossAxisSpacing: 15,
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              children: List.generate(_posts.length, (index) {
-                return GestureDetector(
-                    onTap: () => context.pushNamedWithParam(
-                        Routes.productDetails, _posts[index]),
-                    child: PostCard(postCard: _posts[index]));
-              }),
-            );
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
-          }
-          return Text('Dont know');
-        });
+    return GridView.count(
+      physics: const NeverScrollableScrollPhysics(),
+      childAspectRatio: 0.70,
+      crossAxisSpacing: 15,
+      shrinkWrap: true,
+      crossAxisCount: 2,
+      children: List.generate(forYouProducts!.length, (index) {
+        return GestureDetector(
+          onTap: () => context.pushNamedWithParam(
+              Routes.productDetails, forYouProducts?[index]),
+          child: PostCard(postCard: forYouProducts![index]),
+        );
+      }),
+    );
   }
 }
