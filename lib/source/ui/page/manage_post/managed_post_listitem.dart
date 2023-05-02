@@ -19,33 +19,38 @@ class ManagedPostListItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        child: Column(
-          children: [
-            PostInfo(
-              imagePath: images?[0] ?? Constant.SAMPLE_AVATAR_URL,
-              title: title,
-              price: price,
-            ),
-            // Interaction buttons
-            Row(
-              children: [
-                Icon(Icons.image),
-                const SizedBox(width: 4.0),
-                Text('${images?.length ?? 0}'),
-                Spacer(),
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.remove_red_eye),
-                  label: Text('Hide post'),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: PostInfo(
+                  imagePath: images?[0] ?? Constant.SAMPLE_AVATAR_URL,
+                  title: title,
+                  price: price,
                 ),
-                TextButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.query_stats),
-                  label: Text('Statcs'),
-                )
-              ],
-            ),
-          ],
+              ),
+              // Interaction buttons
+              Row(
+                children: [
+                  Icon(Icons.image),
+                  const SizedBox(width: 4.0),
+                  Text('${images?.length ?? 0}'),
+                  Spacer(),
+                  TextButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.remove_red_eye),
+                    label: Text('Hide post'),
+                  ),
+                  TextButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.query_stats),
+                    label: Text('Statcs'),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

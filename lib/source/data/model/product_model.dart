@@ -12,6 +12,7 @@ class ProductModel extends BasicModel {
   String? title;
   String? description;
   String? category;
+  String? status;
   int? price;
   DateTime? createdAt;
   List<String>? images;
@@ -27,6 +28,7 @@ class ProductModel extends BasicModel {
     this.createdAt,
     this.images,
     this.location,
+    this.status,
   }) : super(id: id);
 
   @override
@@ -40,6 +42,7 @@ class ProductModel extends BasicModel {
       'createdAt': createdAt?.millisecondsSinceEpoch,
       'images': images,
       'location': location,
+      'status': status,
     };
   }
 
@@ -56,6 +59,7 @@ class ProductModel extends BasicModel {
           : null,
       images: map['images'] != null ? List.from(map['images']) : null,
       location: map['location'] != null ? map['location'] as String : null,
+      status: map['status'] != null ? map['status'] as String : null,
     );
   }
 
@@ -75,7 +79,7 @@ class ProductModel extends BasicModel {
 
   @override
   String toString() {
-    return 'TestProduct(ownerId: $ownerId, title: $title, description: $description, category: $category, price: $price, createdAt: $createdAt, images: $images, location: $location)';
+    return 'TestProduct(ownerId: $ownerId, title: $title, description: $description, category: $category, price: $price, createdAt: $createdAt, images: $images, location: $location, status: $status)';
   }
 
   ProductModel copyWith({
@@ -83,6 +87,7 @@ class ProductModel extends BasicModel {
     String? title,
     String? description,
     String? category,
+    String? status,
     int? price,
     DateTime? createdAt,
     List<String>? images,
@@ -97,6 +102,7 @@ class ProductModel extends BasicModel {
       createdAt: createdAt ?? this.createdAt,
       images: images ?? this.images,
       location: location ?? this.location,
+      status: status ?? this.status,
     );
   }
 
@@ -111,7 +117,8 @@ class ProductModel extends BasicModel {
         other.price == price &&
         other.createdAt == createdAt &&
         listEquals(other.images, images) &&
-        other.location == location;
+        other.location == location &&
+        other.status == status;
   }
 
   @override
@@ -123,17 +130,19 @@ class ProductModel extends BasicModel {
         price.hashCode ^
         createdAt.hashCode ^
         images.hashCode ^
-        location.hashCode;
+        location.hashCode ^
+        status.hashCode;
   }
 
   static ProductModel get sample {
     return ProductModel(
-      title: "iphone",
+      title: "Stupid thing",
       ownerId: AuthService.userId,
       description: "an iPhone",
-      price: 10000000,
+      price: 20000,
       createdAt: DateTime.now(),
       location: 'Da Nang',
+      status: OwnProductStatus.OVERDATE,
     );
   }
 
@@ -186,4 +195,10 @@ class ProductModel extends BasicModel {
           location: "Da Nang"),
     ];
   }
+}
+
+class OwnProductStatus {
+  static const String SHOWING = 'showing';
+  static const String OVERDATE = 'overdate';
+  static const String DENIED = 'denied';
 }

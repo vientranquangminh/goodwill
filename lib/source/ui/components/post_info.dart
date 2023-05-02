@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PostInfo extends StatelessWidget {
   const PostInfo({
     super.key,
+    required this.imagePath,
+    required this.title,
+    required this.price,
   });
+
+  final String imagePath;
+  final String title;
+  final int price;
 
   @override
   Widget build(BuildContext context) {
-    final String _imagePath = "assets/images/manage_post/iphone.jpg";
-    final String _title = 'iPhone 14 Pro Max (2nd)';
-    final double _price = 30000000;
+    // final String _imagePath = "assets/images/manage_post/iphone.jpg";
+    // final String _title = 'iPhone 14 Pro Max (2nd)';
+    // final int _price = 30000000;
 
     final TextStyle _titleStyle = TextStyle(fontWeight: FontWeight.bold);
     final TextStyle _priceStyle =
@@ -21,8 +27,10 @@ class PostInfo extends StatelessWidget {
         children: [
           Flexible(
             flex: 2,
-            child: Image(
-              image: AssetImage(_imagePath),
+            child: Center(
+              child: Image(
+                image: NetworkImage(imagePath),
+              ),
             ),
           ),
           Flexible(
@@ -37,11 +45,11 @@ class PostInfo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _title,
+                        title,
                         style: _titleStyle,
                       ),
                       Text(
-                        '$_price đ',
+                        '$price đ',
                         style: _priceStyle,
                       ),
                       const Text('12:05 13/04/2023'),

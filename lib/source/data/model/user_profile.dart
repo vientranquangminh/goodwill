@@ -138,4 +138,8 @@ class UserProfile {
         phoneNumber.hashCode ^
         address.hashCode;
   }
+
+  String getDisplayName() {
+    return nickName ?? fullName ?? 'Guest ${id.hashCode}';
+  }
 }
