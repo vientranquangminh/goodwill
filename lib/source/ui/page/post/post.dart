@@ -9,6 +9,7 @@ import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/post/widgets/rounded_container.dart';
+import 'package:goodwill/source/ui/page/product/widgets/select_color_widget.dart';
 import 'package:goodwill/source/ui/page/profile/widgets/edit_profile_widgets/textfield_custom.dart';
 import 'package:goodwill/source/util/file_helper.dart';
 
@@ -36,30 +37,7 @@ class _PostState extends State<Post> {
     'Kitchen',
     'Toys',
   ];
-  var productType = [
-    'productType 1',
-    'productType 2',
-    'productType 3',
-    'productType 4',
-    'productType 5',
-    'productType 6',
-    'productType 7',
-    'productType 8',
-    'productType 9',
-    'productType 10',
-  ];
-  var material = [
-    'material 1',
-    'material 2',
-    'material 3',
-    'material 4',
-    'material 5',
-    'material 6',
-    'material 7',
-    'material 8',
-    'material 9',
-    'material 10',
-  ];
+
   List<String> selections = ['Used', 'New'];
   int selectedIndex = 0;
   people? _people;
@@ -153,7 +131,7 @@ class _PostState extends State<Post> {
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 20.h),
-                height: 100.h,
+                height: 120.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(12.r)),
@@ -228,34 +206,6 @@ class _PostState extends State<Post> {
                   ],
                 ),
               ),
-              Container(
-                height: 100.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(12.r)),
-                  border: Border.all(
-                      color: ColorName.black,
-                      style: BorderStyle.solid,
-                      width: 1),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Assets.images.raidenShogun.image(height: 50, width: 50),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text(
-                      'Maximum 1 video',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,
-                        color: ColorName.black,
-                      ),
-                    )
-                  ],
-                ),
-              ),
               SizedBox(
                 height: 10.h,
               ),
@@ -264,7 +214,7 @@ class _PostState extends State<Post> {
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 8.h,
+                height: 10.h,
               ),
               SizedBox(
                 height: 40,
@@ -297,100 +247,59 @@ class _PostState extends State<Post> {
                 ),
               ),
               SizedBox(
-                height: 5.h,
+                height: 10.h,
               ),
-              const Text(
-                'Product Type',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              InputDecorator(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                isEmpty: dropdownValue == '',
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    hint: const Text('productType'),
-                    isDense: true,
-                    onChanged: (value) {
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
-                    items: productType.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              InputDecorator(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                isEmpty: dropdownValue == '',
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    hint: const Text('material'),
-                    isDense: true,
-                    onChanged: (value) {
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
-                    items: material.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                const Text('I want to give away for free.'),
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Checkbox(
-                    checkColor: Colors.greenAccent,
+                    checkColor: Colors.white,
+                    activeColor: Colors.black,
                     value: valueFirst,
                     onChanged: (val) {
                       setState(() {
                         valueFirst = val!;
                       });
                     }),
+                const Text('I want to give away for free.'),
               ]),
+              SizedBox(
+                height: 10.h,
+              ),
+              const Text(
+                'Title',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              const TextField(
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16),
+                    ),
+                  ),
+                  labelText: 'Example: Bags',
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              const Text(
+                'Prices',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
               const TextField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
-                  labelText: 'Price',
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              const TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                  ),
-                  labelText: 'Title',
+                  labelText: 'Example: 30000',
                 ),
               ),
               const SizedBox(
@@ -402,13 +311,21 @@ class _PostState extends State<Post> {
                 textInputAction: TextInputAction.newline,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
                   labelText: 'Detailed Description',
                 ),
               ),
-              const SizedBox(
-                height: 8,
+              SizedBox(
+                height: 10.h,
+              ),
+              const Text(
+                'Seller information',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10.h,
               ),
               const TextField(
                 decoration: InputDecoration(
@@ -422,39 +339,8 @@ class _PostState extends State<Post> {
                 height: 8,
               ),
               const Text(
-                'You are: ',
+                'Address ',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: RadioListTile<people>(
-                        contentPadding: const EdgeInsets.all(0.0),
-                        value: people.Individual,
-                        groupValue: _people,
-                        title: Text(people.Individual.name),
-                        onChanged: (val) {
-                          setState(() {
-                            _people = val;
-                          });
-                        }),
-                  ),
-                  Expanded(
-                    child: RadioListTile<people>(
-                        contentPadding: const EdgeInsets.all(0.0),
-                        value: people.Professional,
-                        groupValue: _people,
-                        title: Text(people.Professional.name),
-                        onChanged: (val) {
-                          setState(() {
-                            _people = val;
-                          });
-                        }),
-                  ),
-                ],
               ),
               const SizedBox(
                 height: 8,
@@ -465,27 +351,28 @@ class _PostState extends State<Post> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
-                  labelText: 'Address',
+                  labelText: 'Da Nang',
                 ),
               ),
               const SizedBox(
                 height: 8,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(70, 40),
-                        primary: Colors.green,
-                        onPrimary: Colors.white),
+                      minimumSize: const Size(80, 40),
+                      primary: Colors.black,
+                      onPrimary: Colors.white,
+                    ),
                     onPressed: () {},
                     child: const Text('Preview'),
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(70, 40),
-                        primary: Colors.green,
+                        minimumSize: const Size(80, 40),
+                        primary: Colors.black,
                         onPrimary: Colors.white),
                     onPressed: () {},
                     child: const Text('Post'),
