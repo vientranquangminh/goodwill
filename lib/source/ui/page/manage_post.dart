@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/manage_post/showing_tabbar_view.dart';
+import 'package:goodwill/source/util/constant.dart';
 import 'package:provider/provider.dart';
 
 class ManagePost extends StatefulWidget {
@@ -126,6 +128,9 @@ class UserProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String userProfile = context.watch<UserProfile?>()?.profilePicture ??
+        Constant.SAMPLE_AVATAR_URL;
+
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Row(
@@ -133,13 +138,26 @@ class UserProfileWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                userName,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32.0),
+              Row(
+                children: [
+                  Avatar(
+                    imagePath: userProfile,
+                    size: const Size(50, 50),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Text(
+                      userName,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 32.0),
+                    ),
+                  ),
+                ],
               ),
               OutlinedButton(
-                  onPressed: () {},
-                  child: Text('Connect to your payment wallet'))
+                onPressed: () {},
+                child: const Text('Connect wallet'),
+              ),
             ],
           ),
         ],
@@ -147,16 +165,3 @@ class UserProfileWidget extends StatelessWidget {
     );
   }
 }
-
-List<Widget> tabs = const <Widget>[
-  Tab(
-    // icon: Icon(Icons.cloud_outlined),
-    text: "Showing (0)",
-  ),
-  Tab(
-    text: "Overdate (0)",
-  ),
-  Tab(
-    text: "Denied (0)",
-  ),
-];

@@ -28,7 +28,8 @@ class PostInfo extends StatelessWidget {
         children: [
           Flexible(
             flex: 2,
-            child: Center(
+            child: Align(
+              alignment: Alignment.centerLeft,
               child: Image(
                 image: NetworkImage(imagePath),
               ),

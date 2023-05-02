@@ -97,8 +97,7 @@ abstract class BasicRepository<E extends BasicModel> {
     for (var docRef in docRefs) {
       await docRef
           .delete()
-          .then((value) =>
-              debugPrint('${E.runtimeType.toString()} ${element.id} deleted'))
+          .then((value) => debugPrint('${element.id} deleted'))
           .onError((error, stackTrace) {
         debugPrint('Error $error');
         debugPrint('Stack $stackTrace');

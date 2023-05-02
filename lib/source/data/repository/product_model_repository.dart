@@ -43,7 +43,6 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
 
   @override
   Future<void> delete(ProductModel element) {
-    debugPrint(element.toString());
     return deleteWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
   }
 

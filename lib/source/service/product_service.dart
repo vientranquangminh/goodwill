@@ -34,6 +34,10 @@ class ProductService {
         collectionRef: collectionReference);
   }
 
+  static Future<void> updateProduct(ProductModel productModel) {
+    return _productModelRepository.update(productModel);
+  }
+
   static Future<void> deleteProduct(ProductModel productModel) {
     return _productModelRepository.delete(productModel);
   }
