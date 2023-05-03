@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/enum/category_enum.dart';
 import 'package:goodwill/source/ui/page/search/widgets/my_list_product.dart';
-import 'package:goodwill/source/ui/page/search/widgets/not_found_screen.dart';
 
 import '../../../../gen/assets.gen.dart';
 import 'widgets/title_tabbar.dart';
@@ -121,35 +119,42 @@ class _SearchScreenState extends State<SearchScreen>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  posts.isEmpty
-                      ? const NotFoundScreen()
-                      : MyListProduct(
-                          posts: posts,
-                        ),
-                  clothes.isEmpty
-                      ? const NotFoundScreen()
-                      : MyListProduct(posts: clothes),
-                  shoes.isEmpty
-                      ? const NotFoundScreen()
-                      : MyListProduct(posts: shoes),
-                  bags.isEmpty
-                      ? const NotFoundScreen()
-                      : MyListProduct(posts: bags),
-                  electronic.isEmpty
-                      ? const NotFoundScreen()
-                      : MyListProduct(posts: electronic),
-                  watch.isEmpty
-                      ? const NotFoundScreen()
-                      : MyListProduct(posts: watch),
-                  jewelry.isEmpty
-                      ? const NotFoundScreen()
-                      : MyListProduct(posts: jewelry),
-                  kitchen.isEmpty
-                      ? const NotFoundScreen()
-                      : MyListProduct(posts: kitchen),
-                  toys.isEmpty
-                      ? const NotFoundScreen()
-                      : MyListProduct(posts: toys)
+                  MyListProduct(
+                    category: null, // all
+                    searchText: _searchController.text,
+                  ),
+                  MyListProduct(
+                    category: CategoryEnum.CLOTHES,
+                    searchText: _searchController.text,
+                  ),
+                  MyListProduct(
+                    category: CategoryEnum.SHOES,
+                    searchText: _searchController.text,
+                  ),
+                  MyListProduct(
+                    category: CategoryEnum.BAGS,
+                    searchText: _searchController.text,
+                  ),
+                  MyListProduct(
+                    category: CategoryEnum.ELECTRONIC,
+                    searchText: _searchController.text,
+                  ),
+                  MyListProduct(
+                    category: CategoryEnum.WATCH,
+                    searchText: _searchController.text,
+                  ),
+                  MyListProduct(
+                    category: CategoryEnum.JEWELRY,
+                    searchText: _searchController.text,
+                  ),
+                  MyListProduct(
+                    category: CategoryEnum.KITCHEN,
+                    searchText: _searchController.text,
+                  ),
+                  MyListProduct(
+                    category: CategoryEnum.TOYS,
+                    searchText: _searchController.text,
+                  ),
                 ],
               ),
             ),
@@ -160,6 +165,9 @@ class _SearchScreenState extends State<SearchScreen>
   }
 
   void searchProduct(String query) {
+    debugPrint('Query ${query}');
+    debugPrint(_searchController.text);
+
     final all =
         compareProductName(query, ProductModel.sampleProductModels).toList();
     final clothesSearch = compareProductName(query, clothes).toList();
