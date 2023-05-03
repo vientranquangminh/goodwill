@@ -29,31 +29,34 @@ class _MyListProductState extends State<MyListProduct> {
         value:
             ProductService.getProductsWithCategory(category: widget.category),
         builder: (context, snapshot) {
-          List<ProductModel>? _posts =
-              Provider.of<List<ProductModel>?>(context, listen: true);
-          if (_posts == null) {
+          List<ProductModel>? _posts = context.watch<List<ProductModel>?>();
+          List<ProductModel>? _postsWithSearch =
+              (widget.searchText?.isNotEmpty ?? false)
+                  ? getPostsWithSearch(_posts, widget.searchText!.toLowerCase())
+                  : _posts;
+
+          if (_postsWithSearch == null) {
             return const NotFoundScreen();
-          }
-          if (widget.searchText?.isNotEmpty ?? false) {
-            _posts = _posts.where((post) {
-              return post.title
-                      ?.toLowerCase()
-                      .contains(widget.searchText!.toLowerCase()) ??
-                  false;
-            }).toList();
           }
           return GridView.count(
             childAspectRatio: 0.70,
             crossAxisSpacing: 15,
             shrinkWrap: true,
             crossAxisCount: 2,
-            children: List.generate(_posts.length, (index) {
+            children: List.generate(_postsWithSearch.length, (index) {
               return GestureDetector(
                   onTap: () => context.pushNamedWithParam(
-                      Routes.productDetails, _posts![index]),
-                  child: ProductCard(category: _posts![index]));
+                      Routes.productDetails, _postsWithSearch[index]),
+                  child: ProductCard(category: _postsWithSearch[index]));
             }),
           );
         });
+  }
+
+  List<ProductModel>? getPostsWithSearch(
+      List<ProductModel>? posts, String searchText) {
+    return posts?.where((post) {
+      return post.title?.toLowerCase().contains(searchText) ?? false;
+    }).toList();
   }
 }
