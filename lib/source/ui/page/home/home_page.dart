@@ -190,7 +190,7 @@ class _buildSearchProducts extends StatelessWidget {
           crossAxisCount: 4,
           mainAxisSpacing: 15.0,
           children: List.generate(listCategories.length, (index) {
-            List listPost = searchingProducts!
+            List listPost = searchingProducts
                 .where((element) =>
                     element.category == listCategories[index].title)
                 .toList();
@@ -219,11 +219,11 @@ class _buildForYouProducts extends StatelessWidget {
       crossAxisSpacing: 15,
       shrinkWrap: true,
       crossAxisCount: 2,
-      children: List.generate(forYouProducts!.length, (index) {
+      children: List.generate(forYouProducts.length, (index) {
         return GestureDetector(
           onTap: () => context.pushNamedWithParam(
-              Routes.productDetails, forYouProducts?[index]),
-          child: PostCard(postCard: forYouProducts![index]),
+              Routes.productDetails, forYouProducts[index]),
+          child: PostCard(postCard: forYouProducts[index]),
         );
       }),
     );
