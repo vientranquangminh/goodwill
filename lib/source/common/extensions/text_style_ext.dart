@@ -101,4 +101,32 @@ extension PlatFormThemeDataExtension on BuildContext {
           fontWeight: FontWeight.w500,
         ),
       );
+
+  TextStyle? get whiteS12W500 => platformThemeData(
+        this,
+        material: (data) => data.textTheme.labelLarge?.copyWith(
+          color: ColorName.white,
+          fontSize: Dimens.fontSize12,
+          fontWeight: FontWeight.w500,
+        ),
+        cupertino: (data) => data.textTheme.textStyle.copyWith(
+          color: ColorName.white,
+          fontSize: Dimens.fontSize12,
+          fontWeight: FontWeight.w500,
+        ),
+      );
+
+  TextStyle? get whiteS10W500 => platformThemeData(
+        this,
+        material: (data) => data.textTheme.labelLarge?.copyWith(
+          color: ColorName.white,
+          fontSize: Dimens.fontSize10,
+          fontWeight: FontWeight.w500,
+        ),
+        cupertino: (data) => data.textTheme.textStyle.copyWith(
+          color: ColorName.white,
+          fontSize: Dimens.fontSize10,
+          fontWeight: FontWeight.w500,
+        ),
+      );
 }

@@ -89,96 +89,92 @@ class ArticleDetailPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 71,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: 50.h,
-                      width: MediaQuery.of(context).size.width / 2.75.w,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          log('chat with sms');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0.r),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.sms_outlined),
-                            SizedBox(width: 10.w),
-                            Text(
-                              context.localizations.sms,
-                              style: context.whiteS16W500,
-                            ),
-                          ],
+            Container(
+              height: 71.h,
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10.r),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Uri uri = Uri.parse('sms://$phoneNumber');
+                        _launch(uri);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0.r),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 50.h,
-                      width: MediaQuery.of(context).size.width / 2.75.w,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Uri uri = Uri.parse('tel://$phoneNumber');
-                          _launch(uri);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0.r),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.sms_outlined),
+                          SizedBox(width: 10.w),
+                          Text(
+                            context.localizations.sms,
+                            style: context.whiteS12W500,
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.phone_forwarded),
-                            SizedBox(width: 10.w),
-                            Text(
-                              context.localizations.call,
-                              style: context.whiteS16W500,
-                            ),
-                          ],
-                        ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 50.h,
-                      width: MediaQuery.of(context).size.width / 2.75.w,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          log('chat using app');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0.r),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Assets.svgs.message.svg(
-                                colorFilter: const ColorFilter.mode(
-                                    ColorName.white, BlendMode.srcIn)),
-                            SizedBox(width: 10.w),
-                            Text(
-                              context.localizations.chat,
-                              style: context.whiteS16W500,
-                            ),
-                          ],
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10.r),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Uri uri = Uri.parse('tel://$phoneNumber');
+                        _launch(uri);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0.r),
                         ),
                       ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.phone_forwarded),
+                          SizedBox(width: 10.w),
+                          Text(
+                            context.localizations.call,
+                            style: context.whiteS12W500,
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10.r),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        log('chat using app');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0.r),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Assets.svgs.message.svg(
+                              colorFilter: const ColorFilter.mode(
+                                  ColorName.white, BlendMode.srcIn)),
+                          SizedBox(width: 10.w),
+                          Text(
+                            context.localizations.chat,
+                            style: context.whiteS12W500,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
