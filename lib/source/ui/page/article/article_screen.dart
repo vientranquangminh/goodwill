@@ -38,89 +38,90 @@ class _ArticlePageState extends State<ArticlePage>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    List<String> types = [context.localizations.donate, context.localizations.buy];
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          leading: Assets.svgs.mainIcon.svg(),
-          title: Text(
-            context.localizations.article,
-            style: const TextStyle(color: Colors.black, fontSize: 22),
-          ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: Assets.svgs.mainIcon.svg(),
+        title: Text(
+          context.localizations.article,
+          style: const TextStyle(color: Colors.black, fontSize: 22),
         ),
-        body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20),
-          height: size.height,
-          width: size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    context.localizations.article,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                      child: Text(
-                        context.localizations.createArticle,
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.white),
-                      )),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: 40,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: item.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (selectedIndices.contains(index)) {
-                              selectedIndices.remove(index);
-                            } else {
-                              selectedIndices.add(index);
-                            }
-                          });
-                          print(selectedIndices);
-                        },
-                        child: CustomTopicContainer(
-                          hour: item[index],
-                          buttonColor: selectedIndices.contains(index)
-                              ? Colors.black
-                              : Colors.white,
-                          textColor: selectedIndices.contains(index)
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      );
-                    }),
-              ),
-              Expanded(
-                child: MyListArticles(
-                  articles: filterArticlesBySelectedIndices(
-                      listArticles, selectedIndices),
+      ),
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        height: size.height,
+        width: size.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  context.localizations.article,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500),
                 ),
+                ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    child: Text(
+                      context.localizations.createArticle,
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
+                    )),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 40,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: item.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (selectedIndices.contains(index)) {
+                            selectedIndices.remove(index);
+                          } else {
+                            selectedIndices.add(index);
+                          }
+                        });
+                        print(selectedIndices);
+                      },
+                      child: CustomTopicContainer(
+                        hour: types[index],
+                        buttonColor: selectedIndices.contains(index)
+                            ? Colors.black
+                            : Colors.white,
+                        textColor: selectedIndices.contains(index)
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    );
+                  }),
+            ),
+            Expanded(
+              child: MyListArticles(
+                articles: filterArticlesBySelectedIndices(
+                    listArticles, selectedIndices),
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

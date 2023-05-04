@@ -88,19 +88,17 @@ extension PlatFormThemeDataExtension on BuildContext {
         ),
       );
 
-  // TextStyle? get blackS12W500 => platformThemeData(
-  //       this,
-  //       material: (data) => data.textTheme.labelLarge?.copyWith(
-  //         color: ColorName.black,
-  //         fontSize: Dimens.fontSize10,
-  //         fontWeight: FontWeight.w400,
-  //       ),
-  //       cupertino: (data) => data.textTheme.textStyle.copyWith(
-  //         color: ColorName.black,
-  //         fontSize: Dimens.fontSize10,
-  //         fontWeight: FontWeight.w400,
-  //       ),
-  //     );
-
-  // Colors.grey, fontSize: 12, fontWeight: FontWeight.normal
+  TextStyle? get whiteS16W500 => platformThemeData(
+        this,
+        material: (data) => data.textTheme.labelLarge?.copyWith(
+          color: ColorName.white,
+          fontSize: Dimens.fontSize16,
+          fontWeight: FontWeight.w500,
+        ),
+        cupertino: (data) => data.textTheme.textStyle.copyWith(
+          color: ColorName.white,
+          fontSize: Dimens.fontSize16,
+          fontWeight: FontWeight.w500,
+        ),
+      );
 }

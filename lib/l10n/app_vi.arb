@@ -49,7 +49,12 @@
     "update": "Cập nhật",
     "address": "Địa chỉ",
     "createArticle": "Tạo bài viết",
+    "article": "Bài viết",
     "changeLanguage": "Thay đổi ngôn ngữ",
     "vietnamese": "Tiếng Việt",
-    "unitedKingdom": "Tiếng Anh"
+    "unitedKingdom": "Tiếng Anh",
+    "call": "Gọi",
+    "chat": "Nhắn tin",
+    "donate": "Ủng hộ",
+    "buy": "Mua"
 }
