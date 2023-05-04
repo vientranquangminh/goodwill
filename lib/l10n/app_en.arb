@@ -60,5 +60,6 @@
     "call": "Call",
     "chat": "Chat",
     "donate": "Donate",
-    "buy": "Buy"
+    "buy": "Buy",
+    "sms": "Sms"
 }
