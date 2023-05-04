@@ -47,5 +47,9 @@
     "updateSuccessfully": "Cập nhật thành công",
     "updateFailed": "Cập nhật thất bại",
     "update": "Cập nhật",
-    "address": "Địa chỉ"
+    "address": "Địa chỉ",
+    "createArticle": "Tạo bài viết",
+    "changeLanguage": "Thay đổi ngôn ngữ",
+    "vietnamese": "Tiếng Việt",
+    "unitedKingdom": "Tiếng Anh"
 }

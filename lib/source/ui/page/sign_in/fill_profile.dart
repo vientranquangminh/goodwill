@@ -1,20 +1,19 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
+import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/custom_texfield.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/gender.dart';
 import 'package:goodwill/source/ui/page/sign_in/component/input_date_of_birth.dart';
+import 'package:goodwill/source/ui/page/sign_in/component/show_dialog.dart';
 import 'package:intl/intl.dart';
-
-import '../../../routes.dart';
-import 'component/show_dialog.dart';
 
 class FillProfileScreen extends StatefulWidget {
   const FillProfileScreen({Key? key}) : super(key: key);
@@ -28,17 +27,43 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
   String? textGender;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      _getCurrentLocation();
+    });
+  }
+
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _phoneNumberController.dispose();
     _nameController.dispose();
     _nicknameController.dispose();
     _dateInput.dispose();
-    _addressController.dispose();
+  }
+
+  Future<Position> _getCurrentLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Locator service is not allowed');
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Something went wrong');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('This feature is permanently denined');
+    }
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -119,21 +144,6 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         }
                       },
                     ),
-                    CustomTextFiled(
-                      hint: 'Address',
-                      controller: _addressController,
-                      surfixIcon: const Icon(
-                        Icons.location_on_sharp,
-                        color: Colors.black,
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Can not be empty';
-                        } else {
-                          return null;
-                        }
-                      },
-                    )
                   ],
                 )),
             Padding(
@@ -142,7 +152,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 width: MediaQuery.of(context).size.width,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       showDialog(
                         context: context,
@@ -151,19 +161,21 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       Timer(const Duration(seconds: 3), () {
                         context.pushNamed(Routes.myPageController);
                       });
-
-                      // TODO: Add a new profile if not exist
-
                       final DateFormat format = DateFormat('dd-MM-yyyy');
 
+                      Position userPosition = await _getCurrentLocation();
+                      String address = await _getCurrentPositionFromCoordinates(userPosition);
                       final submitUserProfile = UserProfile(
-                        id: AuthService.userId ?? "Abc",
+                        id: AuthService.userId ?? '',
                         fullName: _nameController.text,
                         phoneNumber: _phoneNumberController.text,
-                        address: _addressController.text,
                         gender: textGender,
+                        address: address,
                         dateOfBirth: format.parse(_dateInput.text),
                         nickName: _nicknameController.text,
+                        userPosition: UserPosition(
+                            lat: userPosition.latitude,
+                            long: userPosition.longitude),
                       );
                       print(submitUserProfile);
                       UserProfileService.addUserProfile(submitUserProfile);
@@ -214,5 +226,10 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
         textGender = value;
       });
     }
+  }
+
+  Future<String> _getCurrentPositionFromCoordinates(Position position) async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    return placemarks[0].locality.toString();
   }
 }
