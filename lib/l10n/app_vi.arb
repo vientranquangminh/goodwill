@@ -56,5 +56,6 @@
     "call": "Gọi",
     "chat": "Nhắn tin",
     "donate": "Ủng hộ",
-    "buy": "Mua"
+    "buy": "Mua",
+    "sms": "SMS"
 }
