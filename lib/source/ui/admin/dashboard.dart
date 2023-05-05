@@ -51,7 +51,7 @@ class DashBoardScreen extends StatelessWidget {
                       ContainerDashBoard(
                         title: context.localizations.adminAccount,
                         number: '2',
-                        icon: 'assets/svgs/profile.svg',
+                        icon: 'assets/svgs/user_admin.svg',
                       ),
                       ContainerDashBoard(
                         title: context.localizations.userAccount,
