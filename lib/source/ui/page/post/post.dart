@@ -25,11 +25,10 @@ class _PostState extends State<Post> {
   String? dropdownValue;
   bool valueFirst = false;
   List<File> images = [];
-  final TextEditingController _CategoryController = TextEditingController();
+  //final TextEditingController _CategoryController = TextEditingController();
   final TextEditingController _TitleController = TextEditingController();
   final TextEditingController _PriceController = TextEditingController();
   final TextEditingController _DescriptionController = TextEditingController();
-  final TextEditingController _SellerController = TextEditingController();
   final TextEditingController _AddressController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var formatter = NumberFormat('#,##,000');
@@ -103,19 +102,13 @@ class _PostState extends State<Post> {
                   child: DropdownButtonHideUnderline(
                     child: DropdownButtonFormField<String>(
                       value: dropdownValue,
+                      elevation: dropdownValue.hashCode,
                       hint: Text(context.localizations.category),
                       isDense: true,
-
                       onChanged: (value) =>
                           setState(() => dropdownValue = value!),
                       validator: (value) =>
                           value == null ? 'field required' : null,
-                      // onChanged: (value) {
-                      //   setState(() {
-                      //     dropdownValue = value!;
-
-                      //   });
-                      // },
                       items: items.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -343,13 +336,28 @@ class _PostState extends State<Post> {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  inputFormatters: [ThousandsSeparatorInputFormatter()],
+                  // inputFormatters: [
+                  //   ThousandsSeparatorInputFormatter(),
+                  // ],
                   controller: _PriceController,
                   validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Please enter your money';
-                    } else if (value![0] == ' ') {
-                      return 'Please enter your money';
+                    for (int i = 0; i < value!.length; i++) {
+                      if (value[i] == ' ') {
+                        return 'Please enter your Price';
+                      }
+                    }
+                    bool _isNumeric(String result) {
+                      if (result == null) {
+                        return false;
+                      }
+                      return int.tryParse(result) != null;
+                    }
+
+                    // if (value?.isEmpty ?? true) {
+                    //   return 'Please enter your Price';
+                    // }
+                    if (_isNumeric(value!) == false) {
+                      return 'Please enter your Price';
                     } else {
                       return null;
                     }
@@ -360,7 +368,6 @@ class _PostState extends State<Post> {
                     ),
                     labelText: 'Example: 30000',
                   ),
-                  // inputFormatters: [],
                 ),
                 const SizedBox(
                   height: 8,
@@ -370,15 +377,6 @@ class _PostState extends State<Post> {
                   maxLines: 7,
                   controller: _DescriptionController,
                   textInputAction: TextInputAction.newline,
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Please enter your Description';
-                    } else if (value![0] == ' ') {
-                      return 'Please enter your Description';
-                    } else {
-                      return null;
-                    }
-                  },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
@@ -389,34 +387,6 @@ class _PostState extends State<Post> {
                 ),
                 SizedBox(
                   height: 10.h,
-                ),
-                const Text(
-                  'Seller information',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                TextFormField(
-                  controller: _SellerController,
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Please enter your information';
-                    } else if (value![0] == ' ') {
-                      return 'Please enter your information';
-                    } else {
-                      return null;
-                    }
-                  },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                    ),
-                    labelText: 'Seller information',
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
                 ),
                 const Text(
                   'Address ',
@@ -471,10 +441,10 @@ class _PostState extends State<Post> {
                           primary: Colors.black,
                           onPrimary: Colors.white),
                       onPressed: () {
+                        debugPrint(dropdownValue);
                         debugPrint(_TitleController.text);
                         debugPrint(_PriceController.text);
                         debugPrint(_DescriptionController.text);
-                        debugPrint(_SellerController.text);
                         debugPrint(_AddressController.text);
                         debugPrint('-------------------------');
                         if (_formKey.currentState!.validate()) {
