@@ -11,6 +11,7 @@ import 'package:goodwill/source/models/categories_model.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/product_service.dart';
+import 'package:goodwill/source/ui/admin/login_screen.dart';
 import 'package:goodwill/source/ui/page/home/components/banner.dart';
 import 'package:goodwill/source/ui/page/home/components/category_card.dart';
 import 'package:goodwill/source/ui/page/home/components/post_card.dart';
@@ -105,7 +106,12 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, Routes.category);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginAdminScreen(),
+                                      ));
                                 },
                                 icon: Assets.svgs.notification.svg()),
                             IconButton(
