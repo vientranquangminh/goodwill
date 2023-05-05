@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:goodwill/source/ui/page/article/article_object.dart';
+import 'package:goodwill/source/data/model/article_model.dart';
 import 'package:goodwill/source/ui/page/article/articles_container/article_detail_page.dart';
+import 'package:goodwill/source/util/constant.dart';
+import 'package:goodwill/source/util/date_time_helper.dart';
 
 import '../my_articles_container.dart';
 
 class MyListArticles extends StatelessWidget {
   const MyListArticles({Key? key, required this.articles}) : super(key: key);
-  final List<Article> articles;
+  final List<ArticleModel> articles;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,8 @@ class MyListArticles extends StatelessWidget {
                           )));
             }),
             child: MyArticleContainer(
-              imgUrl: articles[index].imgUrl ?? '',
-              time: articles[index].time ?? '',
+              imgUrl: articles[index].image ?? Constant.SAMPLE_AVATAR_URL,
+              time: DateTimeHelper.toFriendlyString(articles[index].createdAt),
               title: articles[index].title ?? '',
             ),
           );

@@ -12,6 +12,7 @@ class ArticleModel extends BasicModel {
   String? title;
   String? content;
   DateTime? createdAt;
+  String? contactPhoneNumber;
   String? type;
 
   ArticleModel({
@@ -21,25 +22,26 @@ class ArticleModel extends BasicModel {
     this.title,
     this.content,
     this.createdAt,
+    this.contactPhoneNumber,
     this.type,
   }) : super(id: id);
 
   ArticleModel copyWith({
-    String? id,
     String? image,
     String? ownerId,
     String? title,
     String? content,
     DateTime? createdAt,
+    String? contactPhoneNumber,
     String? type,
   }) {
     return ArticleModel(
-      id: id ?? this.id,
       image: image ?? this.image,
       ownerId: ownerId ?? this.ownerId,
       title: title ?? this.title,
       content: content ?? this.content,
       createdAt: createdAt ?? this.createdAt,
+      contactPhoneNumber: contactPhoneNumber ?? this.contactPhoneNumber,
       type: type ?? this.type,
     );
   }
@@ -47,12 +49,12 @@ class ArticleModel extends BasicModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'image': image,
       'ownerId': ownerId,
       'title': title,
       'content': content,
       'createdAt': createdAt?.millisecondsSinceEpoch,
+      'contactPhoneNumber': contactPhoneNumber,
       'type': type,
     };
   }
@@ -66,6 +68,9 @@ class ArticleModel extends BasicModel {
       content: map['content'] != null ? map['content'] as String : null,
       createdAt: map['createdAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
+          : null,
+      contactPhoneNumber: map['contactPhoneNumber'] != null
+          ? map['contactPhoneNumber'] as String
           : null,
       type: map['type'] != null ? map['type'] as String : null,
     );
@@ -87,7 +92,7 @@ class ArticleModel extends BasicModel {
 
   @override
   String toString() {
-    return 'Article(id: $id,image: $image, ownerId: $ownerId, title: $title, content: $content, createdAt: $createdAt, type: $type)';
+    return 'ArticleModel(id: $id, image: $image, ownerId: $ownerId, title: $title, content: $content, createdAt: $createdAt, contactPhoneNumber: $contactPhoneNumber, type: $type)';
   }
 
   @override
@@ -99,6 +104,7 @@ class ArticleModel extends BasicModel {
         other.title == title &&
         other.content == content &&
         other.createdAt == createdAt &&
+        other.contactPhoneNumber == contactPhoneNumber &&
         other.type == type;
   }
 
@@ -109,17 +115,20 @@ class ArticleModel extends BasicModel {
         title.hashCode ^
         content.hashCode ^
         createdAt.hashCode ^
+        contactPhoneNumber.hashCode ^
         type.hashCode;
   }
 
   static ArticleModel get sample {
     return ArticleModel(
-        title: "U-table seeking",
-        image: Constant.SAMPLE_AVATAR_URL,
-        ownerId: AuthService.userId,
-        content: "I need a table to study at home",
-        createdAt: DateTime.now(),
-        type: 'donate');
+      title: "U-table seeking",
+      image: Constant.SAMPLE_AVATAR_URL,
+      ownerId: AuthService.userId,
+      content: "I need a table to study at home",
+      createdAt: DateTime.now(),
+      type: 'donate',
+      contactPhoneNumber: '0934773392',
+    );
   }
 
   static List<ArticleModel> get sampleArticles {
@@ -130,12 +139,46 @@ class ArticleModel extends BasicModel {
           ownerId: AuthService.userId,
           content: "I need a table to study at home",
           createdAt: DateTime.now(),
+          contactPhoneNumber: '0934773392',
           type: 'donate'),
       ArticleModel(
           title: "U-table seeking",
           image: Constant.SAMPLE_AVATAR_URL,
           ownerId: AuthService.userId,
           content: "I need a table to study at home",
+          createdAt: DateTime.now(),
+          contactPhoneNumber: '0934773392',
+          type: 'donate'),
+      ArticleModel(
+          title: "U-table seeking",
+          image: Constant.SAMPLE_AVATAR_URL,
+          ownerId: AuthService.userId,
+          content: "I need a table to study at home",
+          createdAt: DateTime.now(),
+          contactPhoneNumber: '0934773392',
+          type: 'donate'),
+      ArticleModel(
+          title: "U-table seeking",
+          image: Constant.SAMPLE_AVATAR_URL,
+          ownerId: AuthService.userId,
+          content: "I need a table to study at home",
+          createdAt: DateTime.now(),
+          contactPhoneNumber: '0934773392',
+          type: 'donate'),
+      ArticleModel(
+          title: "U-table seeking",
+          image: Constant.SAMPLE_AVATAR_URL,
+          ownerId: AuthService.userId,
+          content: "I need a table to study at home",
+          createdAt: DateTime.now(),
+          contactPhoneNumber: '0934773392',
+          type: 'donate'),
+      ArticleModel(
+          title: "U-table seeking",
+          image: Constant.SAMPLE_AVATAR_URL,
+          ownerId: AuthService.userId,
+          content: "I need a table to study at home",
+          contactPhoneNumber: '0934773392',
           createdAt: DateTime.now(),
           type: 'donate'),
       ArticleModel(
@@ -144,40 +187,14 @@ class ArticleModel extends BasicModel {
           ownerId: AuthService.userId,
           content: "I need a table to study at home",
           createdAt: DateTime.now(),
+          contactPhoneNumber: '0934773392',
           type: 'donate'),
       ArticleModel(
           title: "U-table seeking",
           image: Constant.SAMPLE_AVATAR_URL,
           ownerId: AuthService.userId,
           content: "I need a table to study at home",
-          createdAt: DateTime.now(),
-          type: 'donate'),
-      ArticleModel(
-          title: "U-table seeking",
-          image: Constant.SAMPLE_AVATAR_URL,
-          ownerId: AuthService.userId,
-          content: "I need a table to study at home",
-          createdAt: DateTime.now(),
-          type: 'donate'),
-      ArticleModel(
-          title: "U-table seeking",
-          image: Constant.SAMPLE_AVATAR_URL,
-          ownerId: AuthService.userId,
-          content: "I need a table to study at home",
-          createdAt: DateTime.now(),
-          type: 'donate'),
-      ArticleModel(
-          title: "U-table seeking",
-          image: Constant.SAMPLE_AVATAR_URL,
-          ownerId: AuthService.userId,
-          content: "I need a table to study at home",
-          createdAt: DateTime.now(),
-          type: 'donate'),
-      ArticleModel(
-          title: "U-table seeking",
-          image: Constant.SAMPLE_AVATAR_URL,
-          ownerId: AuthService.userId,
-          content: "I need a table to study at home",
+          contactPhoneNumber: '0934773392',
           createdAt: DateTime.now(),
           type: 'donate'),
     ];

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
-import 'package:intl/intl.dart';
+import 'package:goodwill/source/util/date_time_helper.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({super.key, required this.postCard});
@@ -12,8 +12,7 @@ class PostCard extends StatelessWidget {
     String _imageUrl = postCard.images?[0] ?? '';
     String _postCardTitle = postCard.title ?? '';
     int _price = postCard.price ?? 0;
-    String _time =
-        DateFormat('dd-MM-yyyy').format(postCard.createdAt ?? DateTime(2020));
+    String _time = DateTimeHelper.toVietnameseStandardDate(postCard.createdAt);
     String _location = postCard.location ?? 'Default location';
 
     return SizedBox(

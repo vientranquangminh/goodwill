@@ -6,15 +6,16 @@ import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
+import 'package:goodwill/source/data/model/article_model.dart';
+import 'package:goodwill/source/util/constant.dart';
+import 'package:goodwill/source/util/date_time_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../article_object.dart';
 
 const String phoneNumber = '0844876456';
 
 class ArticleDetailPage extends StatelessWidget {
   const ArticleDetailPage({Key? key, required this.article}) : super(key: key);
-  final Article article;
+  final ArticleModel article;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class ArticleDetailPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       child: SizedBox(
                         child: Image.network(
-                          article.imgUrl ?? '',
+                          article.image ?? Constant.SAMPLE_AVATAR_URL,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -65,7 +66,8 @@ class ArticleDetailPage extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(article.time ?? ''),
+                        Text(
+                            DateTimeHelper.toFriendlyString(article.createdAt)),
                         const SizedBox(
                           width: 10,
                         ),

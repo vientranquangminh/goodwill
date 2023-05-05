@@ -2,10 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:goodwill/source/data/model/article_model.dart';
-import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/article_service.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
-import 'package:goodwill/source/service/product_service.dart';
+import 'package:goodwill/source/ui/page/article/dummy/list_article.dart';
 import 'package:goodwill/source/util/file_helper.dart';
 
 class Post extends StatefulWidget {
@@ -52,14 +51,20 @@ class _PostState extends State<Post> {
     ArticleService.addArticle(myArticle);
   }
 
+  void _uploadSampleArticles() {
+    listArticles.forEach(ArticleService.addArticle);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         children: [
           TextButton(
-            onPressed: () {},
-            child: const Text('Test'),
+            onPressed: () {
+              _uploadSampleArticles();
+            },
+            child: const Text('Upload sample articles'),
           ),
           TextButton(
             onPressed: () {
