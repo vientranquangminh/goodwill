@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:goodwill/source/data/model/basic_model.dart';
+import 'package:goodwill/source/enum/category_enum.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 
 class ProductModel extends BasicModel {
@@ -149,6 +149,7 @@ class ProductModel extends BasicModel {
       createdAt: DateTime.now(),
       location: 'Da Nang',
       status: OwnProductStatus.OVERDATE,
+      category: CategoryEnum.CLOTHES,
     );
   }
 
@@ -161,7 +162,7 @@ class ProductModel extends BasicModel {
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),
-          category: "Clothes",
+          category: CategoryEnum.CLOTHES,
           location: "Da Nang"),
       ProductModel(
           images: [
@@ -170,7 +171,7 @@ class ProductModel extends BasicModel {
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),
-          category: "Toys",
+          category: CategoryEnum.TOYS,
           location: "Da Nang"),
       ProductModel(
           images: [
@@ -179,7 +180,7 @@ class ProductModel extends BasicModel {
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),
-          category: "Kitchen",
+          category: CategoryEnum.KITCHEN,
           location: "Da Nang"),
       ProductModel(
           images: [
@@ -188,7 +189,7 @@ class ProductModel extends BasicModel {
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),
-          category: "Shoes",
+          category: CategoryEnum.SHOES,
           location: "Da Nang"),
       ProductModel(
           images: [
@@ -197,7 +198,7 @@ class ProductModel extends BasicModel {
           title: 'Nike Air Force 1',
           price: 200,
           createdAt: DateTime.now(),
-          category: "Bags",
+          category: CategoryEnum.BAGS,
           location: "Da Nang"),
     ];
   }

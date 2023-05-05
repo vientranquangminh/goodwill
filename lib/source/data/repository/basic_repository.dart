@@ -75,6 +75,25 @@ abstract class BasicRepository<E extends BasicModel> {
     return stream;
   }
 
+  Future<List<E>?> getAllElementsFromCollectionQuery(
+      {required Query query}) async {
+    final QuerySnapshot querySnapshot = await query.get();
+
+    return querySnapshot.docs.map((queryDocumentSnapshot) {
+      Map<String, dynamic> data =
+          queryDocumentSnapshot.data() as Map<String, dynamic>;
+      return fromMap(data);
+    }).toList();
+  }
+
+  Stream<List<E>?> getStreamAllElementsFromQuery({required Query query}) {
+    final colletionRef = query.withConverter(
+        fromFirestore: fromFirestore(), toFirestore: (E e, _) => e.toMap());
+    final stream = colletionRef.snapshots().map(
+        (querySnapshot) => querySnapshot.docs.map((e) => e.data()).toList());
+    return stream;
+  }
+
   Future<void> updateWithDocRefs(E element,
       {required List<DocumentReference> docRefs}) async {
     for (var docRef in docRefs) {
