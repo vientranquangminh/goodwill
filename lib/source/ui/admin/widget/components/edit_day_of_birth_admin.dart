@@ -27,7 +27,7 @@ class _EditDateOfBirthAdminState extends State<EditDateOfBirthAdmin> {
       readOnly: true,
       keyboardType: TextInputType.datetime,
       decoration: InputDecoration(
-        hintText: context.localizations.dateOfBirth,
+        hintText: widget.date.toString(),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
