@@ -43,11 +43,9 @@ class UserProfileService {
     _userProfileRepository.delete(userProfile);
   }
 
-  static Future<TaskSnapshot?> updateProfilePicture(File file) async {
-    final res = await _uploadFileToCloudStorage(file);
-    if (res != null) {
-      String newProfilePicture = await res.ref.getDownloadURL();
-      debugPrint(newProfilePicture);
+  static Future<void> updateProfilePicture(File file) async {
+    final newProfilePicture = await _uploadFileToCloudStorage(file);
+    if (newProfilePicture != null) {
       final currenUserProfile = await getMyUserProfile();
       currenUserProfile!.profilePicture = newProfilePicture;
 
@@ -55,7 +53,7 @@ class UserProfileService {
     }
   }
 
-  static Future<TaskSnapshot?> _uploadFileToCloudStorage(File file) async {
+  static Future<String?> _uploadFileToCloudStorage(File file) async {
     final user = AuthService.user;
     if (user == null) return null;
 
