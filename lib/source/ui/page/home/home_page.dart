@@ -164,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                     const BannerAds(),
                     TitleOfList(title: context.localizations.exploreCategories),
                     _buildSearchProducts(
-                      searchingProducts: products ?? [],
+                      defaultAllProducts: products ?? [],
                     ),
                     TitleOfList(title: context.localizations.postForYou),
                     _buildForYouProducts(
@@ -182,10 +182,10 @@ class _HomePageState extends State<HomePage> {
 class _buildSearchProducts extends StatelessWidget {
   const _buildSearchProducts({
     super.key,
-    required this.searchingProducts,
+    required this.defaultAllProducts,
   });
 
-  final List<ProductModel> searchingProducts;
+  final List<ProductModel> defaultAllProducts;
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +196,7 @@ class _buildSearchProducts extends StatelessWidget {
           crossAxisCount: 4,
           mainAxisSpacing: 15.0,
           children: List.generate(listCategories.length, (index) {
-            List listPost = searchingProducts
+            List listPost = defaultAllProducts
                 .where((element) =>
                     element.category == listCategories[index].title)
                 .toList();

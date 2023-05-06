@@ -9,6 +9,7 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button_with_icon.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
 import 'package:goodwill/source/ui/page/product/widgets/select_color_widget.dart';
 import 'package:goodwill/source/ui/page/product/widgets/select_size_widget.dart';
@@ -49,6 +50,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     onPressed: () {
                       context.pop();
                     },
+                  ),
+                  Positioned(
+                    right: 0,
+                    child: PlatformIconButton(
+                      icon: const Icon(
+                        Icons.shopping_cart_outlined,
+                        color: ColorName.black,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        context.pushNamed(Routes.cartProduct);
+                      },
+                    ),
                   ),
                 ],
               ),

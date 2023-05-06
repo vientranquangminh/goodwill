@@ -34,6 +34,19 @@ class ProductService {
         collectionRef: collectionReference);
   }
 
+  static Future<List<ProductModel>?> getProductsWithCategory(
+      {String? category}) {
+    if (category == null) {
+      return getAllProducts();
+    }
+
+    final query =
+        _instance.collection("products").where("category", isEqualTo: category);
+
+    return _productModelRepository.getAllElementsFromCollectionQuery(
+        query: query);
+  }
+
   static Future<void> updateProduct(ProductModel productModel) {
     return _productModelRepository.update(productModel);
   }
