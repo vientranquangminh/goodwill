@@ -96,5 +96,6 @@
     "loginAccount": "Login Account",
     "email": "Email",
     "password": "Password",
-    "login": "Login"
+    "login": "Login",
+    "createTopic": "Create Topic"
 }

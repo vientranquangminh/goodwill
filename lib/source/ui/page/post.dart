@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/data/model/article_model.dart';
+import 'package:goodwill/source/service/article_service.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
-import 'package:goodwill/source/service/product_service.dart';
+import 'package:goodwill/source/ui/page/article/dummy/list_article.dart';
 import 'package:goodwill/source/util/file_helper.dart';
 
 class Post extends StatefulWidget {
@@ -26,19 +27,32 @@ class _PostState extends State<Post> {
     List<String> filePaths = [];
     for (var image in images) {
       var res = await CloudStorageService.uploadImage(image,
-          destination: FileHelper.getStorageProductImagePath(image));
+          destination: FileHelper.getStorageArticleImagePath(image));
       filePaths.add(await res?.ref.getDownloadURL() ?? '');
     }
 
     return filePaths;
   }
 
+  Future<String> _uploadSingleImageToStorage() async {
+    String filePath = "";
+    File image = images[0];
+
+    var res = await CloudStorageService.uploadImage(image,
+        destination: FileHelper.getStorageArticleImagePath(image));
+    return await res?.ref.getDownloadURL() ?? '';
+  }
+
   Future<void> _submit() async {
-    var myProduct = ProductModel.sample;
+    var myArticle = ArticleModel.sample;
 
-    myProduct.images = await _uploadImagesToStorage();
+    myArticle.image = await _uploadSingleImageToStorage();
 
-    ProductService.addProduct(myProduct);
+    ArticleService.addArticle(myArticle);
+  }
+
+  void _uploadSampleArticles() {
+    listArticles.forEach(ArticleService.addArticle);
   }
 
   @override
@@ -47,8 +61,10 @@ class _PostState extends State<Post> {
       child: Column(
         children: [
           TextButton(
-            onPressed: () {},
-            child: const Text('Test'),
+            onPressed: () {
+              _uploadSampleArticles();
+            },
+            child: const Text('Upload sample articles'),
           ),
           TextButton(
             onPressed: () {

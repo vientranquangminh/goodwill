@@ -32,6 +32,14 @@ class FileHelper {
     return dest;
   }
 
+  static String getStorageArticleImagePath(File file, {String? userEmail}) {
+    userEmail ??= AuthService.user?.email;
+    String fileName = p.basename(file.path);
+    String dest = 'images/users/$userEmail/articles/$fileName';
+
+    return dest;
+  }
+
   static String getFileExtension(File file) {
     return p.extension(file.path);
   }

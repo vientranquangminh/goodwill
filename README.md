@@ -23,3 +23,7 @@ Clone the repository
 
 ### Run
 - click run button or use this command `flutter run lib/main.dart`
+
+## Coding: 
+- Auto gen images, fonts, svgs, color(xml format): 
+    - `flutter pub run build_runner build --delete-conflicting-outputs`.
