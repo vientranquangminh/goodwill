@@ -1,14 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_toast/app_toast.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
+import 'package:intl/intl.dart';
 
 import 'components/edit_day_of_birth_admin.dart';
 import 'components/edit_gender.dart';
 
 class EditUserInformation extends StatefulWidget {
-  const EditUserInformation({Key? key, required this.userId}) : super(key: key);
-  final String userId;
+  const EditUserInformation({Key? key, required this.userProfile})
+      : super(key: key);
+  final UserProfile userProfile;
 
   @override
   State<EditUserInformation> createState() => _EditUserInformationState();
@@ -57,7 +63,8 @@ class _EditUserInformationState extends State<EditUserInformation> {
             children: [
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: _nameController,
+                controller: _nameController
+                  ..text = widget.userProfile.fullName ?? '',
                 decoration: InputDecoration(
                     hintText: context.localizations.fullName,
                     prefixIcon: const Icon(
@@ -79,7 +86,8 @@ class _EditUserInformationState extends State<EditUserInformation> {
               const SizedBox(height: 10),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: _nickNameController,
+                controller: _nickNameController
+                  ..text = widget.userProfile.nickName ?? '',
                 decoration: InputDecoration(
                     hintText: context.localizations.nickname,
                     prefixIcon: const Icon(
@@ -100,7 +108,8 @@ class _EditUserInformationState extends State<EditUserInformation> {
               ),
               const SizedBox(height: 10),
               TextFormField(
-                controller: _phoneNumberController,
+                controller: _phoneNumberController
+                  ..text = widget.userProfile.phoneNumber ?? '',
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -131,13 +140,13 @@ class _EditUserInformationState extends State<EditUserInformation> {
               const SizedBox(height: 10),
               EditDateOfBirthAdmin(
                 dateInput: _dateInputController,
-                date: '',
+                date: widget.userProfile.dateOfBirth.toString(),
                 // snapshot.data?.get('dateOfBirth'),
               ),
               const SizedBox(height: 10),
               EditGender(
                 getText: (value) => _getTextGender(value),
-                gender: 'Male',
+                gender: widget.userProfile.gender ?? 'Male',
               ),
               const SizedBox(height: 10),
             ],
@@ -153,6 +162,25 @@ class _EditUserInformationState extends State<EditUserInformation> {
                 buttonColor: Colors.black,
                 customFunction: () {
                   if (_formKey.currentState!.validate()) {
+                    String fullName = _nameController.text;
+                    String nickName = _nickNameController.text;
+                    DateTime dob = DateFormat('yyyy-MM-dd')
+                        .parse(_dateInputController.text);
+                    String gender = textGender ?? 'Male';
+                    String phoneNumber = _phoneNumberController.text;
+
+                    UserProfile up = UserProfile(
+                      id: widget.userProfile.id,
+                      fullName: fullName,
+                      nickName: nickName,
+                      dateOfBirth: dob,
+                      gender: gender,
+                      phoneNumber: phoneNumber,
+                    );
+
+                    log(up.toString());
+
+                    UserProfileService.updateUserProfile(up);
                     AppToasts.showToast(
                         context: context, title: 'Update successfully');
                     Navigator.pop(context);

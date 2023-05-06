@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
@@ -62,7 +63,8 @@ class UserPage extends StatelessWidget {
                                   Text(listUser[i].dateOfBirth.toString())),
                               DataCell(Text(listUser[i].phoneNumber ?? '')),
                               DataCell(Text(listUser[i].gender ?? '')),
-                              DataCell(IconButton(
+                              DataCell(PlatformIconButton(
+                                padding: EdgeInsets.zero,
                                 icon: const Icon(Icons.edit),
                                 onPressed: () {
                                   showDialog<String>(
@@ -71,7 +73,7 @@ class UserPage extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 20),
                                       child: EditUserInformation(
-                                        userId: listUser[i].id,
+                                        userProfile: listUser[i],
                                       ),
                                     ),
                                   );
