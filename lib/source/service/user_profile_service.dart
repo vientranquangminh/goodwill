@@ -69,4 +69,8 @@ class UserProfileService {
     }
     return null;
   }
+
+  static Stream<List<UserProfile>> getAllUserProfiles(){
+    return _userProfileRepository.getAllUserProfiles();
+  }
 }

@@ -9,9 +9,6 @@ import 'package:goodwill/source/ui/page/profile/profile_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/model/user_profile.dart';
-
-import '../page/article/article_screen.dart';
-
 import '../page/article/article_screen.dart';
 
 class MyPageController extends StatefulWidget {

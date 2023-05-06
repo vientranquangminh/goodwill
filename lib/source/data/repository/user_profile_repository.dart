@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 
 class UserProfileRepository {
-  CollectionReference userProfilesRef =
+  CollectionReference<Map<String, dynamic>> userProfilesRef =
       FirebaseFirestore.instance.collection('userProfiles');
 
   void _debugPrint(String s) {
@@ -74,5 +74,12 @@ class UserProfileRepository {
         toFirestore: (UserProfile userProfile, _) => userProfile.toMap());
     final docSnaps = docRef.snapshots();
     return docSnaps.map((docSnapshot) => docSnapshot.data());
+  }
+
+  Stream<List<UserProfile>> getAllUserProfiles(){
+    return userProfilesRef.snapshots().map(
+        (snapshot) =>
+            snapshot.docs.map((doc) => UserProfile.fromMap(doc.data())).toList(),);
+
   }
 }
