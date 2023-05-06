@@ -51,6 +51,8 @@
     "updateSuccessfully": "Update successfully",
     "updateFailed": "Update failed",
     "update": "Update",
+    "details": "Details",
+    "upload": "Upload",
     "address": "Address",
     "article": "Article",
     "createArticle": "Create Article",
