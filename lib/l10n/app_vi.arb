@@ -83,5 +83,7 @@
     "loginAccount": "Đăng nhập vào tài khoản",
     "email": "Email",
     "password": "Mật khẩu",
-    "login": "Đăng nhập"
+    "login": "Đăng nhập",
+    "upload": "Tải lên",
+    "details": "Chi tiết"
 }

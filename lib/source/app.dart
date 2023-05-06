@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/gen/fonts.gen.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/profile/change_language/language_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +23,14 @@ class App extends StatelessWidget {
           providers: [
             ChangeNotifierProvider(
               create: (context) => LanguageProvider(),
+            ),
+            StreamProvider<List<UserProfile>>(
+              create: (context) => UserProfileService.getAllUserProfiles(),
+              initialData: const [],
+              catchError: (context, error) {
+                debugPrint('Error fetching articles: $error');
+                return [];
+              },
             )
           ],
           builder: (context, child) {

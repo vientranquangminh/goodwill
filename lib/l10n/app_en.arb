@@ -99,5 +99,7 @@
     "email": "Email",
     "password": "Password",
     "login": "Login",
-    "createTopic": "Create Topic"
+    "createTopic": "Create Topic",
+    "upload": "Upload",
+    "details": "Detail"
 }
