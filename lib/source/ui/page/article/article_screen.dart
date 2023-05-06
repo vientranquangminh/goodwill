@@ -17,12 +17,11 @@ class ArticlePage extends StatefulWidget {
 
 class _ArticlePageState extends State<ArticlePage>
     with TickerProviderStateMixin {
-  List<String> item = ['donate', 'buy'];
-  List<int> selectedIndices = [];
-  String type = '';
+  List<String> item = ['', 'donate', 'buy'];
+  List<int> selectedIndices = [0];
   List<ArticleModel> filterArticlesBySelectedIndices(
       List<ArticleModel> articles, List<int> selectedIndices) {
-    if (selectedIndices.isEmpty) {
+    if (selectedIndices.contains(0)) {
       return articles;
     }
     List<ArticleModel> filteredArticles = [];
@@ -41,6 +40,7 @@ class _ArticlePageState extends State<ArticlePage>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     List<String> types = [
+      context.localizations.all,
       context.localizations.donate,
       context.localizations.buy
     ];
@@ -50,7 +50,7 @@ class _ArticlePageState extends State<ArticlePage>
         elevation: 0.0,
         leading: Assets.svgs.mainIcon.svg(),
         title: Text(
-          context.localizations.article,
+          context.localizations.topic,
           style: const TextStyle(color: Colors.black, fontSize: 22),
         ),
       ),
@@ -65,7 +65,7 @@ class _ArticlePageState extends State<ArticlePage>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.localizations.article,
+                  context.localizations.topic,
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 17,
@@ -80,7 +80,7 @@ class _ArticlePageState extends State<ArticlePage>
                       ),
                     ),
                     child: Text(
-                      context.localizations.createArticle,
+                      context.localizations.createTopic,
                       style: const TextStyle(fontSize: 16, color: Colors.white),
                     )),
               ],
@@ -98,13 +98,17 @@ class _ArticlePageState extends State<ArticlePage>
                     return GestureDetector(
                       onTap: () {
                         setState(() {
-                          if (selectedIndices.contains(index)) {
+                          if (index == 0) {
+                            selectedIndices = [0];
+                          } else if (selectedIndices.contains(index)) {
                             selectedIndices.remove(index);
+                            if (selectedIndices.isEmpty) {
+                              selectedIndices = [0];
+                            }
                           } else {
-                            selectedIndices.add(index);
+                            selectedIndices = [index];
                           }
                         });
-                        print(selectedIndices);
                       },
                       child: CustomTopicContainer(
                         hour: types[index],
