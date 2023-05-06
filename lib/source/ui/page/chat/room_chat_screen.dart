@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/ui/page/chat/widgets/input_message.dart';
 
-import '../../../models/chat_model/message_model.dart';
+import '../../../data/model/message_model.dart';
 import '../../../models/chat_model/user_model.dart';
 
 class RoomChatScreen extends StatefulWidget {

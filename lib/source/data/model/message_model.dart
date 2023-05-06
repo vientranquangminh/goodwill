@@ -1,4 +1,4 @@
-import './user_model.dart';
+import '../../models/chat_model/user_model.dart';
 
 class Message {
   final User sender;
@@ -103,12 +103,14 @@ final List<Message> messages = [
   Message(
     sender: drake,
     time: '16:02',
-    text: "Recently i often feel unwell. I also sometimes experience pain in the legs, and I don't know why. Do you know anything doc?",
+    text:
+        "Recently i often feel unwell. I also sometimes experience pain in the legs, and I don't know why. Do you know anything doc?",
   ),
   Message(
     sender: currentUser,
     time: '16:02',
-    text: "Recently i often feel unwell. I also sometimes experience pain in the legs, and I don't know why. Do you know anything doc? 😭",
+    text:
+        "Recently i often feel unwell. I also sometimes experience pain in the legs, and I don't know why. Do you know anything doc? 😭",
   ),
   Message(
     sender: drake,
