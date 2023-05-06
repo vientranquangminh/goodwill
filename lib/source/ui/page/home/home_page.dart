@@ -196,7 +196,7 @@ class _buildSearchProducts extends StatelessWidget {
           crossAxisCount: 4,
           mainAxisSpacing: 15.0,
           children: List.generate(listCategories.length, (index) {
-            List listPost = defaultAllProducts!
+            List listPost = defaultAllProducts
                 .where((element) =>
                     element.category == listCategories[index].title)
                 .toList();

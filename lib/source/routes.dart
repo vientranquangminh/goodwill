@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/ui/admin/login_screen.dart';
 import 'package:goodwill/source/ui/components/page_controller.dart';
 import 'package:goodwill/source/ui/page/category/category_page.dart';
 import 'package:goodwill/source/ui/page/chat/chat_screen.dart';
@@ -33,6 +34,7 @@ class Routes {
   static const editProfile = '/edit-profile';
   static const notification = '/notification';
   static const security = '/security';
+  static const adminLogin = '/admin-login-page';
 
   static pushNamed() {}
   static const changeLanguage = '/change-language';
@@ -54,5 +56,6 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.editProfile: (context) => const EditProfilePage(),
   Routes.notification: (context) => const NotificationPage(),
   Routes.security: (context) => const SecurityPage(),
-  Routes.changeLanguage: (context) => const ChangePasswordPage()
+  Routes.changeLanguage: (context) => const ChangePasswordPage(),
+  Routes.adminLogin:(context) => const LoginAdminScreen()
 };
