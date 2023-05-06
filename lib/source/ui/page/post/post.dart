@@ -1,16 +1,20 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/post/widgets/rounded_container.dart';
+import 'package:goodwill/source/util/constant.dart';
 import 'package:goodwill/source/util/file_helper.dart';
 import 'package:intl/intl.dart';
 
@@ -48,9 +52,9 @@ class _PostState extends State<Post> {
   Future<List<String>> _uploadImagesToStorage() async {
     List<String> filePaths = [];
     for (var image in images) {
-      var res = await CloudStorageService.uploadImage(image,
+      var imagePath = await CloudStorageService.uploadImage(image,
           destination: FileHelper.getStorageProductImagePath(image));
-      filePaths.add(await res?.ref.getDownloadURL() ?? '');
+      filePaths.add(imagePath ?? Constant.SAMPLE_AVATAR_URL);
     }
 
     return filePaths;
@@ -262,7 +266,7 @@ class _PostState extends State<Post> {
                           });
                         },
                         child: RoundedContainer(
-                          padding: 10.w,
+                          padding: 6.w,
                           title: selections[index],
                           color: selectedIndex == index
                               ? ColorName.black
@@ -336,37 +340,24 @@ class _PostState extends State<Post> {
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
-                  // inputFormatters: [
-                  //   ThousandsSeparatorInputFormatter(),
-                  // ],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    ThousandsSeparatorInputFormatter(),
+                  ],
                   controller: _PriceController,
                   validator: (value) {
-                    for (int i = 0; i < value!.length; i++) {
-                      if (value[i] == ' ') {
-                        return 'Please enter your Price';
-                      }
-                    }
-                    bool _isNumeric(String result) {
-                      if (result == null) {
-                        return false;
-                      }
-                      return int.tryParse(result) != null;
-                    }
-
-                    // if (value?.isEmpty ?? true) {
-                    //   return 'Please enter your Price';
-                    // }
-                    if (_isNumeric(value!) == false) {
-                      return 'Please enter your Price';
-                    } else {
-                      return null;
-                    }
+                    if (value == null) return 'Please enter your price';
+                    final valueRemovingComma = value.trim().replaceAll(',', '');
+                    return int.tryParse(valueRemovingComma) == null
+                        ? 'Please enter number only'
+                        : null;
                   },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(16)),
                     ),
-                    labelText: 'Example: 30000',
+                    labelText: 'Example: 30,000 đ',
+                    suffixText: 'đ',
                   ),
                 ),
                 const SizedBox(
@@ -440,22 +431,55 @@ class _PostState extends State<Post> {
                           minimumSize: const Size(80, 40),
                           primary: Colors.black,
                           onPrimary: Colors.white),
-                      onPressed: () {
-                        debugPrint(dropdownValue);
-                        debugPrint(_TitleController.text);
-                        debugPrint(_PriceController.text);
-                        debugPrint(_DescriptionController.text);
-                        debugPrint(_AddressController.text);
-                        debugPrint('-------------------------');
-                        if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('oke')),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('not oke')),
-                          );
+                      onPressed: () async {
+                        // debugPrint(dropdownValue);
+                        // debugPrint(_TitleController.text);
+                        // debugPrint(_PriceController.text);
+                        // debugPrint(_DescriptionController.text);
+                        // debugPrint(_AddressController.text);
+                        // debugPrint('-------------------------');
+                        if (!_formKey.currentState!.validate() ||
+                            images.isEmpty ||
+                            images.length > 6) {
+                          Fluttertoast.showToast(
+                              msg: 'Please enter correct input');
+                          return;
                         }
+                        String? category = dropdownValue;
+                        String? title = _TitleController.text;
+                        int? price = int.parse(
+                            _PriceController.text.replaceAll(',', ''));
+                        String? description = _DescriptionController.text;
+                        String? location = _AddressController.text;
+                        List<String>? imagesPaths = [];
+
+                        for (var image in images) {
+                          final imagePath =
+                              await CloudStorageService.uploadImage(image,
+                                  destination:
+                                      FileHelper.getStorageProductImagePath(
+                                          image));
+                          imagesPaths
+                              .add(imagePath ?? Constant.SAMPLE_AVATAR_URL);
+                        }
+
+                        if (imagesPaths.isEmpty) {
+                          Fluttertoast.showToast(msg: "Fail to upload images");
+                        }
+
+                        ProductModel productModel = ProductModel(
+                          title: title,
+                          ownerId: AuthService.userId,
+                          category: category,
+                          createdAt: DateTime.now(),
+                          price: price,
+                          description: description,
+                          location: location,
+                          images: imagesPaths,
+                          status: OwnProductStatus.SHOWING,
+                        );
+
+                        ProductService.addProduct(productModel);
                       },
                       child: const Text('Post'),
                     ),

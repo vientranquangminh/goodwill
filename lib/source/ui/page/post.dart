@@ -29,8 +29,8 @@ class _PostState extends State<Post> {
     List<String> filePaths = [];
     for (var image in images) {
       var res = await CloudStorageService.uploadImage(image,
-          destination: FileHelper.getStorageArticleImagePath(image));
-      filePaths.add(await res?.ref.getDownloadURL() ?? '');
+          destination: FileHelper.getStorageProductImagePath(image));
+      filePaths.add(res ?? '');
     }
 
     return filePaths;
@@ -42,7 +42,7 @@ class _PostState extends State<Post> {
 
     var res = await CloudStorageService.uploadImage(image,
         destination: FileHelper.getStorageArticleImagePath(image));
-    return await res?.ref.getDownloadURL() ?? '';
+    return await res ?? '';
   }
 
   Future<void> _submit() async {
