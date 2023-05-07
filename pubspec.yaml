@@ -84,6 +84,7 @@ flutter:
     - assets/images/message_screen/
     - assets/images/manage_post/
     - assets/images/change_language/
+    - assets/images/wallet/
 
   fonts:
     - family: Work Sans

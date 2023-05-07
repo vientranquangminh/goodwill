@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
+import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/manage_post/showing_tabbar_view.dart';
@@ -155,7 +157,9 @@ class UserProfileWidget extends StatelessWidget {
                 ],
               ),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(Routes.connectWallet);
+                },
                 child: const Text('Connect wallet'),
               ),
             ],

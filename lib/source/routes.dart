@@ -4,6 +4,7 @@ import 'package:goodwill/source/ui/components/page_controller.dart';
 import 'package:goodwill/source/ui/page/cart_product/cart_product.dart';
 import 'package:goodwill/source/ui/page/category/category_page.dart';
 import 'package:goodwill/source/ui/page/chat/chat_screen.dart';
+import 'package:goodwill/source/ui/page/connect_wallet/connect_use_phonenumber.dart';
 import 'package:goodwill/source/ui/page/post/post.dart';
 import 'package:goodwill/source/ui/page/product/product_details_page.dart';
 import 'package:goodwill/source/ui/page/profile.dart';
@@ -18,6 +19,7 @@ import 'package:goodwill/source/ui/start_app.dart';
 import 'package:goodwill/source/ui/page/chat/room_chat_screen.dart';
 
 import 'ui/page/article/create_topic/create_topic.dart';
+import 'ui/page/connect_wallet/connect_wallet.dart';
 import 'ui/page/search/search_product.dart';
 
 class Routes {
@@ -39,6 +41,8 @@ class Routes {
   static const cartProduct = '/cart-product';
   static const adminLogin = '/admin-login-page';
   static const createTopic = '/create-topic';
+  static const connectWallet = '/connect-wallet';
+  static const connectWalletUsePhoneNumber = '/connect-wallet-use-phone-number';
 
   static pushNamed() {}
   static const changeLanguage = '/change-language';
@@ -63,5 +67,8 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.changeLanguage: (context) => const ChangePasswordPage(),
   Routes.cartProduct: (context) => const CartProduct(),
   Routes.adminLogin: (context) => const LoginAdminScreen(),
-  Routes.createTopic: (context) => const CreateTopic()
+  Routes.createTopic: (context) => const CreateTopic(),
+  Routes.connectWallet: (context) => const ConnectWallet(),
+  Routes.connectWalletUsePhoneNumber: (context) =>
+      const ConnectWalletUsePhoneNumber()
 };
