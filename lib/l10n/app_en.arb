@@ -99,8 +99,13 @@
     "email": "Email",
     "password": "Password",
     "login": "Login",
-    "createTopic": "Create Topic",
+    "createNewTopic": "Create New Topic",
     "upload": "Upload",
     "details": "Detail",
-    "owner": "Owner"
+    "owner": "Owner",
+    "yourTopicTitle": "Your Topic Title",
+    "type": "Type",
+    "image": "Image",
+    "content": "Content",
+    "upload": "Upload"
 }

@@ -2,11 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goodwill/gen/colors.gen.dart';
-import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/data/model/article_model.dart';
+import 'package:goodwill/source/service/article_service.dart';
+import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/ui/page/article/custom_topic/custom_topic.dart';
 import 'package:goodwill/source/util/file_helper.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:goodwill/source/service/cloud_storage_service.dart';
 
 import 'component/container_content.dart';
 
@@ -30,7 +34,6 @@ class _CreateTopicState extends State<CreateTopic> {
 
   final TextEditingController _titleTopic = TextEditingController();
   final TextEditingController _content = TextEditingController();
-  final TextEditingController _imageUrl = TextEditingController();
   File? image;
   String? getTextTopic;
   // final type = ValueNotifier<String?>(null);
@@ -40,9 +43,9 @@ class _CreateTopicState extends State<CreateTopic> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Create New Topic',
-            style: TextStyle(color: Colors.black, fontSize: 20),
+          title: Text(
+            context.localizations.createNewTopic,
+            style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
           backgroundColor: Colors.transparent,
           leading: IconButton(
@@ -58,9 +61,9 @@ class _CreateTopicState extends State<CreateTopic> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Topic Title',
-                  style: TextStyle(
+                Text(
+                  context.localizations.topicTitle,
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 17,
                       fontWeight: FontWeight.w500),
@@ -78,16 +81,16 @@ class _CreateTopicState extends State<CreateTopic> {
                       ),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16)),
-                      hintText: 'Your Topic Title',
+                      hintText: context.localizations.yourTopicTitle,
                       hintStyle: const TextStyle(
                           color: Colors.grey,
                           fontSize: 15,
                           fontWeight: FontWeight.w400)),
                 ),
                 const SizedBox(height: 30),
-                const Text(
-                  'Type',
-                  style: TextStyle(
+                Text(
+                  context.localizations.type,
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 17,
                       fontWeight: FontWeight.w500),
@@ -119,9 +122,9 @@ class _CreateTopicState extends State<CreateTopic> {
                           );
                         })),
                 const SizedBox(height: 25),
-                const Text(
-                  'Image',
-                  style: TextStyle(
+                Text(
+                  context.localizations.image,
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 17,
                       fontWeight: FontWeight.w500),
@@ -148,7 +151,7 @@ class _CreateTopicState extends State<CreateTopic> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'Images: ${images.length}/6',
+                              '${context.localizations.image}: ',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: (images.isEmpty || images.length > 6)
@@ -230,9 +233,9 @@ class _CreateTopicState extends State<CreateTopic> {
                     ],
                   ),
                 ),
-                const Text(
-                  'Content',
-                  style: TextStyle(
+                Text(
+                  context.localizations.content,
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 17,
                       fontWeight: FontWeight.w500),
@@ -251,9 +254,32 @@ class _CreateTopicState extends State<CreateTopic> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100.0)),
                       fillColor: const Color.fromARGB(255, 0, 0, 0),
-                      onPressed: () async {},
-                      child: const Text("Post",
-                          style: TextStyle(
+                      onPressed: () async {
+                        if (images.isEmpty) {
+                          Fluttertoast.showToast(
+                              msg: 'Please choose one picture');
+                          return;
+                        }
+                        String? type = item[selectedIndex].toLowerCase();
+                        String? title = _titleTopic.text;
+                        String? content = _content.text;
+                        File image = images[0];
+
+                        var res = await CloudStorageService.uploadImage(image,
+                            destination:
+                                FileHelper.getStorageArticleImagePath(image));
+                        ArticleModel articleModel = ArticleModel(
+                            title: title,
+                            ownerId: AuthService.userId,
+                            type: type,
+                            createdAt: DateTime.now(),
+                            image: res,
+                            content: content);
+
+                        ArticleService.addArticle(articleModel);
+                      },
+                      child: Text(context.localizations.upload,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
