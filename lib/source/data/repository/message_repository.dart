@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/widgets.dart';
 import 'package:goodwill/source/data/model/message_model2.dart';
 import 'package:goodwill/source/data/repository/basic_repository.dart';
 
@@ -39,9 +40,10 @@ class MessageRepository extends BasicRepository<MessageModel2> {
     // if members field not created, then created
     DocumentReference chatRoomRef = _chatRoomsCollectionRef.doc(chatRoomId);
     chatRoomRef.get().then((DocumentSnapshot documentSnapshot) {
-      final chatRoom = documentSnapshot.data() as Map<String, dynamic>;
-      if (chatRoom['members'] == null) {
-        chatRoomRef.update({
+      var chatRoom = documentSnapshot.data();
+      debugPrint(chatRoom.toString());
+      if (chatRoom == null) {
+        chatRoomRef.set({
           'members': message.ids,
         });
       }
@@ -110,5 +112,58 @@ class MessageRepository extends BasicRepository<MessageModel2> {
   Future<void> update(MessageModel2 element) {
     return updateWithDocRefs(element,
         docRefs: _getDocumentRefs(getChatRoomId(element.ids), element.id!));
+  }
+
+  Future<MessageModel2?> getNewestMessageFromCollectionRef(
+      {required CollectionReference collectionRef}) async {
+    final converterCollectionRef = collectionRef
+        .orderBy("createdAt")
+        .withConverter(
+            fromFirestore: fromFirestore(), toFirestore: (e, _) => e.toMap());
+    final collectionSnap = await converterCollectionRef.get();
+    final docs = collectionSnap.docs;
+    if (docs.isEmpty) return null;
+    final element = docs.last.data();
+
+    debugPrint(element.toString());
+    return element;
+  }
+
+  List<String>? _chatRoomIdsFromQuerySnapshot(
+      QuerySnapshot<Object?> querySnapshot) {
+    return querySnapshot.docs
+        .map((QueryDocumentSnapshot<Object?> documentSnapshot) {
+      if (documentSnapshot.exists) {
+        return documentSnapshot.id;
+      }
+      return '';
+    }).toList();
+  }
+
+  @override
+  Stream<List<MessageModel2>?> getStreamRecentChatRoomIds(
+      {required String yourId, int limit = 30}) {
+    final chatRoomDocRefs = _chatRoomsCollectionRef
+        .where("members", arrayContains: yourId)
+        .limit(limit);
+    ;
+    final Stream<List<String>?> recentChatRoomIdsStream =
+        chatRoomDocRefs.snapshots().map(_chatRoomIdsFromQuerySnapshot);
+
+    return recentChatRoomIdsStream.asyncMap((chatRoomIds) async {
+      if (chatRoomIds == null) return null;
+      List<MessageModel2> res = [];
+      for (var chatRoomId in chatRoomIds) {
+        final value = await getNewestMessageFromCollectionRef(
+            collectionRef: getMessagesCollectionRef(chatRoomId));
+        res.add(value ?? MessageModel2());
+      }
+      res.sort(((a, b) {
+        int mA = a.createdAt?.millisecondsSinceEpoch ?? 0;
+        int mB = b.createdAt?.millisecondsSinceEpoch ?? 0;
+        return mB - mA;
+      }));
+      return res;
+    });
   }
 }

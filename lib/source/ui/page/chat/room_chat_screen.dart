@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/ui/page/chat/widgets/input_message.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/model/message_model.dart';
-import '../../../models/chat_model/user_model.dart';
 
 class RoomChatScreen extends StatefulWidget {
   const RoomChatScreen({Key? key}) : super(key: key);
@@ -16,14 +16,17 @@ class RoomChatScreen extends StatefulWidget {
 class _RoomChatScreenState extends State<RoomChatScreen> {
   @override
   Widget build(BuildContext context) {
-    final User user = context.getParam() as User;
+    final String userName = context.getParam() as String;
+
+    final String? chatRoomId = context.watch<String?>();
+
     return ScreenUtilInit(
       designSize: const Size(428, 882),
       builder: (context, child) {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              user.name.toString(),
+              userName,
               style: const TextStyle(color: Colors.black, fontSize: 20),
             ),
             backgroundColor: Colors.white,
@@ -50,7 +53,8 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                           itemCount: messages.length,
                           itemBuilder: (context, int index) {
                             final message = messages[index];
-                            bool isMe = message.sender.id == currentUser.id;
+                            bool isMe = true;
+                            // bool isMe = message.sender.id == currentUser.id;
                             return Container(
                               margin: const EdgeInsets.only(top: 10).r,
                               child: Column(

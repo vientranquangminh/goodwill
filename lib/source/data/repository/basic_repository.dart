@@ -94,6 +94,13 @@ abstract class BasicRepository<E extends BasicModel> {
     return stream;
   }
 
+  Future<E?> getSingleElementsFromCollectionQuery(
+      {required Query query}) async {
+    final QuerySnapshot querySnapshot = await query.get();
+
+    return fromMap(querySnapshot.docs.first.data() as Map<String, dynamic>);
+  }
+
   Future<void> updateWithDocRefs(E element,
       {required List<DocumentReference> docRefs}) async {
     for (var docRef in docRefs) {

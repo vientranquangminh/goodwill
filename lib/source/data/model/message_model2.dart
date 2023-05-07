@@ -2,15 +2,20 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:goodwill/source/data/model/basic_model.dart';
 
 class MessageModel2 extends BasicModel {
   String? senderId;
   String? targetUserId;
-  String? createdAt;
+  DateTime? createdAt;
   String? text;
 
-  List<String?> get ids => [senderId, targetUserId];
+  List<String?> get ids {
+    final ls = [senderId, targetUserId];
+    ls.sort();
+    return ls;
+  }
 
   MessageModel2({
     String? id,
@@ -21,14 +26,12 @@ class MessageModel2 extends BasicModel {
   }) : super(id: id);
 
   MessageModel2 copyWith({
-    String? id,
     String? senderId,
     String? targetUserId,
-    String? createdAt,
+    DateTime? createdAt,
     String? text,
   }) {
     return MessageModel2(
-      id: id,
       senderId: senderId ?? this.senderId,
       targetUserId: targetUserId ?? this.targetUserId,
       createdAt: createdAt ?? this.createdAt,
@@ -42,7 +45,7 @@ class MessageModel2 extends BasicModel {
       'id': id,
       'senderId': senderId,
       'targetUserId': targetUserId,
-      'createdAt': createdAt,
+      'createdAt': createdAt?.millisecondsSinceEpoch,
       'text': text,
     };
   }
@@ -53,7 +56,9 @@ class MessageModel2 extends BasicModel {
       senderId: map['senderId'] != null ? map['senderId'] as String : null,
       targetUserId:
           map['targetUserId'] != null ? map['targetUserId'] as String : null,
-      createdAt: map['createdAt'] != null ? map['createdAt'] as String : null,
+      createdAt: map['createdAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
+          : null,
       text: map['text'] != null ? map['text'] as String : null,
     );
   }
