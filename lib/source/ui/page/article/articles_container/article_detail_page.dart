@@ -27,7 +27,7 @@ class ArticleDetailPage extends StatelessWidget {
           color: Colors.black, // Set the color you want here
         ),
         title: Text(
-          context.localizations.article,
+          context.localizations.topic,
           style: const TextStyle(color: Colors.black, fontSize: 22),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/article_model.dart';
+import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/article_service.dart';
 import 'package:goodwill/source/ui/page/article/articles_container/all_articles/my_list_articles.dart';
 import 'package:goodwill/source/ui/page/article/custom_topic/custom_topic.dart';
@@ -72,7 +73,9 @@ class _ArticlePageState extends State<ArticlePage>
                       fontWeight: FontWeight.w500),
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.pushNamed(Routes.createTopic);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       shape: RoundedRectangleBorder(
