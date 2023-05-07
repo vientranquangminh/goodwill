@@ -8,10 +8,9 @@ class DashBoardScreen extends StatelessWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
   static List<charts.Series<BarModel, String>> _createChart() {
     final data = [
-      BarModel(title: 'Account Admin', value: 2, colors: Colors.black),
-      BarModel(title: 'Account Doctor', value: 20, colors: Colors.black),
-      BarModel(title: 'Account Patient', value: 50, colors: Colors.black),
-      BarModel(title: 'Article', value: 40, colors: Colors.black),
+      BarModel(title: 'User Account', value: 20, colors: Colors.black),
+      BarModel(title: 'Product', value: 50, colors: Colors.black),
+      BarModel(title: 'Topic', value: 40, colors: Colors.black),
     ];
     return [
       charts.Series<BarModel, String>(
@@ -48,11 +47,6 @@ class DashBoardScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ContainerDashBoard(
-                        title: context.localizations.adminAccount,
-                        number: '2',
-                        icon: 'assets/svgs/user_admin.svg',
-                      ),
                       ContainerDashBoard(
                         title: context.localizations.userAccount,
                         number: '50',
@@ -114,7 +108,8 @@ class DashBoardScreen extends StatelessWidget {
                           label: Expanded(
                             child: Text(
                               context.localizations.id,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -122,7 +117,8 @@ class DashBoardScreen extends StatelessWidget {
                           label: Expanded(
                             child: Text(
                               context.localizations.product,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -130,7 +126,8 @@ class DashBoardScreen extends StatelessWidget {
                           label: Expanded(
                             child: Text(
                               context.localizations.createAt,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -138,7 +135,8 @@ class DashBoardScreen extends StatelessWidget {
                           label: Expanded(
                             child: Text(
                               context.localizations.user,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -146,7 +144,8 @@ class DashBoardScreen extends StatelessWidget {
                           label: Expanded(
                             child: Text(
                               context.localizations.price,
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),

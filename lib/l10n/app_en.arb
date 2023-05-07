@@ -101,5 +101,6 @@
     "login": "Login",
     "createTopic": "Create Topic",
     "upload": "Upload",
-    "details": "Detail"
+    "details": "Detail",
+    "owner": "Owner"
 }

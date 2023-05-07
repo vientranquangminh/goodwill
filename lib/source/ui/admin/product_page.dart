@@ -69,31 +69,38 @@ class ProductPage extends StatelessWidget {
                       child: DataTable(columns: <DataColumn>[
                         DataColumn(
                           label: Text(context.localizations.id,
-                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         DataColumn(
                           label: Text(context.localizations.productTitle,
-                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         DataColumn(
                           label: Text(context.localizations.category,
-                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         DataColumn(
                           label: Text(context.localizations.createAt,
-                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         DataColumn(
-                          label: Text(context.localizations.user,
-                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                          label: Text(context.localizations.owner,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         DataColumn(
                           label: Text(context.localizations.phoneNumber,
-                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         DataColumn(
                           label: Text(context.localizations.price,
-                              style: const TextStyle(fontWeight: FontWeight.bold)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         const DataColumn(
                           label: Text(''),
