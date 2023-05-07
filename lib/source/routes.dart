@@ -17,6 +17,7 @@ import 'package:goodwill/source/ui/page/sign_in/sign_up.dart';
 import 'package:goodwill/source/ui/start_app.dart';
 import 'package:goodwill/source/ui/page/chat/room_chat_screen.dart';
 
+import 'ui/page/article/create_topic/create_topic.dart';
 import 'ui/page/search/search_product.dart';
 
 class Routes {
@@ -37,6 +38,7 @@ class Routes {
   static const security = '/security';
   static const cartProduct = '/cart-product';
   static const adminLogin = '/admin-login-page';
+  static const createTopic = '/create-topic';
 
   static pushNamed() {}
   static const changeLanguage = '/change-language';
@@ -60,5 +62,6 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.security: (context) => const SecurityPage(),
   Routes.changeLanguage: (context) => const ChangePasswordPage(),
   Routes.cartProduct: (context) => const CartProduct(),
-  Routes.adminLogin: (context) => const LoginAdminScreen()
+  Routes.adminLogin: (context) => const LoginAdminScreen(),
+  Routes.createTopic: (context) => const CreateTopic()
 };
