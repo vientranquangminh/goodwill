@@ -83,7 +83,7 @@ class _ArticlePageState extends State<ArticlePage>
                       ),
                     ),
                     child: Text(
-                      context.localizations.createTopic,
+                      context.localizations.createNewTopic,
                       style: const TextStyle(fontSize: 16, color: Colors.white),
                     )),
               ],
