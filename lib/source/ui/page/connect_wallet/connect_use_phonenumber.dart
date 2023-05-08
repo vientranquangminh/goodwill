@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:goodwill/source/ui/page/profile/widgets/edit_profile_widgets/textfield_custom.dart';
@@ -23,9 +21,9 @@ class ConnectWalletUsePhoneNumber extends StatelessWidget {
               Icons.arrow_back,
               color: Colors.black,
             )),
-        title: const Text(
-          "Connect Use Phone Number",
-          style: TextStyle(color: Colors.black),
+        title: Text(
+          context.localizations.connectUsePhoneNumber,
+          style: const TextStyle(color: Colors.black),
         ),
       ),
       body: SizedBox(
@@ -45,9 +43,10 @@ class ConnectWalletUsePhoneNumber extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    'Enter the phone number you used to register your MoMo account',
-                    style: TextStyle(
+                  Text(
+                    context.localizations
+                        .enterThePhoneNumberYouUsedToRegisterYourMoMoAccount,
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
@@ -80,7 +79,7 @@ class ConnectWalletUsePhoneNumber extends StatelessWidget {
               height: 50,
               width: MediaQuery.of(context).size.width,
               child: PrimaryButton(
-                text: 'Connect',
+                text: context.localizations.connect,
                 customFunction: () {},
                 textColor: Colors.white,
                 buttonColor: Colors.black,

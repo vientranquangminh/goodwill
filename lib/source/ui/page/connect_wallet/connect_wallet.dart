@@ -39,17 +39,18 @@ class ConnectWallet extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Connect to MoMo Wallet",
-                    style: TextStyle(
+                Text(context.localizations.connectToMoMoWallet,
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
                         fontWeight: FontWeight.bold)),
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                    'After successful Wallet Linking, your listing will allow buyers to pay online for your product via Goodwill',
-                    style: TextStyle(
+                Text(
+                    context.localizations
+                        .afterSuccessfulWalletLinkingYourListingWillAllowBuyersToPayOnlineForYourProductViaGoodwill,
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.normal)),
@@ -75,9 +76,9 @@ class ConnectWallet extends StatelessWidget {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text(
-                              'MoMo',
-                              style: TextStyle(
+                            Text(
+                              context.localizations.moMo,
+                              style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold),
@@ -85,7 +86,7 @@ class ConnectWallet extends StatelessWidget {
                           ],
                         ),
                         PrimaryButton(
-                          text: 'Connect',
+                          text: context.localizations.connect,
                           customFunction: () {
                             context
                                 .pushNamed(Routes.connectWalletUsePhoneNumber);
@@ -100,17 +101,17 @@ class ConnectWallet extends StatelessWidget {
                   ),
                 ),
                 RichText(
-                  text: const TextSpan(
-                    text: 'Note: ',
-                    style: TextStyle(
+                  text: TextSpan(
+                    text: "${context.localizations.note}:",
+                    style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
                     children: [
                       TextSpan(
-                        text:
-                            'You only get paid when you have verified enough information',
-                        style: TextStyle(
+                        text: context.localizations
+                            .youOnlyGetPaidWhenYouHaveVerifiedEnoughInformation,
+                        style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.normal,
                             fontSize: 14),
