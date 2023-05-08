@@ -9,9 +9,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
+import 'package:goodwill/source/data/model/message_dto.dart';
+import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
+import 'package:goodwill/source/service/message.service.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/post/widgets/rounded_container.dart';
 import 'package:goodwill/source/util/constant.dart';
@@ -438,6 +441,16 @@ class _PostState extends State<Post> {
                         // debugPrint(_DescriptionController.text);
                         // debugPrint(_AddressController.text);
                         // debugPrint('-------------------------');
+                        String msg = "Hien len di nao";
+                        String email = "duy@gmail.com";
+                        String targetId = "sEWy5SUe6NTWrJiuY9YsyhRrZWB2";
+                        MessageService.sendMessage(MessageModel(
+                          senderId: AuthService.userId,
+                          targetUserId: targetId,
+                          createdAt: DateTime.now(),
+                          text: msg,
+                        ));
+
                         if (!_formKey.currentState!.validate() ||
                             images.isEmpty ||
                             images.length > 6) {
