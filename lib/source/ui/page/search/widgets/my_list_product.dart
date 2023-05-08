@@ -39,7 +39,7 @@ class _MyListProductState extends State<MyListProduct> {
             return const NotFoundScreen();
           }
           return GridView.count(
-            childAspectRatio: 0.70,
+            childAspectRatio: 0.60,
             crossAxisSpacing: 15,
             shrinkWrap: true,
             crossAxisCount: 2,

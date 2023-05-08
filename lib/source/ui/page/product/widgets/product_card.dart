@@ -32,14 +32,14 @@ class _ProductCardState extends State<ProductCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
+                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.width / 2,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     color: Colors.grey.shade300),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Image(
-                    image: CachedNetworkImageProvider(_imageUrl),
-                  ),
+                child: Image(
+                  image: CachedNetworkImageProvider(_imageUrl),
+                  fit: BoxFit.contain,
                 ),
               ),
               const SizedBox(height: 10),
