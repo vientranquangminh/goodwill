@@ -107,5 +107,14 @@
     "type": "Type",
     "image": "Image",
     "content": "Content",
-    "upload": "Upload"
+    "upload": "Upload",
+    "connectWallet": "Connect Wallet",
+    "connectToMoMoWallet": "Connect to MoMo Wallet",
+    "moMo": "MoMo",
+    "connect": "Connect",
+    "note": "Note",
+    "youOnlyGetPaidWhenYouHaveVerifiedEnoughInformation": "You only get paid when you have verified enough information",
+    "afterSuccessfulWalletLinkingYourListingWillAllowBuyersToPayOnlineForYourProductViaGoodwill": "After successful Wallet Linking, your listing will allow buyers to pay online for your product via Goodwill",
+    "connectUsePhoneNumber": "Connect Use Phone Number",
+    "enterThePhoneNumberYouUsedToRegisterYourMoMoAccount": "Enter the phone number you used to register your MoMo account"
 }
