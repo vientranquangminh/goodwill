@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/data/model/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
-import 'package:goodwill/source/data/model/message_model2.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/message.service.dart';
 import 'package:goodwill/source/ui/page/search/widgets/not_found_screen.dart';
@@ -31,24 +31,23 @@ class ChatScreen extends StatelessWidget {
             ),
             body: Padding(
               padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.w),
-              child: StreamProvider<List<MessageModel2>?>.value(
+              child: StreamProvider<List<MessageModel>?>.value(
                   initialData: [],
                   value: MessageService.getStreamRecentChatRoomIds(),
                   builder: (context, snapshot) {
                     final recentMessageData =
-                        context.watch<List<MessageModel2>?>();
+                        context.watch<List<MessageModel>?>();
 
                     if (recentMessageData == null) {
                       return const NotFoundScreen();
                     }
-                    return FutureProvider<List<MessageDTO>?>.value(
+                    return FutureProvider<List<MessageDto>?>.value(
                         initialData: [],
                         value: Mapper.messageModelListDataToMessageDtoList(
                             recentMessageData),
                         builder: (context, snapshot) {
                           final recentMessageDTOs =
-                              context.watch<List<MessageDTO>?>() ?? [];
-                          debugPrint(recentMessageDTOs.toString());
+                              context.watch<List<MessageDto>?>() ?? [];
 
                           return ListView.builder(
                             itemCount: recentMessageDTOs.length,
@@ -57,7 +56,7 @@ class ChatScreen extends StatelessWidget {
                                 onTap: () {
                                   context.pushNamedWithParam(
                                       Routes.roomChatScreen,
-                                      recentMessageDTOs[index].sender);
+                                      recentMessageDTOs[index]);
                                 },
                                 child: Container(
                                     margin: EdgeInsets.only(top: 24.h),

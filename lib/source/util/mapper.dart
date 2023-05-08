@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:goodwill/source/data/model/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
-import 'package:goodwill/source/data/model/message_model2.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
@@ -13,8 +13,8 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
 class Mapper {
-  static Future<MessageDTO> messageModelToMessageDto(
-      MessageModel2 messageData) async {
+  static Future<MessageDto> messageModelToRecentMessageDto(
+      MessageModel messageData) async {
     UserProfile? senderProfile =
         await UserProfileService.getUserProfile(messageData.senderId!);
 
@@ -45,7 +45,7 @@ class Mapper {
     //   avatar = localPath;
     // }
 
-    return MessageDTO(
+    return MessageDto(
         sender: sender, time: time, text: text, avatar: avatar, day: day);
   }
 
@@ -53,9 +53,9 @@ class Mapper {
     return AuthService.userId == id;
   }
 
-  static Future<List<MessageDTO>> messageModelListDataToMessageDtoList(
-      List<MessageModel2> messageListData) async {
-    List<MessageDTO> res = [];
+  static Future<List<MessageDto>> messageModelListDataToMessageDtoList(
+      List<MessageModel> messageListData) async {
+    List<MessageDto> res = [];
 
     for (var messageData in messageListData) {
       UserProfile? targetProfile;
@@ -74,9 +74,15 @@ class Mapper {
       String text = messageData.text ?? '';
       String avatar =
           targetProfile?.profilePicture ?? Constant.SAMPLE_AVATAR_URL;
+      String chatRoomId = messageData.getChatRoomId();
 
-      res.add(MessageDTO(
-          sender: sender, time: time, text: text, avatar: avatar, day: day));
+      res.add(MessageDto(
+          sender: sender,
+          time: time,
+          text: text,
+          avatar: avatar,
+          day: day,
+          chatRoomId: chatRoomId));
     }
 
     return res;

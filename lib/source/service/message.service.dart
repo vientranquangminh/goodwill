@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:goodwill/source/data/model/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
-import 'package:goodwill/source/data/model/message_model2.dart';
 import 'package:goodwill/source/data/repository/message_repository.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/util/mapper.dart';
@@ -14,21 +14,23 @@ class MessageService {
   final CollectionReference _chatRoomsCollectionRef =
       FirebaseFirestore.instance.collection("chatRooms");
 
-  static Future<void> sendMessage(MessageModel2 message) async {
+  static Future<void> sendMessage(MessageModel message) async {
     _updateRecentChats(message);
     return _messageRepository.add(message);
   }
 
-  static Future<List<MessageModel2>?> getAllMessagesIn(
+  static Future<List<MessageModel>?> getAllMessagesIn(
       String chatRoomId) async {
     return _messageRepository.getAll(
         collectionRef: _messageRepository.getMessagesCollectionRef(chatRoomId));
   }
 
-  static Stream<List<MessageModel2>?> getStreamAllMessagesIn(
+  static Stream<List<MessageModel>?> getStreamAllMessagesIn(
       String chatRoomId) {
-    return _messageRepository.getStreamAll(
-        collectionRef: _messageRepository.getMessagesCollectionRef(chatRoomId));
+    return _messageRepository.getStreamAllFromQuery(
+        query: _messageRepository
+            .getMessagesCollectionRef(chatRoomId)
+            .orderBy("createdAt", descending: true));
   }
 
   // static Stream<List<String>?> getAllMessagesIn(
@@ -37,28 +39,28 @@ class MessageService {
   //       collectionRef: _messageRepository.getMessagesCollectionRef(chatRoomId));
   // }
 
-  static Stream<List<MessageModel2>?> getStreamRecentChatRoomIds() {
+  static Stream<List<MessageModel>?> getStreamRecentChatRoomIds() {
     return _messageRepository.getStreamRecentChatRoomIds(
         yourId: AuthService.userId!);
   }
 
-  static Future<List<MessageDTO>> getRecentChatsFromSharedPref() async {
+  static Future<List<MessageDto>> getRecentChatsFromSharedPref() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? recentChatsJson = prefs.getString('recentChats');
     List list = json.decode(recentChatsJson ?? '[]');
-    return list.map((e) => MessageDTO.fromJson(e.toString())).toList();
+    return list.map((e) => MessageDto.fromJson(e.toString())).toList();
   }
 
-  static void _updateRecentChats(MessageModel2 newMessage) async {
+  static void _updateRecentChats(MessageModel newMessage) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final MessageDTO newRecentMessage =
-        await Mapper.messageModelToMessageDto(newMessage);
+    final MessageDto newRecentMessage =
+        await Mapper.messageModelToRecentMessageDto(newMessage);
 
     String? recentChatsJson = prefs.getString('recentChats');
     List? list = json.decode(recentChatsJson ?? '[]');
-    List<MessageDTO>? recentChats =
-        list?.map((e) => MessageDTO.fromJson(e.toString())).toList();
+    List<MessageDto>? recentChats =
+        list?.map((e) => MessageDto.fromJson(e.toString())).toList();
 
     if (recentChats == null) {
       recentChats = [newRecentMessage];

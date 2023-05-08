@@ -37,7 +37,7 @@ class UserProfileRepository {
     debugPrint(userProfile.toMap().toString());
     docRef
         .update(userProfile.toMap())
-        .then((value) => debugPrint('User ${userProfile.fullName} added'))
+        .then((value) => debugPrint('User ${userProfile.fullName} updated'))
         .onError((error, stackTrace) {
       _debugPrint('Error $error');
       _debugPrint('Stack $stackTrace');

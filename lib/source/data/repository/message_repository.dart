@@ -1,16 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
-import 'package:goodwill/source/data/model/message_model2.dart';
+import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/repository/basic_repository.dart';
 
-class MessageRepository extends BasicRepository<MessageModel2> {
+class MessageRepository extends BasicRepository<MessageModel> {
   final CollectionReference _chatRoomsCollectionRef =
       FirebaseFirestore.instance.collection("chatRooms");
-
-  String getChatRoomId(List<String?> userIds) {
-    userIds.sort();
-    return userIds.join('|');
-  }
 
   CollectionReference getDefaultMessagesCollectionRef() {
     return _chatRoomsCollectionRef.doc('test').collection('messages');
@@ -34,14 +29,13 @@ class MessageRepository extends BasicRepository<MessageModel2> {
   }
 
   @override
-  Future<void> add(MessageModel2 message) async {
-    String chatRoomId = getChatRoomId(message.ids);
+  Future<void> add(MessageModel message) async {
+    String chatRoomId = message.getChatRoomId();
 
     // if members field not created, then created
     DocumentReference chatRoomRef = _chatRoomsCollectionRef.doc(chatRoomId);
     chatRoomRef.get().then((DocumentSnapshot documentSnapshot) {
       var chatRoom = documentSnapshot.data();
-      debugPrint(chatRoom.toString());
       if (chatRoom == null) {
         chatRoomRef.set({
           'members': message.ids,
@@ -56,24 +50,24 @@ class MessageRepository extends BasicRepository<MessageModel2> {
   }
 
   @override
-  Future<void> delete(MessageModel2 element) {
+  Future<void> delete(MessageModel element) {
     return deleteWithDocRefs(element,
-        docRefs: _getDocumentRefs(getChatRoomId(element.ids), element.id!));
+        docRefs: _getDocumentRefs(element.getChatRoomId(), element.id!));
   }
 
   @override
-  MessageModel2 Function(DocumentSnapshot<Map<String, dynamic>> snapshot,
+  MessageModel Function(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) fromFirestore() {
-    return MessageModel2.fromFirestore;
+    return MessageModel.fromFirestore;
   }
 
   @override
-  MessageModel2 fromMap(Map<String, dynamic> map) {
-    return MessageModel2.fromMap(map);
+  MessageModel fromMap(Map<String, dynamic> map) {
+    return MessageModel.fromMap(map);
   }
 
   @override
-  Future<MessageModel2?> get(String elementId,
+  Future<MessageModel?> get(String elementId,
       {CollectionReference<Object?>? collectionRef}) {
     return getElementFromCollectionRef(elementId,
         collectionRef: (collectionRef != null)
@@ -82,7 +76,7 @@ class MessageRepository extends BasicRepository<MessageModel2> {
   }
 
   @override
-  Future<List<MessageModel2>?> getAll(
+  Future<List<MessageModel>?> getAll(
       {CollectionReference<Object?>? collectionRef}) {
     return getAllElementsFromCollectionRef(
         collectionRef: (collectionRef != null)
@@ -91,7 +85,7 @@ class MessageRepository extends BasicRepository<MessageModel2> {
   }
 
   @override
-  Stream<MessageModel2?> getStream(String elementId,
+  Stream<MessageModel?> getStream(String elementId,
       {CollectionReference<Object?>? collectionRef}) {
     return getStreamElementFromCollectionRef(elementId,
         collectionRef: (collectionRef != null)
@@ -100,7 +94,7 @@ class MessageRepository extends BasicRepository<MessageModel2> {
   }
 
   @override
-  Stream<List<MessageModel2>?> getStreamAll(
+  Stream<List<MessageModel>?> getStreamAll(
       {CollectionReference<Object?>? collectionRef}) {
     return getStreamAllElementsFromCollectionRef(
         collectionRef: (collectionRef != null)
@@ -108,13 +102,18 @@ class MessageRepository extends BasicRepository<MessageModel2> {
             : getDefaultMessagesCollectionRef());
   }
 
-  @override
-  Future<void> update(MessageModel2 element) {
-    return updateWithDocRefs(element,
-        docRefs: _getDocumentRefs(getChatRoomId(element.ids), element.id!));
+  Stream<List<MessageModel>?> getStreamAllFromQuery(
+      {required Query<Object?> query}) {
+    return getStreamAllElementsFromQuery(query: query);
   }
 
-  Future<MessageModel2?> getNewestMessageFromCollectionRef(
+  @override
+  Future<void> update(MessageModel element) {
+    return updateWithDocRefs(element,
+        docRefs: _getDocumentRefs(element.getChatRoomId(), element.id!));
+  }
+
+  Future<MessageModel?> getNewestMessageFromCollectionRef(
       {required CollectionReference collectionRef}) async {
     final converterCollectionRef = collectionRef
         .orderBy("createdAt")
@@ -124,8 +123,6 @@ class MessageRepository extends BasicRepository<MessageModel2> {
     final docs = collectionSnap.docs;
     if (docs.isEmpty) return null;
     final element = docs.last.data();
-
-    debugPrint(element.toString());
     return element;
   }
 
@@ -141,7 +138,7 @@ class MessageRepository extends BasicRepository<MessageModel2> {
   }
 
   @override
-  Stream<List<MessageModel2>?> getStreamRecentChatRoomIds(
+  Stream<List<MessageModel>?> getStreamRecentChatRoomIds(
       {required String yourId, int limit = 30}) {
     final chatRoomDocRefs = _chatRoomsCollectionRef
         .where("members", arrayContains: yourId)
@@ -152,11 +149,11 @@ class MessageRepository extends BasicRepository<MessageModel2> {
 
     return recentChatRoomIdsStream.asyncMap((chatRoomIds) async {
       if (chatRoomIds == null) return null;
-      List<MessageModel2> res = [];
+      List<MessageModel> res = [];
       for (var chatRoomId in chatRoomIds) {
         final value = await getNewestMessageFromCollectionRef(
             collectionRef: getMessagesCollectionRef(chatRoomId));
-        res.add(value ?? MessageModel2());
+        res.add(value ?? MessageModel());
       }
       res.sort(((a, b) {
         int mA = a.createdAt?.millisecondsSinceEpoch ?? 0;

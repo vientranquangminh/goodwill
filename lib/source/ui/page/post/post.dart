@@ -9,8 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
+import 'package:goodwill/source/data/model/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
-import 'package:goodwill/source/data/model/message_model2.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
@@ -441,10 +441,10 @@ class _PostState extends State<Post> {
                         // debugPrint(_DescriptionController.text);
                         // debugPrint(_AddressController.text);
                         // debugPrint('-------------------------');
-                        String msg = "Hehehehe";
+                        String msg = "Hien len di nao";
                         String email = "duy@gmail.com";
-                        String targetId = "ttPSjCnHk2TTUxGnBMPJjL9Ip1P2";
-                        MessageService.sendMessage(MessageModel2(
+                        String targetId = "sEWy5SUe6NTWrJiuY9YsyhRrZWB2";
+                        MessageService.sendMessage(MessageModel(
                           senderId: AuthService.userId,
                           targetUserId: targetId,
                           createdAt: DateTime.now(),
