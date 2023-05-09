@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -221,8 +221,8 @@ class _buildForYouProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.count(
       physics: const NeverScrollableScrollPhysics(),
-      childAspectRatio: 0.70,
-      crossAxisSpacing: 15,
+      childAspectRatio: 0.54,
+      crossAxisSpacing: 20,
       shrinkWrap: true,
       crossAxisCount: 2,
       children: List.generate(forYouProducts.length, (index) {
