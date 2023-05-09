@@ -342,6 +342,7 @@ class _PostState extends State<Post> {
                   height: 10.h,
                 ),
                 TextFormField(
+                  enabled: valueFirst == false,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,

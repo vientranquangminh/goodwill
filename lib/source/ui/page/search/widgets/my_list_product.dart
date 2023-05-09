@@ -35,7 +35,7 @@ class _MyListProductState extends State<MyListProduct> {
                   ? getPostsWithSearch(_posts, widget.searchText!.toLowerCase())
                   : _posts;
 
-          if (_postsWithSearch == null) {
+          if (_postsWithSearch!.isEmpty) {
             return const NotFoundScreen();
           }
           return GridView.count(

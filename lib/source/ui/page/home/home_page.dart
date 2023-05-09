@@ -135,6 +135,7 @@ class _HomePageState extends State<HomePage> {
                                       offset: Offset(0.5, 2))
                                 ]),
                             child: TextField(
+                              autofocus: false,
                               onTap: () =>
                                   context.pushNamed(Routes.searchScreen),
                               cursorColor: ColorName.black,
@@ -196,13 +197,13 @@ class _buildSearchProducts extends StatelessWidget {
           crossAxisCount: 4,
           mainAxisSpacing: 15.0,
           children: List.generate(listCategories.length, (index) {
-            List listPost = defaultAllProducts
-                .where((element) =>
-                    element.category == listCategories[index].title)
-                .toList();
+            // List listPost = defaultAllProducts
+            //     .where((element) =>
+            //         element.category == listCategories[index].title)
+            //     .toList();
             return GestureDetector(
-                onTap: () =>
-                    context.pushNamedWithParam(Routes.category, listPost),
+                onTap: () => context.pushNamedWithParam(
+                    Routes.category, listCategories[index].title),
                 child: CategoriesCard(categories: listCategories[index]));
           })),
     );
