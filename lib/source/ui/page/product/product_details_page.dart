@@ -36,11 +36,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             children: [
               Stack(
                 children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 300.h,
-                    child: Assets.images.homePage.item
-                        .image(fit: BoxFit.fitHeight),
+                  Container(
+                    margin: const EdgeInsets.only(top: 30),
+                    child: SizedBox(
+                      height: 300.h,
+                      child: PageView.builder(
+                        itemCount: arguments.images!.length,
+                        itemBuilder: (context, index) {
+                          return SizedBox(
+                            width: double.infinity,
+                            height: 300.h,
+                            child: Image.network(arguments.images![index]),
+                          );
+                        },
+                      ),
+                    ),
                   ),
                   PlatformIconButton(
                     icon: const Icon(
@@ -75,7 +85,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Venesa Long Shirt',
+                          arguments.title.toString(),
                           style: context.blackS20W700,
                         ),
                         PlatformIconButton(
@@ -113,8 +123,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     SizedBox(
                       height: 12.h,
                     ),
-                    const Text(
-                        '''Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'''),
+                    Text(arguments.description.toString()),
                     SizedBox(
                       height: 12.h,
                     ),
@@ -161,7 +170,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             Text(context.localizations.totalPrice,
                                 style: context.blackS10W400),
                             Text(
-                              '\$320.00',
+                              "\$${arguments.price}",
                               style: context.blackS16W700,
                             ),
                           ],
