@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:goodwill/source/data/model/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/repository/message_repository.dart';
-import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/util/mapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,18 +18,20 @@ class MessageService {
     return _messageRepository.add(message);
   }
 
-  static Future<List<MessageModel>?> getAllMessagesIn(
-      String chatRoomId) async {
+  static Future<List<MessageModel>?> getAllMessagesIn(String chatRoomId) async {
     return _messageRepository.getAll(
         collectionRef: _messageRepository.getMessagesCollectionRef(chatRoomId));
   }
 
-  static Stream<List<MessageModel>?> getStreamAllMessagesIn(
-      String chatRoomId) {
+  static Stream<List<MessageModel>?> getStreamAllMessagesIn(String chatRoomId) {
     return _messageRepository.getStreamAllFromQuery(
         query: _messageRepository
             .getMessagesCollectionRef(chatRoomId)
             .orderBy("createdAt", descending: true));
+  }
+
+  static Stream<List<String>?> getRecentChatRooms() {
+    return _messageRepository.getStreamRecentChatRoomIds();
   }
 
   // static Stream<List<String>?> getAllMessagesIn(
@@ -39,10 +40,10 @@ class MessageService {
   //       collectionRef: _messageRepository.getMessagesCollectionRef(chatRoomId));
   // }
 
-  static Stream<List<MessageModel>?> getStreamRecentChatRoomIds() {
-    return _messageRepository.getStreamRecentChatRoomIds(
-        yourId: AuthService.userId!);
-  }
+  // static Stream<List<MessageModel>?> getStreamRecentChatRoomIds() {
+  //   return _messageRepository.getStreamRecentChatRoomIds(
+  //       yourId: AuthService.userId!);
+  // }
 
   static Future<List<MessageDto>> getRecentChatsFromSharedPref() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

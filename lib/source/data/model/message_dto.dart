@@ -9,6 +9,7 @@ class MessageDto {
   final String time;
   final String? day;
   final String text;
+  final String? targetUserId;
   final String? chatRoomId;
 
   MessageDto({
@@ -17,6 +18,7 @@ class MessageDto {
     required this.time,
     this.day,
     required this.text,
+    this.targetUserId,
     this.chatRoomId,
   });
 
@@ -26,6 +28,7 @@ class MessageDto {
     String? time,
     String? day,
     String? text,
+    String? targetUserId,
     String? chatRoomId,
   }) {
     return MessageDto(
@@ -34,6 +37,7 @@ class MessageDto {
       time: time ?? this.time,
       day: day ?? this.day,
       text: text ?? this.text,
+      targetUserId: targetUserId ?? this.targetUserId,
       chatRoomId: chatRoomId ?? this.chatRoomId,
     );
   }
@@ -45,6 +49,7 @@ class MessageDto {
       'time': time,
       'day': day,
       'text': text,
+      'targetUserId': targetUserId,
       'chatRoomId': chatRoomId,
     };
   }
@@ -56,6 +61,8 @@ class MessageDto {
       time: map['time'] as String,
       day: map['day'] != null ? map['day'] as String : null,
       text: map['text'] as String,
+      targetUserId:
+          map['targetUserId'] != null ? map['targetUserId'] as String : null,
       chatRoomId:
           map['chatRoomId'] != null ? map['chatRoomId'] as String : null,
     );
@@ -68,7 +75,7 @@ class MessageDto {
 
   @override
   String toString() {
-    return 'MessageDto(sender: $sender, avatar: $avatar, time: $time, day: $day, text: $text, chatRoomId: $chatRoomId)';
+    return 'MessageDto(sender: $sender, avatar: $avatar, time: $time, day: $day, text: $text, targetUserId: $targetUserId, chatRoomId: $chatRoomId)';
   }
 
   @override
@@ -80,6 +87,7 @@ class MessageDto {
         other.time == time &&
         other.day == day &&
         other.text == text &&
+        other.targetUserId == targetUserId &&
         other.chatRoomId == chatRoomId;
   }
 
@@ -90,6 +98,7 @@ class MessageDto {
         time.hashCode ^
         day.hashCode ^
         text.hashCode ^
+        targetUserId.hashCode ^
         chatRoomId.hashCode;
   }
 }
@@ -177,40 +186,40 @@ List<MessageDto> recentChats = [
 //   ),
 // ];
 
-final List<MessageDto> messages = [
-  MessageDto(
-    sender: 'drake',
-    time: '16:02',
-    text:
-        "Recently i often feel unwell. I also sometimes experience pain in the legs, and I don't know why. Do you know anything doc?",
-  ),
-  MessageDto(
-    sender: 'currentUser',
-    time: '16:02',
-    text:
-        "Recently i often feel unwell. I also sometimes experience pain in the legs, and I don't know why. Do you know anything doc? 😭",
-  ),
-  MessageDto(
-    sender: 'drake',
-    time: '16:01',
-    text:
-        "Can you tell me the problem you are having? So that i can indentify it",
-  ),
-  MessageDto(
-    sender: 'drake',
-    time: '16:01',
-    avatar: drake.avatar,
-    text: "Hello, good afternoon too Andrew 😁",
-  ),
-  MessageDto(
-    sender: 'currentUser',
-    time: '16:00',
-    text: "I'm Andrew, I have a problem with my immune system 😢",
-  ),
-  MessageDto(
-    sender: 'currentUser',
-    time: '16:00',
-    avatar: drake.avatar,
-    text: "Hi, good afternoon Dr.Drake... 😁",
-  ),
-];
+// final List<MessageDto> messages = [
+//   MessageDto(
+//     sender: 'drake',
+//     time: '16:02',
+//     text:
+//         "Recently i often feel unwell. I also sometimes experience pain in the legs, and I don't know why. Do you know anything doc?",
+//   ),
+//   MessageDto(
+//     sender: 'currentUser',
+//     time: '16:02',
+//     text:
+//         "Recently i often feel unwell. I also sometimes experience pain in the legs, and I don't know why. Do you know anything doc? 😭",
+//   ),
+//   MessageDto(
+//     sender: 'drake',
+//     time: '16:01',
+//     text:
+//         "Can you tell me the problem you are having? So that i can indentify it",
+//   ),
+//   MessageDto(
+//     sender: 'drake',
+//     time: '16:01',
+//     avatar: drake.avatar,
+//     text: "Hello, good afternoon too Andrew 😁",
+//   ),
+//   MessageDto(
+//     sender: 'currentUser',
+//     time: '16:00',
+//     text: "I'm Andrew, I have a problem with my immune system 😢",
+//   ),
+//   MessageDto(
+//     sender: 'currentUser',
+//     time: '16:00',
+//     avatar: drake.avatar,
+//     text: "Hi, good afternoon Dr.Drake... 😁",
+//   ),
+// ];

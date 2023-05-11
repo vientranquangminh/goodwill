@@ -53,20 +53,20 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                       child: StreamProvider<List<MessageModel>?>.value(
                           initialData: [],
                           value: MessageService.getStreamAllMessagesIn(
-                              newestMessage.chatRoomId ?? 'test'),
+                              newestMessage.chatRoomId!),
                           builder: (context, snapshot) {
-                            final messages =
+                            final allMessages =
                                 context.watch<List<MessageModel>?>();
 
-                            if (messages == null) {
+                            if (allMessages == null) {
                               return const NotFoundScreen();
                             }
 
                             return ListView.builder(
                                 reverse: true,
-                                itemCount: messages.length,
+                                itemCount: allMessages.length,
                                 itemBuilder: (context, int index) {
-                                  final message = messages[index];
+                                  final message = allMessages[index];
                                   bool isMe =
                                       message.senderId == AuthService.userId;
                                   // bool isMe = message.sender.id == currentUser.id;
@@ -112,7 +112,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                                                     CrossAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    messages[index].text!,
+                                                    allMessages[index].text!,
                                                     style: const TextStyle(
                                                             color: Colors.black)
                                                         .copyWith(
@@ -167,7 +167,9 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                     ),
                   ),
                 ),
-                const InputMessage()
+                InputMessage(
+                  targetUserId: newestMessage.targetUserId,
+                )
               ],
             ),
           ),
