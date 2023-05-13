@@ -49,6 +49,7 @@ class ArticleModel extends BasicModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'image': image,
       'ownerId': ownerId,
       'title': title,

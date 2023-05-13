@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/data/model/chatroom_dto.dart';
 import 'package:goodwill/source/data/model/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/message.service.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/search/widgets/not_found_screen.dart';
 import 'package:goodwill/source/util/mapper.dart';
 import 'package:provider/provider.dart';
@@ -79,9 +82,21 @@ class _ChatScreenState extends State<ChatScreen> {
                                   builder: (context, snapshot) {
                                     final msgDto = context.watch<MessageDto>();
                                     return InkWell(
-                                      onTap: () {
+                                      onTap: () async {
+                                        UserProfile? userProfile =
+                                            await UserProfileService
+                                                .getUserProfile(
+                                                    msgDto.targetUserId!);
+                                        final chatRoomDto = ChatRoomDto(
+                                            sender:
+                                                userProfile?.getDisplayName() ??
+                                                    'User',
+                                            chatRoomId:
+                                                msgDto.chatRoomId ?? 'test',
+                                            targetUserId: msgDto.targetUserId!);
+
                                         context.pushNamedWithParam(
-                                            Routes.roomChatScreen, msgDto);
+                                            Routes.roomChatScreen, chatRoomDto);
                                       },
                                       child: Container(
                                           margin: EdgeInsets.only(top: 24.h),
@@ -191,10 +206,15 @@ class _buildRecentChat extends StatelessWidget {
                         value: Mapper.messageModelToRecentMessageDto(newestMsg),
                         builder: (context, snapshot) {
                           final msgDto = context.watch<MessageDto>();
+                          final chatRoomDto = ChatRoomDto(
+                              sender: msgDto.sender,
+                              chatRoomId: msgDto.chatRoomId!,
+                              targetUserId: msgDto.targetUserId!);
+
                           return InkWell(
                             onTap: () {
                               context.pushNamedWithParam(
-                                  Routes.roomChatScreen, msgDto);
+                                  Routes.roomChatScreen, chatRoomDto);
                             },
                             child: Container(
                                 margin: EdgeInsets.only(top: 24.h),
