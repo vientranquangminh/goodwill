@@ -154,8 +154,6 @@ class _TopicScreenState extends State<TopicScreen> {
                                 PlatformIconButton(
                                     padding: EdgeInsets.zero,
                                     onPressed: () {
-                                      log('delete article: ${articles[i].id}',
-                                          name: 'delete');
                                       ArticleService.deleteArticleById(
                                           articles[i]);
                                     },
