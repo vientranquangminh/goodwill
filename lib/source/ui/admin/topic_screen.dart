@@ -10,8 +10,27 @@ import 'package:goodwill/source/service/article_service.dart';
 import 'package:goodwill/source/ui/admin/widget/appbar_admin.dart';
 import 'package:provider/provider.dart';
 
-class TopicScreen extends StatelessWidget {
+const List<String> list = <String>['Buy', 'Donate'];
+
+class TopicScreen extends StatefulWidget {
   const TopicScreen({Key? key}) : super(key: key);
+
+  @override
+  State<TopicScreen> createState() => _TopicScreenState();
+}
+
+class _TopicScreenState extends State<TopicScreen> {
+  String dropdownValue = list.first;
+  List<DateTime> _dates = [];
+  DateTime? _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _dates = List.generate(
+        30, (index) => DateTime.now().subtract(Duration(days: index)));
+    _selectedDate = _dates.first;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +46,87 @@ class TopicScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          context.localizations.topic,
-                          style: const TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w800),
-                        ),
-                        Text(
-                          context.localizations.manageAllTopicPost,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w800),
-                        )
-                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              context.localizations.topic,
+                              style: const TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.w800),
+                            ),
+                            Text(
+                              context.localizations.manageAllTopicPost,
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w800),
+                            )
+                          ]),
+                      Row(
+                        children: [
+                          Container(
+                            width: 140,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<DateTime>(
+                                value: _selectedDate,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    _selectedDate = newValue;
+                                  });
+                                },
+                                items: _dates.map((date) {
+                                  return DropdownMenuItem<DateTime>(
+                                    value: date,
+                                    child: Text(
+                                        '${date.day}/${date.month}/${date.year}'),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              width: 100,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: dropdownValue,
+                                  icon: const Icon(Icons.arrow_drop_down_sharp),
+                                  elevation: 10,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      dropdownValue = value!;
+                                    });
+                                  },
+                                  items: list.map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
