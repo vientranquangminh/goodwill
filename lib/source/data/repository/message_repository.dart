@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/widgets.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/repository/basic_repository.dart';
 
@@ -162,5 +161,11 @@ class MessageRepository extends BasicRepository<MessageModel> {
       }));
       return res;
     });
+  }
+  
+  @override
+  Future<void> deleteById(MessageModel element) {
+    // TODO: implement deleteById
+    throw UnimplementedError();
   }
 }

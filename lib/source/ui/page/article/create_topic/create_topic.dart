@@ -36,7 +36,6 @@ class _CreateTopicState extends State<CreateTopic> {
   final TextEditingController _content = TextEditingController();
   File? image;
   String? getTextTopic;
-  // final type = ValueNotifier<String?>(null);
   String type = '';
   int selectedIndex = 0;
   @override
@@ -132,8 +131,6 @@ class _CreateTopicState extends State<CreateTopic> {
 
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 20.h),
-                  // height: 120.h,
-                  // width: double.infinity,
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12.r)),
@@ -217,7 +214,6 @@ class _CreateTopicState extends State<CreateTopic> {
                                     child: IconButton(
                                       icon: const Icon(Icons.cancel),
                                       onPressed: () {
-                                        // TODO: Remove image from gridview
                                         setState(() {
                                           images.removeAt(index);
                                         });
@@ -284,8 +280,6 @@ class _CreateTopicState extends State<CreateTopic> {
                               fontSize: 20,
                               fontWeight: FontWeight.w500)),
                     ))
-
-                // child:
               ],
             ),
           ),

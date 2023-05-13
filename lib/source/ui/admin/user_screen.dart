@@ -56,7 +56,7 @@ class UserPage extends StatelessWidget {
                         rows.add(
                           DataRow(
                             cells: <DataCell>[
-                              DataCell(Text(listUser[i].id)),
+                              DataCell(Text('${i + 1}')),
                               DataCell(Text(listUser[i].fullName ?? '')),
                               DataCell(Text(listUser[i].nickName ?? '')),
                               DataCell(

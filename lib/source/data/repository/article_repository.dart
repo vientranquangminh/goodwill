@@ -46,6 +46,11 @@ class ArticleRepository extends BasicRepository<ArticleModel> {
   }
 
   @override
+  Future<void> deleteById(ArticleModel element){
+    return deleteWithDocRefId(element, docRefs: _getDocumentRefs(element.id!));
+  }
+
+  @override
   ArticleModel Function(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) fromFirestore() {
     return ArticleModel.fromFirestore;

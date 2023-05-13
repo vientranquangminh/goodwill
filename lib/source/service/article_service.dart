@@ -40,4 +40,8 @@ class ArticleService {
   static Future<void> deleteArticle(ArticleModel articleModel) {
     return _articleModelRepository.delete(articleModel);
   }
+
+  static Future<void> deleteArticleById(ArticleModel articleModel){
+    return _articleModelRepository.deleteById(articleModel);
+  }
 }

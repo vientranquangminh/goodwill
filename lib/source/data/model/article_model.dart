@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:goodwill/source/data/model/basic_model.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/util/constant.dart';
@@ -59,23 +60,20 @@ class ArticleModel extends BasicModel {
       'createdAt': createdAt?.millisecondsSinceEpoch,
       'contactPhoneNumber': contactPhoneNumber,
       'type': type,
+      'id': id,
     };
   }
 
   factory ArticleModel.fromMap(Map<String, dynamic> map) {
     return ArticleModel(
-      id: map['id'] != null ? map['id'] as String : null,
       image: map['image'] != null ? map['image'] as String : null,
       ownerId: map['ownerId'] != null ? map['ownerId'] as String : null,
       title: map['title'] != null ? map['title'] as String : null,
       content: map['content'] != null ? map['content'] as String : null,
-      createdAt: map['createdAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
-          : null,
-      contactPhoneNumber: map['contactPhoneNumber'] != null
-          ? map['contactPhoneNumber'] as String
-          : null,
+      createdAt: map['createdAt'] != null ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int) : null,
+      contactPhoneNumber: map['contactPhoneNumber'] != null ? map['contactPhoneNumber'] as String : null,
       type: map['type'] != null ? map['type'] as String : null,
+      id: map['id'] != null ? map['id'] as String : null,
     );
   }
 
@@ -95,7 +93,7 @@ class ArticleModel extends BasicModel {
 
   @override
   String toString() {
-    return 'ArticleModel(id: $id, image: $image, ownerId: $ownerId, title: $title, content: $content, createdAt: $createdAt, contactPhoneNumber: $contactPhoneNumber, type: $type)';
+    return 'ArticleModel(image: $image, ownerId: $ownerId, title: $title, content: $content, createdAt: $createdAt, contactPhoneNumber: $contactPhoneNumber, type: $type, id: $id)';
   }
 
   @override
