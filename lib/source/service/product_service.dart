@@ -54,4 +54,8 @@ class ProductService {
   static Future<void> deleteProduct(ProductModel productModel) {
     return _productModelRepository.delete(productModel);
   }
+
+  static Future<void> deleteProductById(ProductModel productModel) async {
+    return _productModelRepository.deleteById(productModel);
+  }
 }

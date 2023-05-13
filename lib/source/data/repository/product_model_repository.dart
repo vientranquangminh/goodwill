@@ -108,7 +108,6 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
   
   @override
   Future<void> deleteById(ProductModel element) {
-    // TODO: implement deleteById
-    throw UnimplementedError();
+    return deleteWithDocRefId(element, docRefs: _getDocumentRefs(element.id!));
   }
 }

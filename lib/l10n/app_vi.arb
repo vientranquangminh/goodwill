@@ -85,5 +85,6 @@
     "password": "Mật khẩu",
     "login": "Đăng nhập",
     "upload": "Tải lên",
-    "details": "Chi tiết"
+    "details": "Chi tiết",
+    "location": "Địa chỉ"
 }
