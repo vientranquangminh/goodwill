@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/gen/fonts.gen.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
+import 'package:goodwill/source/data/model/article_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';
+import 'package:goodwill/source/service/article_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/profile/change_language/language_provider.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +33,10 @@ class App extends StatelessWidget {
                 debugPrint('Error fetching articles: $error');
                 return [];
               },
+            ),
+            StreamProvider<List<ArticleModel>?>(
+              create: (context) => ArticleService.getStreamAllArticles(), 
+              initialData: const []
             )
           ],
           builder: (context, child) {

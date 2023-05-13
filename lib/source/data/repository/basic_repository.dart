@@ -10,6 +10,7 @@ abstract class BasicRepository<E extends BasicModel> {
   Stream<List<E>?> getStreamAll({CollectionReference? collectionRef});
   Future<void> update(E element);
   Future<void> delete(E element);
+  Future<void> deleteById(E element);
 
   E Function(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) fromFirestore();
@@ -124,6 +125,21 @@ abstract class BasicRepository<E extends BasicModel> {
       await docRef
           .delete()
           .then((value) => debugPrint('${element.id} deleted'))
+          .onError((error, stackTrace) {
+        debugPrint('Error $error');
+        debugPrint('Stack $stackTrace');
+      });
+    }
+  }
+
+  Future<void> deleteWithDocRefId(E element,
+      {required List<DocumentReference> docRefs}) async {
+    for (var docRef in docRefs) {
+      element.id = docRef.id;
+      docRef
+          .delete()
+          .then((value) =>
+              debugPrint('${E.runtimeType.toString()} $element.id deleted'))
           .onError((error, stackTrace) {
         debugPrint('Error $error');
         debugPrint('Stack $stackTrace');

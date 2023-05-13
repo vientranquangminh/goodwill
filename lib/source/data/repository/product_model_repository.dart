@@ -105,4 +105,10 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
         collectionRef:
             (collectionRef != null) ? collectionRef : _productsCollectionRef);
   }
+  
+  @override
+  Future<void> deleteById(ProductModel element) {
+    // TODO: implement deleteById
+    throw UnimplementedError();
+  }
 }
