@@ -27,6 +27,7 @@ class ArticleModel extends BasicModel {
   }) : super(id: id);
 
   ArticleModel copyWith({
+    String? id,
     String? image,
     String? ownerId,
     String? title,
@@ -36,6 +37,7 @@ class ArticleModel extends BasicModel {
     String? type,
   }) {
     return ArticleModel(
+      id: this.id,
       image: image ?? this.image,
       ownerId: ownerId ?? this.ownerId,
       title: title ?? this.title,
@@ -49,6 +51,7 @@ class ArticleModel extends BasicModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'image': image,
       'ownerId': ownerId,
       'title': title,
@@ -99,7 +102,8 @@ class ArticleModel extends BasicModel {
   bool operator ==(covariant ArticleModel other) {
     if (identical(this, other)) return true;
 
-    return other.image == image &&
+    return other.id == id &&
+        other.image == image &&
         other.ownerId == ownerId &&
         other.title == title &&
         other.content == content &&
@@ -110,7 +114,8 @@ class ArticleModel extends BasicModel {
 
   @override
   int get hashCode {
-    return image.hashCode ^
+    return id.hashCode ^
+        image.hashCode ^
         ownerId.hashCode ^
         title.hashCode ^
         content.hashCode ^
