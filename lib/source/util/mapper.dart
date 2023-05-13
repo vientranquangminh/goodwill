@@ -25,6 +25,9 @@ class Mapper {
     String day = DateTimeHelper.toVietnameseStandardDate(messageData.createdAt);
     String text = messageData.text ?? '';
     String avatar = profile?.profilePicture ?? Constant.SAMPLE_AVATAR_URL;
+    String targetUserId = (AuthService.userId == messageData.senderId)
+        ? messageData.targetUserId!
+        : messageData.senderId!;
 
     // if (senderProfile?.profilePicture != null) {
     //   String url = senderProfile!.profilePicture!;
@@ -53,7 +56,7 @@ class Mapper {
         text: text,
         avatar: avatar,
         day: day,
-        targetUserId: messageData.targetUserId,
+        targetUserId: targetUserId,
         chatRoomId: messageData.getChatRoomId());
   }
 
