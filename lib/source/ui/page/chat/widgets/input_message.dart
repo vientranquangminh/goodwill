@@ -1,16 +1,24 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:goodwill/source/data/model/message_model.dart';
+import 'package:goodwill/source/service/auth_service.dart';
+import 'package:goodwill/source/service/message.service.dart';
 import 'package:goodwill/source/ui/page/chat/widgets/show_attach.dart';
 
 class InputMessage extends StatelessWidget {
   const InputMessage({
     Key? key,
+    this.targetUserId,
   }) : super(key: key);
+
+  final String? targetUserId;
 
   @override
   Widget build(BuildContext context) {
     TextEditingController _messageController = TextEditingController();
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       color: Colors.white,
@@ -120,6 +128,15 @@ class InputMessage extends StatelessWidget {
                 onPressed: () {
                   log('send');
                   log(_messageController.text);
+
+                  MessageService.sendMessage(MessageModel(
+                    senderId: AuthService.userId,
+                    targetUserId: targetUserId,
+                    createdAt: DateTime.now(),
+                    text: _messageController.text,
+                  ));
+
+                  _messageController.clear();
                 },
                 icon: const Icon(
                   Icons.send,

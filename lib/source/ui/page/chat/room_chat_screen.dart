@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
-import 'package:goodwill/source/data/model/message_dto.dart';
+import 'package:goodwill/source/data/model/chatroom_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/message.service.dart';
@@ -20,7 +20,8 @@ class RoomChatScreen extends StatefulWidget {
 class _RoomChatScreenState extends State<RoomChatScreen> {
   @override
   Widget build(BuildContext context) {
-    final MessageDto newestMessage = context.getParam() as MessageDto;
+
+    final ChatRoomDto chatRoomInfo = context.getParam() as ChatRoomDto;
 
     return ScreenUtilInit(
       designSize: const Size(428, 882),
@@ -28,7 +29,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              newestMessage.sender,
+              chatRoomInfo.sender,
               style: const TextStyle(color: Colors.black, fontSize: 20),
             ),
             backgroundColor: Colors.white,
@@ -53,20 +54,20 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                       child: StreamProvider<List<MessageModel>?>.value(
                           initialData: [],
                           value: MessageService.getStreamAllMessagesIn(
-                              newestMessage.chatRoomId ?? 'test'),
+                              chatRoomInfo.chatRoomId),
                           builder: (context, snapshot) {
-                            final messages =
+                            final allMessages =
                                 context.watch<List<MessageModel>?>();
 
-                            if (messages == null) {
+                            if (allMessages == null) {
                               return const NotFoundScreen();
                             }
 
                             return ListView.builder(
                                 reverse: true,
-                                itemCount: messages.length,
+                                itemCount: allMessages.length,
                                 itemBuilder: (context, int index) {
-                                  final message = messages[index];
+                                  final message = allMessages[index];
                                   bool isMe =
                                       message.senderId == AuthService.userId;
                                   // bool isMe = message.sender.id == currentUser.id;
@@ -112,7 +113,7 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                                                     CrossAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    messages[index].text!,
+                                                    allMessages[index].text!,
                                                     style: const TextStyle(
                                                             color: Colors.black)
                                                         .copyWith(
@@ -167,7 +168,9 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                     ),
                   ),
                 ),
-                const InputMessage()
+                InputMessage(
+                  targetUserId: chatRoomInfo.targetUserId,
+                )
               ],
             ),
           ),

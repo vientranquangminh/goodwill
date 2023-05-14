@@ -15,14 +15,19 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 class Mapper {
   static Future<MessageDto> messageModelToRecentMessageDto(
       MessageModel messageData) async {
-    UserProfile? senderProfile =
-        await UserProfileService.getUserProfile(messageData.senderId!);
+    String id = (AuthService.userId == messageData.senderId)
+        ? messageData.targetUserId!
+        : messageData.senderId!;
+    UserProfile? profile = await UserProfileService.getUserProfile(id);
 
-    String sender = senderProfile?.getDisplayName() ?? 'User';
+    String sender = profile?.getDisplayName() ?? 'User';
     String time = DateTimeHelper.toFullClockTime(messageData.createdAt);
     String day = DateTimeHelper.toVietnameseStandardDate(messageData.createdAt);
     String text = messageData.text ?? '';
-    String avatar = senderProfile?.profilePicture ?? Constant.SAMPLE_AVATAR_URL;
+    String avatar = profile?.profilePicture ?? Constant.SAMPLE_AVATAR_URL;
+    String targetUserId = (AuthService.userId == messageData.senderId)
+        ? messageData.targetUserId!
+        : messageData.senderId!;
 
     // if (senderProfile?.profilePicture != null) {
     //   String url = senderProfile!.profilePicture!;
@@ -46,7 +51,13 @@ class Mapper {
     // }
 
     return MessageDto(
-        sender: sender, time: time, text: text, avatar: avatar, day: day);
+        sender: sender,
+        time: time,
+        text: text,
+        avatar: avatar,
+        day: day,
+        targetUserId: targetUserId,
+        chatRoomId: messageData.getChatRoomId());
   }
 
   static bool _isMe(String id) {
@@ -75,14 +86,17 @@ class Mapper {
       String avatar =
           targetProfile?.profilePicture ?? Constant.SAMPLE_AVATAR_URL;
       String chatRoomId = messageData.getChatRoomId();
+      String? targetUserId = messageData.targetUserId;
 
       res.add(MessageDto(
-          sender: sender,
-          time: time,
-          text: text,
-          avatar: avatar,
-          day: day,
-          chatRoomId: chatRoomId));
+        sender: sender,
+        time: time,
+        text: text,
+        avatar: avatar,
+        day: day,
+        chatRoomId: chatRoomId,
+        targetUserId: targetUserId,
+      ));
     }
 
     return res;
