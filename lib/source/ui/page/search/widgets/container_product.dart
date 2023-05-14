@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 
@@ -55,7 +56,9 @@ class ContainerProduct extends StatelessWidget {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            const Icon(Icons.heart_broken)
+                            const Icon(
+                              CupertinoIcons.heart_fill,
+                            )
                           ],
                         ),
                       ),

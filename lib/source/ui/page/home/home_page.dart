@@ -135,9 +135,10 @@ class _HomePageState extends State<HomePage> {
                                       offset: Offset(0.5, 2))
                                 ]),
                             child: TextField(
-                              autofocus: false,
-                              onTap: () =>
-                                  context.pushNamed(Routes.searchScreen),
+                              onTap: () {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                context.pushNamed(Routes.searchScreen);
+                              },
                               cursorColor: ColorName.black,
                               maxLines: 1,
                               style: const TextStyle(

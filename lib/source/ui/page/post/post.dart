@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
+import 'package:goodwill/source/common/widgets/app_toast/app_toast.dart';
 import 'package:goodwill/source/data/model/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
@@ -493,7 +494,15 @@ class _PostState extends State<Post> {
                           status: OwnProductStatus.SHOWING,
                         );
 
-                        ProductService.addProduct(productModel);
+                        ProductService.addProduct(productModel).then((value) {
+                          Navigator.pop(context);
+                          AppToasts.showToast(
+                              context: context, title: 'Post Products Success');
+                        }).catchError((error) {
+                          AppToasts.showErrorToast(
+                              title: 'Can not post products', context: context);
+                        });
+                        ;
                       },
                       child: const Text('Post'),
                     ),

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -90,7 +91,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         ),
                         PlatformIconButton(
                           icon: const Icon(
-                            Icons.heart_broken,
+                            CupertinoIcons.heart_fill,
                             color: ColorName.black,
                           ),
                         )

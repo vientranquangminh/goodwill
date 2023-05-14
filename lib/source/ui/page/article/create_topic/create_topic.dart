@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/common/widgets/app_toast/app_toast.dart';
 import 'package:goodwill/source/data/model/article_model.dart';
 import 'package:goodwill/source/service/article_service.dart';
 import 'package:goodwill/source/service/auth_service.dart';
@@ -128,7 +129,6 @@ class _CreateTopicState extends State<CreateTopic> {
                       fontSize: 17,
                       fontWeight: FontWeight.w500),
                 ),
-
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 20.h),
                   padding: const EdgeInsets.all(8.0),
@@ -241,7 +241,6 @@ class _CreateTopicState extends State<CreateTopic> {
                   content: _content,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height / 22),
-
                 SizedBox(
                     width: double.infinity,
                     child: RawMaterialButton(
@@ -272,7 +271,14 @@ class _CreateTopicState extends State<CreateTopic> {
                             image: res,
                             content: content);
 
-                        ArticleService.addArticle(articleModel);
+                        ArticleService.addArticle(articleModel).then((value) {
+                          Navigator.pop(context);
+                          AppToasts.showToast(
+                              context: context, title: 'Post Topic Success');
+                        }).catchError((error) {
+                          AppToasts.showErrorToast(
+                              title: 'Can not post topic', context: context);
+                        });
                       },
                       child: Text(context.localizations.upload,
                           style: const TextStyle(
