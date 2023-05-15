@@ -21,7 +21,7 @@ abstract class BasicRepository<E extends BasicModel> {
     for (var docRef in docRefs) {
       element.id = docRef.id;
       final data = element.toMap();
-
+      
       await docRef
           .set(data)
           .then((value) =>
