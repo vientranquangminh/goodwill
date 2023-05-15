@@ -102,25 +102,11 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
-                        Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginAdminScreen(),
-                                      ));
-                                },
-                                icon: Assets.svgs.notification.svg()),
-                            IconButton(
-                                onPressed: () {
-                                  context.pushNamed(Routes.chatScreen);
-                                },
-                                icon: Assets.svgs.message.svg()),
-                          ],
-                        )
+                        IconButton(
+                            onPressed: () {
+                              context.pushNamed(Routes.chatScreen);
+                            },
+                            icon: Assets.svgs.message.svg())
                       ],
                     ),
                     Padding(
