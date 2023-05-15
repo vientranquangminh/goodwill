@@ -86,23 +86,11 @@ class _ContainerCartState extends State<ContainerCart> {
                       ),
                       RichText(
                         text: TextSpan(
-                          text: widget.listCartProduct.phoneNumber,
+                          text: widget.listCartProduct.location,
                           style: const TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.w700,
                               fontSize: 14),
-                          children: [
-                            const TextSpan(
-                              text: ' | ',
-                            ),
-                            TextSpan(
-                              text: widget.listCartProduct.location,
-                              style: const TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14),
-                            ),
-                          ],
                         ),
                       ),
                       const SizedBox(
