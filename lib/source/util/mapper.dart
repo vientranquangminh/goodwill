@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:goodwill/source/data/model/cart_item_dto.dart';
+import 'package:goodwill/source/data/model/cart_item_model.dart';
 import 'package:goodwill/source/data/model/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
+import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/service/auth_service.dart';
+import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/util/constant.dart';
 import 'package:goodwill/source/util/date_time_helper.dart';
@@ -100,5 +104,47 @@ class Mapper {
     }
 
     return res;
+  }
+
+  static Future<List<CartItemDto>> cartItemListToCartItemDtoList(
+      List<CartItemModel>? cartItems) async {
+    List<CartItemDto> res = [];
+
+    for (var cartItem in cartItems ?? []) {
+      final cartItemDto = await cartItemModelToCartItemDto(cartItem);
+      res.add(cartItemDto);
+    }
+
+    return res;
+  }
+
+  static Future<CartItemDto> cartItemModelToCartItemDto(
+      CartItemModel cartItemModel) async {
+    ProductModel? product = await ProductService.get(cartItemModel.productId!);
+    UserProfile? sellerProfile =
+        await UserProfileService.getUserProfile(product?.ownerId ?? 'testUser');
+
+    String id = cartItemModel.id ?? 'test';
+    String title = product?.title ?? 'Item';
+    String location = product?.location ?? 'Da Nang';
+    int price = product?.price ?? 0;
+    int quantity = cartItemModel.quantity ?? 0;
+    String sellerId = product?.ownerId ?? 'test';
+    String imageUrl = product?.images?.first ?? Constant.SAMPLE_AVATAR_URL;
+    String phoneNumber =
+        sellerProfile?.phoneNumber ?? Constant.FAKE_PHONENUMBER;
+    String? category = product?.category;
+
+    return CartItemDto(
+      id: id,
+      title: title,
+      price: price,
+      location: location,
+      quantity: quantity,
+      sellerId: sellerId,
+      imageUrl: imageUrl,
+      phoneNumber: phoneNumber,
+      category: category,
+    );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/repository/basic_repository.dart';
 import 'package:goodwill/source/service/auth_service.dart';
