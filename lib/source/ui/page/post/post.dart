@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -15,7 +14,6 @@ import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
-import 'package:goodwill/source/service/message.service.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/page/post/widgets/rounded_container.dart';
 import 'package:goodwill/source/util/constant.dart';
@@ -443,15 +441,6 @@ class _PostState extends State<Post> {
                         // debugPrint(_DescriptionController.text);
                         // debugPrint(_AddressController.text);
                         // debugPrint('-------------------------');
-                        String msg = "Hien len di nao";
-                        String email = "duy@gmail.com";
-                        String targetId = "sEWy5SUe6NTWrJiuY9YsyhRrZWB2";
-                        MessageService.sendMessage(MessageModel(
-                          senderId: AuthService.userId,
-                          targetUserId: targetId,
-                          createdAt: DateTime.now(),
-                          text: msg,
-                        ));
 
                         if (!_formKey.currentState!.validate() ||
                             images.isEmpty ||
@@ -495,7 +484,7 @@ class _PostState extends State<Post> {
                         );
 
                         ProductService.addProduct(productModel).then((value) {
-                          Navigator.pop(context);
+                          context.pop();
                           AppToasts.showToast(
                               context: context, title: 'Post Products Success');
                         }).catchError((error) {

@@ -7,8 +7,14 @@ import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/data/model/article_model.dart';
+import 'package:goodwill/source/data/model/chatroom_dto.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
+import 'package:goodwill/source/routes.dart';
+import 'package:goodwill/source/service/auth_service.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/util/constant.dart';
 import 'package:goodwill/source/util/date_time_helper.dart';
+import 'package:goodwill/source/util/message_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const String phoneNumber = '0844876456';
@@ -152,8 +158,23 @@ class ArticleDetailPage extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.all(10.r),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         log('chat using app');
+
+                        UserProfile? userProfile =
+                            await UserProfileService.getUserProfile(
+                                article.ownerId!);
+                        List<String> ids = [
+                          article.ownerId!,
+                          AuthService.userId!
+                        ];
+
+                        final chatRoomDto = ChatRoomDto(
+                            chatRoomId: MessageHelper.getChatRoomId(ids),
+                            sender: userProfile?.getDisplayName() ?? 'User',
+                            targetUserId: article.ownerId!);
+                        context.pushNamedWithParam(
+                            Routes.roomChatScreen, chatRoomDto);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.black,

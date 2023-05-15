@@ -1,4 +1,5 @@
 import 'package:goodwill/source/data/model/article_model.dart';
+import 'package:goodwill/source/service/auth_service.dart';
 
 List<ArticleModel> listArticles = [
   ArticleModel(
@@ -21,11 +22,13 @@ List<ArticleModel> listArticles = [
     image:
         'https://getdohelp.com/img/uploads/blogs/117-e23ff8372685d59c0eb48c78efa72689.jpg',
     type: "donate",
+    ownerId: AuthService.userId,
     contactPhoneNumber: '0934773392',
   ),
   ArticleModel(
     createdAt: DateTime(2022, 11, 22),
     title: 'Study finds "hangry" is a real thing',
+    ownerId: AuthService.userId,
     content: '''
           What is Lorem Ipsum? health
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
@@ -46,6 +49,7 @@ List<ArticleModel> listArticles = [
   ),
   ArticleModel(
       createdAt: DateTime(2022, 11, 22),
+      ownerId: AuthService.userId,
       title: 'Why childhood obesity rate are rising and what we can do  ',
       contactPhoneNumber: '0934773392',
       content: '''
@@ -66,6 +70,7 @@ List<ArticleModel> listArticles = [
       createdAt: DateTime(2022, 11, 22),
       title: 'Why childhood obesity rate are rising and what we can do  ',
       contactPhoneNumber: '0934773392',
+      ownerId: AuthService.userId,
       content: '''
           What is Lorem Ipsum? lifestyle
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
@@ -85,6 +90,7 @@ List<ArticleModel> listArticles = [
       createdAt: DateTime(2022, 11, 22),
       title: 'Why childhood obesity rate are rising and what we can do  ',
       contactPhoneNumber: '0934773392',
+      ownerId: AuthService.userId,
       content: '''
           What is Lorem Ipsum? lifestyle
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
@@ -104,6 +110,7 @@ List<ArticleModel> listArticles = [
       createdAt: DateTime(2022, 11, 22),
       title: 'Study finds "hangry" is a real thing',
       contactPhoneNumber: '0934773392',
+      ownerId: AuthService.userId,
       content: '''
           What is Lorem Ipsum? health
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
@@ -124,6 +131,7 @@ List<ArticleModel> listArticles = [
       contactPhoneNumber: '0934773392',
       title:
           'COVID-19 was a top cause of Death in 2020 and 2021 even for younger people',
+      ownerId: AuthService.userId,
       content: '''
           What is Lorem Ipsum? COVID-19
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
@@ -142,6 +150,7 @@ List<ArticleModel> listArticles = [
   ArticleModel(
       createdAt: DateTime(2022, 11, 22),
       title: 'Study finds "hangry" is a real thing',
+      ownerId: AuthService.userId,
       contactPhoneNumber: '0934773392',
       content: '''
           What is Lorem Ipsum? health
@@ -163,6 +172,7 @@ List<ArticleModel> listArticles = [
       title:
           'COVID-19 was a top cause of Death in 2020 and 2021 even for younger people',
       contactPhoneNumber: '0934773392',
+      ownerId: AuthService.userId,
       content: '''
           What is Lorem Ipsum? COVID-19
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
@@ -180,6 +190,7 @@ List<ArticleModel> listArticles = [
           'https://qph.cf2.quoracdn.net/main-qimg-81ad1b3bf709dbe73e4ca4070830f908-lq'),
   ArticleModel(
       createdAt: DateTime(2022, 11, 22),
+      ownerId: AuthService.userId,
       title:
           'Depression treatment: How genetic testing can help find the right medication',
       contactPhoneNumber: '0934773392',
@@ -200,6 +211,7 @@ List<ArticleModel> listArticles = [
           'https://cdn.thuvienphapluat.vn/uploads/tintuc/2022/01/30/cap-nhat-huong-dan-dieu-tri-covid.jpg'),
   ArticleModel(
       createdAt: DateTime(2022, 11, 22),
+      ownerId: AuthService.userId,
       contactPhoneNumber: '0934773392',
       content: '''
           What is Lorem Ipsum? Medical

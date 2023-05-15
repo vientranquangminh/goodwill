@@ -272,7 +272,7 @@ class _CreateTopicState extends State<CreateTopic> {
                             content: content);
 
                         ArticleService.addArticle(articleModel).then((value) {
-                          Navigator.pop(context);
+                          context.pop();
                           AppToasts.showToast(
                               context: context, title: 'Post Topic Success');
                         }).catchError((error) {

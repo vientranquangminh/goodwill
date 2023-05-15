@@ -82,6 +82,11 @@ class MessageModel extends BasicModel {
     return 'MessageModel2(id: $id, senderId: $senderId, targetUserId: $targetUserId, createdAt: $createdAt, text: $text)';
   }
 
+  int compareTo(MessageModel other) {
+    return (createdAt?.millisecondsSinceEpoch ?? 0) -
+        (other.createdAt?.millisecondsSinceEpoch ?? 0);
+  }
+
   @override
   bool operator ==(covariant MessageModel other) {
     if (identical(this, other)) return true;
