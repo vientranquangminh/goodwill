@@ -66,7 +66,10 @@ class PostInfo extends StatelessWidget {
                       itemBuilder: (BuildContext context) => [
                         PopupMenuItem(
                           child: TextButton(
-                            child: const Text('Edit'),
+                            child: const Text(
+                              'Edit',
+                              style: TextStyle(color: Colors.black),
+                            ),
                             onPressed: () {
                               debugPrint('Button edit pressed');
                             },
@@ -74,7 +77,10 @@ class PostInfo extends StatelessWidget {
                         ),
                         PopupMenuItem(
                           child: TextButton(
-                            child: const Text('Delete'),
+                            child: const Text(
+                              'Delete',
+                              style: TextStyle(color: Colors.black),
+                            ),
                             onPressed: () {
                               debugPrint('Button delete pressed');
                               ProductService.deleteProduct(productModel)

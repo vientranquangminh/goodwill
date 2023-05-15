@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +48,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           return SizedBox(
                             width: double.infinity,
                             height: 300.h,
-                            child: Image.network(arguments.images![index]),
+                            child: CachedNetworkImage(
+                              imageUrl: arguments.images![index],
+                              errorWidget: (context, url, error) {
+                                return const Text('');
+                              },
+                            ),
                           );
                         },
                       ),
@@ -90,7 +97,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         ),
                         PlatformIconButton(
                           icon: const Icon(
-                            Icons.heart_broken,
+                            CupertinoIcons.heart_fill,
                             color: ColorName.black,
                           ),
                         )

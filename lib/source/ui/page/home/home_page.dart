@@ -102,25 +102,11 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
-                        Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginAdminScreen(),
-                                      ));
-                                },
-                                icon: Assets.svgs.notification.svg()),
-                            IconButton(
-                                onPressed: () {
-                                  context.pushNamed(Routes.chatScreen);
-                                },
-                                icon: Assets.svgs.message.svg()),
-                          ],
-                        )
+                        IconButton(
+                            onPressed: () {
+                              context.pushNamed(Routes.chatScreen);
+                            },
+                            icon: Assets.svgs.message.svg())
                       ],
                     ),
                     Padding(
@@ -135,9 +121,10 @@ class _HomePageState extends State<HomePage> {
                                       offset: Offset(0.5, 2))
                                 ]),
                             child: TextField(
-                              autofocus: false,
-                              onTap: () =>
-                                  context.pushNamed(Routes.searchScreen),
+                              onTap: () {
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                context.pushNamed(Routes.searchScreen);
+                              },
                               cursorColor: ColorName.black,
                               maxLines: 1,
                               style: const TextStyle(

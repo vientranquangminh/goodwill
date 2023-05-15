@@ -37,13 +37,25 @@ class ManagedPostListItem extends StatelessWidget {
                   Spacer(),
                   TextButton.icon(
                     onPressed: () {},
-                    icon: Icon(Icons.remove_red_eye),
-                    label: Text('Hide post'),
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                      color: Colors.black,
+                    ),
+                    label: Text(
+                      'Hide post',
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                   TextButton.icon(
                     onPressed: () {},
-                    icon: Icon(Icons.query_stats),
-                    label: Text('Statcs'),
+                    icon: Icon(
+                      Icons.query_stats,
+                      color: Colors.black,
+                    ),
+                    label: Text(
+                      'Statcs',
+                      style: TextStyle(color: Colors.black),
+                    ),
                   )
                 ],
               ),

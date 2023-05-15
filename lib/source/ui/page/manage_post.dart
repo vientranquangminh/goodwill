@@ -160,7 +160,10 @@ class UserProfileWidget extends StatelessWidget {
                 onPressed: () {
                   context.pushNamed(Routes.connectWallet);
                 },
-                child: const Text('Connect wallet'),
+                child: const Text(
+                  'Connect wallet',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ],
           ),

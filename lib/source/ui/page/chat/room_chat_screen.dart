@@ -20,7 +20,6 @@ class RoomChatScreen extends StatefulWidget {
 class _RoomChatScreenState extends State<RoomChatScreen> {
   @override
   Widget build(BuildContext context) {
-
     final ChatRoomDto chatRoomInfo = context.getParam() as ChatRoomDto;
 
     return ScreenUtilInit(
@@ -38,141 +37,130 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
             ),
           ),
           backgroundColor: Colors.black,
-          body: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: ClipRRect(
-                      child: StreamProvider<List<MessageModel>?>.value(
-                          initialData: [],
-                          value: MessageService.getStreamAllMessagesIn(
-                              chatRoomInfo.chatRoomId),
-                          builder: (context, snapshot) {
-                            final allMessages =
-                                context.watch<List<MessageModel>?>();
+          body: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: ClipRRect(
+                    child: StreamProvider<List<MessageModel>?>.value(
+                        initialData: [],
+                        value: MessageService.getStreamAllMessagesIn(
+                            chatRoomInfo.chatRoomId),
+                        builder: (context, snapshot) {
+                          final allMessages =
+                              context.watch<List<MessageModel>?>();
 
-                            if (allMessages == null) {
-                              return const NotFoundScreen();
-                            }
+                          if (allMessages == null) {
+                            return const NotFoundScreen();
+                          }
 
-                            return ListView.builder(
-                                reverse: true,
-                                itemCount: allMessages.length,
-                                itemBuilder: (context, int index) {
-                                  final message = allMessages[index];
-                                  bool isMe =
-                                      message.senderId == AuthService.userId;
-                                  // bool isMe = message.sender.id == currentUser.id;
-                                  return Container(
-                                    margin: const EdgeInsets.only(top: 10).r,
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: isMe
-                                              ? MainAxisAlignment.end
-                                              : MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              padding: const EdgeInsets.all(10),
-                                              constraints: BoxConstraints(
-                                                  maxWidth:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.6),
-                                              decoration: BoxDecoration(
-                                                  color: isMe
-                                                      ? Colors.blue
-                                                      : Colors.grey[200],
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft: Radius.circular(
-                                                        isMe ? 16 : 3),
-                                                    topRight:
-                                                        const Radius.circular(
-                                                            16),
-                                                    bottomLeft:
-                                                        const Radius.circular(
-                                                            12),
-                                                    bottomRight:
-                                                        Radius.circular(
-                                                            isMe ? 3 : 12),
-                                                  )),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    allMessages[index].text!,
-                                                    style: const TextStyle(
-                                                            color: Colors.black)
-                                                        .copyWith(
-                                                            color: isMe
-                                                                ? Colors.white
-                                                                : Colors
-                                                                    .grey[800]),
+                          return ListView.builder(
+                              reverse: true,
+                              itemCount: allMessages.length,
+                              itemBuilder: (context, int index) {
+                                final message = allMessages[index];
+                                bool isMe =
+                                    message.senderId == AuthService.userId;
+                                // bool isMe = message.sender.id == currentUser.id;
+                                return Container(
+                                  margin: const EdgeInsets.only(top: 10).r,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: isMe
+                                            ? MainAxisAlignment.end
+                                            : MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.all(10),
+                                            constraints: BoxConstraints(
+                                                maxWidth: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.6),
+                                            decoration: BoxDecoration(
+                                                color: isMe
+                                                    ? Colors.blue
+                                                    : Colors.grey[200],
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(
+                                                      isMe ? 16 : 3),
+                                                  topRight:
+                                                      const Radius.circular(16),
+                                                  bottomLeft:
+                                                      const Radius.circular(12),
+                                                  bottomRight: Radius.circular(
+                                                      isMe ? 3 : 12),
+                                                )),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  allMessages[index].text!,
+                                                  style: const TextStyle(
+                                                          color: Colors.black)
+                                                      .copyWith(
+                                                          color: isMe
+                                                              ? Colors.white
+                                                              : Colors
+                                                                  .grey[800]),
+                                                ),
+                                                SizedBox(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      if (isMe)
+                                                        Icon(Icons.done_all,
+                                                            size: 16.sp,
+                                                            color:
+                                                                Colors.white),
+                                                      SizedBox(
+                                                        width: 8.w,
+                                                      ),
+                                                      Text(
+                                                          DateTime.now()
+                                                                  .isSameDay(message
+                                                                      .createdAt!)
+                                                              ? DateTimeHelper
+                                                                  .toMessageTime(
+                                                                      message
+                                                                          .createdAt)
+                                                              : '${DateTimeHelper.toMessageTime(message.createdAt)} ${DateTimeHelper.toFriendlyString(message.createdAt)}',
+                                                          style: isMe
+                                                              ? const TextStyle(
+                                                                  color: Colors
+                                                                      .white)
+                                                              : const TextStyle(
+                                                                  color: Colors
+                                                                      .grey))
+                                                    ],
                                                   ),
-                                                  SizedBox(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        if (isMe)
-                                                          Icon(Icons.done_all,
-                                                              size: 16.sp,
-                                                              color:
-                                                                  Colors.white),
-                                                        SizedBox(
-                                                          width: 8.w,
-                                                        ),
-                                                        Text(
-                                                            DateTime.now()
-                                                                    .isSameDay(
-                                                                        message
-                                                                            .createdAt!)
-                                                                ? DateTimeHelper
-                                                                    .toMessageTime(
-                                                                        message
-                                                                            .createdAt)
-                                                                : '${DateTimeHelper.toMessageTime(message.createdAt)} ${DateTimeHelper.toFriendlyString(message.createdAt)}',
-                                                            style: isMe
-                                                                ? const TextStyle(
-                                                                    color: Colors
-                                                                        .white)
-                                                                : const TextStyle(
-                                                                    color: Colors
-                                                                        .grey))
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                });
-                          }),
-                    ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
+                        }),
                   ),
                 ),
-                InputMessage(
-                  targetUserId: chatRoomInfo.targetUserId,
-                )
-              ],
-            ),
+              ),
+              InputMessage(
+                targetUserId: chatRoomInfo.targetUserId,
+              )
+            ],
           ),
         );
       },

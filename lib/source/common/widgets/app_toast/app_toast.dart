@@ -8,14 +8,13 @@ class AppToasts {
   }) {
     FToast().init(context);
     FToast().showToast(
-      positionedToastBuilder: (_,Widget child) {
+      positionedToastBuilder: (_, Widget child) {
         return Positioned(top: 44.0, left: 24.0, right: 24.0, child: child);
       },
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-            color:
-                Colors.green,
+            color: Colors.green,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: Colors.green,
@@ -28,7 +27,7 @@ class AppToasts {
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(color: Colors.black, fontSize: 20),
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ],
@@ -44,7 +43,7 @@ class AppToasts {
   }) {
     FToast().init(context);
     FToast().showToast(
-      positionedToastBuilder: (_,Widget child) {
+      positionedToastBuilder: (_, Widget child) {
         return Positioned(top: 44.0, left: 24.0, right: 24.0, child: child);
       },
       child: Container(
@@ -53,8 +52,7 @@ class AppToasts {
             color: Colors.red,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color:
-                  Colors.red,
+              color: Colors.red,
             )),
         child: Padding(
           padding: const EdgeInsets.all(18),
@@ -63,7 +61,7 @@ class AppToasts {
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(color: Colors.black, fontSize: 20),
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
               ),
