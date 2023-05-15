@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:goodwill/gen/colors.gen.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:goodwill/source/ui/page/profile/dummy/security.dart';
@@ -21,8 +22,7 @@ class _SecurityPageState extends State<SecurityPage> {
       appBar: CustomAppBar(
         title: 'Security',
         leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back)),
+            onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back)),
       ),
       body: Column(children: [
         SizedBox(

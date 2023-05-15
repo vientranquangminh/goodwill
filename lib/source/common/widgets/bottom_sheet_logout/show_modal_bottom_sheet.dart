@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/bottom_sheet_logout/my_custom_bottom_sheet.dart';
 import 'package:goodwill/source/common/widgets/snack_bar/snack_bar.dart';
 
@@ -21,13 +22,13 @@ void showModelBottomSheetFunction(BuildContext context, double radius) {
           negativeButtonText: 'No',
           positiveButtonText: 'Yes',
           negativeButtonFunction: () {
-            Navigator.pop(context);
+            context.pop();
             log('NO');
             ScaffoldMessenger.of(context).showSnackBar(
                 showSnackBar('You\'ve clicked on No Button', 'Confirm'));
           },
           positiveButtonFunction: () {
-            Navigator.pop(context);
+            context.pop();
             log('YES');
             ScaffoldMessenger.of(context).showSnackBar(
                 showSnackBar('You\'ve clicked on Yes Button', 'Confirm'));
