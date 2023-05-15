@@ -183,7 +183,7 @@ class _EditUserInformationState extends State<EditUserInformation> {
                     UserProfileService.updateUserProfile(up);
                     AppToasts.showToast(
                         context: context, title: 'Update successfully');
-                    Navigator.pop(context);
+                    context.pop();
                   }
                 },
                 fontSize: 16,

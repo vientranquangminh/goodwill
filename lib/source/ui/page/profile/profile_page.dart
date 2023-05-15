@@ -150,11 +150,11 @@ class ProfilePage extends StatelessWidget {
                                     buttonText2: 'Logout',
                                     function1: (() {
                                       log('cancel');
-                                      Navigator.pop(context);
+                                      context.pop();
                                     }),
                                     function2: (() {
                                       log('Logout');
-                                      Navigator.pop(context);
+                                      context.pop();
                                       AuthService.signOut();
                                       context
                                           .pushAndRemoveUntil(Routes.startApp);

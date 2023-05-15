@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_outline_button.dart';
 import 'package:goodwill/source/resources/app_assets.dart';
@@ -32,7 +33,7 @@ class AppDialogs {
               const SizedBox(height: 16),
               PrimaryButton(
                 text: 'OK',
-                customFunction: () => Navigator.pop(context),
+                customFunction: () => context.pop(),
               ),
             ],
           ),
@@ -86,7 +87,7 @@ class AppDialogs {
                 text: buttonTitle,
                 customFunction: () {
                   if (buttonOnPressed != null) buttonOnPressed();
-                  Navigator.pop(context);
+                  context.pop();
                 },
               ),
             ],
@@ -149,7 +150,7 @@ class AppDialogs {
                       text: leftButtonTitle,
                       customFunction: () {
                         if (leftOnPressed != null) leftOnPressed();
-                        Navigator.pop(context);
+                        context.pop();
                       },
                     ),
                   ),
@@ -159,7 +160,7 @@ class AppDialogs {
                       text: rightButtonTitle,
                       customFunction: () {
                         if (rightOnPressed != null) rightOnPressed();
-                        Navigator.pop(context);
+                        context.pop();
                       },
                     ),
                   ),

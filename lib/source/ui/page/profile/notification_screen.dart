@@ -20,8 +20,7 @@ class _NotificationPageState extends State<NotificationPage> {
         backgroundColor: ColorName.white,
         title: context.localizations.notification,
         leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back)),
+            onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

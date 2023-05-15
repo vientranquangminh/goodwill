@@ -3,14 +3,33 @@ import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/ui/page/cart_product/cart_product.dart';
 
-class ContainerCart extends StatelessWidget {
+class ContainerCart extends StatefulWidget {
   const ContainerCart({
     super.key,
     required this.listCartProduct,
   });
   final ProductCartModel listCartProduct;
+
+  @override
+  State<ContainerCart> createState() => _ContainerCartState();
+}
+
+class _ContainerCartState extends State<ContainerCart> {
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return Colors.red;
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
@@ -49,7 +68,7 @@ class ContainerCart extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              listCartProduct.title,
+                              widget.listCartProduct.title,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 17,
@@ -67,7 +86,7 @@ class ContainerCart extends StatelessWidget {
                       ),
                       RichText(
                         text: TextSpan(
-                          text: listCartProduct.phoneNumber,
+                          text: 'Category',
                           style: const TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.w700,
@@ -77,7 +96,7 @@ class ContainerCart extends StatelessWidget {
                               text: ' | ',
                             ),
                             TextSpan(
-                              text: listCartProduct.location,
+                              text: widget.listCartProduct.location,
                               style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w700,
@@ -95,7 +114,7 @@ class ContainerCart extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "\$" "${listCartProduct.price}",
+                              "\$" "${widget.listCartProduct.price}",
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -103,22 +122,25 @@ class ContainerCart extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                GestureDetector(
-                                    child: CircleAvatar(
-                                        backgroundColor: Colors.grey.shade300,
-                                        radius: 20,
-                                        child: Assets.svgs.message.svg())),
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                GestureDetector(
-                                    child: CircleAvatar(
-                                        backgroundColor: Colors.grey.shade300,
-                                        radius: 20,
-                                        child: const Icon(
-                                          Icons.phone,
-                                          color: Colors.black,
-                                        )))
+                                Transform.scale(
+                                  scale: 1.5,
+                                  child: Checkbox(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    checkColor: Colors.white,
+                                    activeColor: Colors.black,
+                                    value: isChecked,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        isChecked = value!;
+                                      });
+                                    },
+                                  ),
+                                )
                               ],
                             )
                           ],

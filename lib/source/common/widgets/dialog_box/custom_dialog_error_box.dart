@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -75,7 +76,7 @@ class CustomDialogErrorBoxState extends State<CustomDialogErrorBox>
             child: PrimaryButton(
               text: 'Ok',
               customFunction: () {
-                Navigator.pop(context);
+                context.pop();
               },
             ),
           ),

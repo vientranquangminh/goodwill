@@ -25,7 +25,7 @@ class CategoryPage extends StatelessWidget {
                 color: ColorName.black,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                context.pop();
               },
             ),
             actions: [Assets.svgs.icSearch.path],
