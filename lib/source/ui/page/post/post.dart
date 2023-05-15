@@ -2,15 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/app_toast/app_toast.dart';
-import 'package:goodwill/source/data/model/message_dto.dart';
-import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
@@ -77,10 +75,7 @@ class _PostState extends State<Post> {
       appBar: CustomAppBar(
         titleColor: ColorName.black,
         backgroundColor: ColorName.white,
-        leading: PlatformIconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => context.pop(),
-        ),
+        leading: Assets.svgs.mainIcon.svg(),
         title: context.localizations.upload,
       ),
       body: SingleChildScrollView(
