@@ -46,7 +46,7 @@ class ArticleRepository extends BasicRepository<ArticleModel> {
   }
 
   @override
-  Future<void> deleteById(ArticleModel element){
+  Future<void> deleteById(ArticleModel element) {
     return deleteWithDocRefId(element, docRefs: _getDocumentRefs(element.id!));
   }
 
@@ -87,10 +87,14 @@ class ArticleRepository extends BasicRepository<ArticleModel> {
 
   @override
   Stream<List<ArticleModel>?> getStreamAll(
-      {CollectionReference<Object?>? collectionRef}) {
-    return getStreamAllElementsFromCollectionRef(
-        collectionRef:
-            (collectionRef != null) ? collectionRef : _articlesCollectionRef);
+      {CollectionReference<Object?>? collectionRef, Query<Object?>? query}) {
+    if (query != null) {
+      return getStreamAllElementsFromQuery(query: query);
+    } else {
+      return getStreamAllElementsFromCollectionRef(
+          collectionRef:
+              (collectionRef != null) ? collectionRef : _articlesCollectionRef);
+    }
   }
 
   @override
