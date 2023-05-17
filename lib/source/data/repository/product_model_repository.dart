@@ -100,12 +100,16 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
 
   @override
   Stream<List<ProductModel>?> getStreamAll(
-      {CollectionReference? collectionRef}) {
-    return getStreamAllElementsFromCollectionRef(
-        collectionRef:
-            (collectionRef != null) ? collectionRef : _productsCollectionRef);
+      {CollectionReference<Object?>? collectionRef, Query<Object?>? query}) {
+    if (query != null) {
+      return getStreamAllElementsFromQuery(query: query);
+    } else {
+      return getStreamAllElementsFromCollectionRef(
+          collectionRef:
+              (collectionRef != null) ? collectionRef : _productsCollectionRef);
+    }
   }
-  
+
   @override
   Future<void> deleteById(ProductModel element) {
     return deleteWithDocRefId(element, docRefs: _getDocumentRefs(element.id!));

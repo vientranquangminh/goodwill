@@ -58,4 +58,18 @@ class ProductService {
   static Future<void> deleteProductById(ProductModel productModel) async {
     return _productModelRepository.deleteById(productModel);
   }
+
+  static Stream<List<ProductModel>?> getProductsByCondition(String category) {
+    if (category == 'All') {
+      CollectionReference collectionReference =
+          _instance.collection('products');
+      return _productModelRepository.getStreamAll(
+          collectionRef: collectionReference);
+    } else {
+      Query query = _instance
+          .collection('products')
+          .where('category', isEqualTo: category);
+      return _productModelRepository.getStreamAll(query: query);
+    }
+  }
 }

@@ -7,8 +7,27 @@ import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/ui/admin/widget/appbar_admin.dart';
 import 'package:provider/provider.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+const List<String> list = <String>[
+  'All',
+  'Clothes',
+  'Shoes',
+  'Bags',
+  'Electronic',
+  'Watch',
+  'Jewelry',
+  'Kitchen',
+  'Toys',
+];
+
+class _ProductPageState extends State<ProductPage> {
+  String dropdownValue = list.first;
 
   @override
   Widget build(BuildContext context) {
@@ -24,48 +43,91 @@ class ProductPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          context.localizations.product,
-                          style: const TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w800),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              context.localizations.product,
+                              style: const TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.w800),
+                            ),
+                            Text(
+                              context.localizations.manageAllProduct,
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w800),
+                            )
+                          ]),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: 150,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: dropdownValue,
+                              icon: const Icon(Icons.arrow_drop_down_sharp),
+                              elevation: 10,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  dropdownValue = value!;
+                                });
+                              },
+                              items: list.map<DropdownMenuItem<String>>(
+                                  (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         ),
-                        Text(
-                          context.localizations.manageAllProduct,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w800),
-                        )
-                      ]),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 20),
-                Consumer<List<ProductModel>>(
-                  builder: (context, products, child) {
-                    if (products.isEmpty) {
+                StreamBuilder<List<ProductModel>?>(
+                  stream: ProductService.getProductsByCondition(dropdownValue),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong: ${snapshot.error}');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child:
                             CircularProgressIndicator(color: ColorName.black),
                       );
-                    } else {
+                    }
+                    if (snapshot.hasData) {
                       List<DataRow> rows = [];
-                      for (int i = 0; i < products.length; i++) {
+                      int length = snapshot.data?.length ?? 0;
+                      for (int i = 0; i < length; i++) {
                         rows.add(
                           DataRow(
                             cells: <DataCell>[
                               DataCell(Text('${i + 1}')),
-                              DataCell(Text(products[i].title ?? '')),
-                              DataCell(Text(products[i].category ?? '')),
-                              DataCell(Text(products[i].createdAt.toString())),
-                              DataCell(Text(products[i].location ?? '')),
-                              DataCell(Text(products[i].ownerId ?? '')),
-                              DataCell(Text(products[i].price.toString())),
+                              DataCell(Text(snapshot.data?[i].title ?? '')),
+                              DataCell(Text(snapshot.data?[i].category ?? '')),
+                              DataCell(
+                                  Text(snapshot.data![i].createdAt.toString())),
+                              DataCell(Text(snapshot.data?[i].location ?? '')),
+                              DataCell(Text(snapshot.data?[i].ownerId ?? '')),
+                              DataCell(
+                                  Text(snapshot.data![i].price.toString())),
                               DataCell(IconButton(
                                 icon: const Icon(
                                     CupertinoIcons.xmark_circle_fill),
                                 onPressed: () {
-                                  ProductService.deleteProductById(products[i]);
+                                  ProductService.deleteProductById(
+                                      snapshot.data![i]);
                                 },
                               )),
                             ],
@@ -123,6 +185,7 @@ class ProductPage extends StatelessWidget {
                         ),
                       );
                     }
+                    return Container();
                   },
                 )
               ],
