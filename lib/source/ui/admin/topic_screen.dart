@@ -10,7 +10,7 @@ import 'package:goodwill/source/service/article_service.dart';
 import 'package:goodwill/source/ui/admin/widget/appbar_admin.dart';
 import 'package:provider/provider.dart';
 
-const List<String> list = <String>['Buy', 'Donate'];
+const List<String> list = <String>['All', 'Buy', 'Donate'];
 
 class TopicScreen extends StatefulWidget {
   const TopicScreen({Key? key}) : super(key: key);
@@ -21,16 +21,6 @@ class TopicScreen extends StatefulWidget {
 
 class _TopicScreenState extends State<TopicScreen> {
   String dropdownValue = list.first;
-  List<DateTime> _dates = [];
-  DateTime? _selectedDate;
-
-  @override
-  void initState() {
-    super.initState();
-    _dates = List.generate(
-        30, (index) => DateTime.now().subtract(Duration(days: index)));
-    _selectedDate = _dates.first;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,66 +54,34 @@ class _TopicScreenState extends State<TopicScreen> {
                                   fontSize: 20, fontWeight: FontWeight.w800),
                             )
                           ]),
-                      Row(
-                        children: [
-                          Container(
-                            width: 140,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<DateTime>(
-                                value: _selectedDate,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _selectedDate = newValue;
-                                  });
-                                },
-                                items: _dates.map((date) {
-                                  return DropdownMenuItem<DateTime>(
-                                    value: date,
-                                    child: Text(
-                                        '${date.day}/${date.month}/${date.year}'),
-                                  );
-                                }).toList(),
-                              ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: dropdownValue,
+                              icon: const Icon(Icons.arrow_drop_down_sharp),
+                              elevation: 10,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  dropdownValue = value!;
+                                });
+                              },
+                              items: list.map<DropdownMenuItem<String>>(
+                                  (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
                             ),
                           ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              width: 100,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  value: dropdownValue,
-                                  icon: const Icon(Icons.arrow_drop_down_sharp),
-                                  elevation: 10,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      dropdownValue = value!;
-                                    });
-                                  },
-                                  items: list.map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
@@ -131,31 +89,38 @@ class _TopicScreenState extends State<TopicScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Consumer<List<ArticleModel>>(
-                  builder: (context, articles, child) {
-                    if (articles.isEmpty) {
+                StreamBuilder<List<ArticleModel>?>(
+                  stream: ArticleService.getAllArticlesByCondition(
+                      dropdownValue.toLowerCase()),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong: ${snapshot.error}');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child:
                             CircularProgressIndicator(color: ColorName.black),
                       );
-                    } else {
-                      log(articles.length.toString(), name: 'articles');
+                    }
+                    if (snapshot.hasData) {
                       List<DataRow> rows = [];
-                      for (int i = 0; i < articles.length; i++) {
-                        log(articles[i].toString(), name: 'articles');
+                      int length = snapshot.data?.length ?? 0;
+                      for (int i = 0; i < length; i++) {
+                        // log(articles[i].toString(), name: 'articles');
                         rows.add(
                           DataRow(
                             cells: <DataCell>[
                               DataCell(Text('${i + 1}')),
-                              DataCell(Text(articles[i].title ?? '')),
-                              DataCell(Text(articles[i].createdAt.toString())),
-                              DataCell(Text(articles[i].ownerId ?? '')),
+                              DataCell(Text(snapshot.data?[i].title ?? '')),
+                              DataCell(
+                                  Text(snapshot.data![i].createdAt.toString())),
+                              DataCell(Text(snapshot.data?[i].ownerId ?? '')),
                               DataCell(
                                 PlatformIconButton(
                                     padding: EdgeInsets.zero,
                                     onPressed: () {
                                       ArticleService.deleteArticleById(
-                                          articles[i]);
+                                          snapshot.data![i]);
                                     },
                                     icon: const Icon(
                                         CupertinoIcons.xmark_circle_fill)),
@@ -212,6 +177,7 @@ class _TopicScreenState extends State<TopicScreen> {
                         ),
                       );
                     }
+                    return Container();
                   },
                 )
               ],

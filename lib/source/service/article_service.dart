@@ -41,7 +41,20 @@ class ArticleService {
     return _articleModelRepository.delete(articleModel);
   }
 
-  static Future<void> deleteArticleById(ArticleModel articleModel){
+  static Future<void> deleteArticleById(ArticleModel articleModel) {
     return _articleModelRepository.deleteById(articleModel);
+  }
+
+  static Stream<List<ArticleModel>?> getAllArticlesByCondition(String type) {
+    if (type == 'all') {
+      CollectionReference collectionReference =
+          _instance.collection('articles');
+      return _articleModelRepository.getStreamAll(
+          collectionRef: collectionReference);
+    } else {
+      Query query =
+          _instance.collection('articles').where('type', isEqualTo: type);
+      return _articleModelRepository.getStreamAll(query: query);
+    }
   }
 }
