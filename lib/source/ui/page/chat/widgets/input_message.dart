@@ -11,9 +11,11 @@ class InputMessage extends StatelessWidget {
   const InputMessage({
     Key? key,
     this.targetUserId,
+    required this.scrollController,
   }) : super(key: key);
 
   final String? targetUserId;
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +128,11 @@ class InputMessage extends StatelessWidget {
               backgroundColor: Colors.black,
               child: IconButton(
                 onPressed: () {
+                  scrollController.animateTo(
+                    0,
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
                   log('send');
                   log(_messageController.text);
 
