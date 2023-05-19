@@ -28,6 +28,11 @@ dependencies:
   retrofit_generator: ^6.0.0+1
   get_it: ^7.2.0
 
+  # zalopay
+  flutter_zalopay_sdk:
+    git:
+      url: https://github.com/doanhduy199819/flutter_zalopay_sdk-0.1.13.git
+
   # firebase
   firebase_auth: ^4.1.4
   firebase_core: ^2.3.0
