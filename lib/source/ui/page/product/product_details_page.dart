@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +10,7 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button_with_icon.dart';
+import 'package:goodwill/source/common/widgets/indicator/dot_indiccator.dart';
 import 'package:goodwill/source/data/model/chatroom_dto.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
@@ -28,12 +28,41 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int quantity = 1;
-
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     final arguments = context.getParam() as ProductModel;
     log(arguments.toString());
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          context.localizations.productDetails.toUpperCase(),
+          style: context.blackS16W700,
+        ),
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        leading: PlatformIconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: ColorName.black,
+          ),
+          onPressed: () {
+            context.pop();
+          },
+        ),
+        actions: [
+          PlatformIconButton(
+            icon: const Icon(
+              Icons.shopping_cart_outlined,
+              color: ColorName.black,
+              size: 30,
+            ),
+            onPressed: () {
+              context.pushNamed(Routes.cartProduct);
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -43,52 +72,42 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Stack(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(top: 30),
-                            child: SizedBox(
-                              height: 300.h,
-                              child: PageView.builder(
-                                itemCount: arguments.images!.length,
-                                itemBuilder: (context, index) {
-                                  return SizedBox(
-                                    width: double.infinity,
-                                    height: 300.h,
-                                    child: CachedNetworkImage(
-                                      imageUrl: arguments.images![index],
-                                      errorWidget: (context, url, error) {
-                                        return const Text('');
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                          PlatformIconButton(
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              color: ColorName.black,
-                            ),
-                            onPressed: () {
-                              context.pop();
+                      Container(
+                        margin: const EdgeInsets.only(top: 0),
+                        child: SizedBox(
+                          height: 300.h,
+                          child: PageView.builder(
+                            onPageChanged: (int index) {
+                              setState(() {
+                                _currentIndex = index;
+                              });
+                            },
+                            itemCount: arguments.images!.length,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                width: double.infinity,
+                                height: 400.h,
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.fitHeight,
+                                  imageUrl: arguments.images![index],
+                                  errorWidget: (context, url, error) {
+                                    return const Text('Something went wrong!');
+                                  },
+                                ),
+                              );
                             },
                           ),
-                          Positioned(
-                            right: 0,
-                            child: PlatformIconButton(
-                              icon: const Icon(
-                                Icons.shopping_cart_outlined,
-                                color: ColorName.black,
-                                size: 30,
-                              ),
-                              onPressed: () {
-                                context.pushNamed(Routes.cartProduct);
-                              },
-                            ),
-                          ),
-                        ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      DotIndicator(
+                        currentIndex: _currentIndex,
+                        itemCount: arguments.images!.length,
+                        dotColor: Colors.black,
+                        dotSize: 8.0,
+                        spacing: 8.0,
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
@@ -96,42 +115,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            FutureBuilder<UserProfile?>(
-                                future: UserProfileService.getUserProfile(
-                                    arguments.ownerId ?? ""),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    UserProfile? userProfile = snapshot.data;
-                                    return GestureDetector(
-                                      onTap: () {},
-                                      child: Row(
-                                        children: [
-                                          Avatar(
-                                            imagePath:
-                                                userProfile!.profilePicture,
-                                            size: const Size(50, 50),
-                                          ),
-                                          SizedBox(
-                                            width: 12.w,
-                                          ),
-                                          Text(
-                                            userProfile.fullName ?? '',
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }
-                                  return Container();
-                                }),
-                            SizedBox(
-                              height: 12.h,
-                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -139,12 +122,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                   arguments.title.toString(),
                                   style: context.blackS20W700,
                                 ),
-                                PlatformIconButton(
-                                  icon: const Icon(
-                                    CupertinoIcons.heart_fill,
-                                    color: ColorName.black,
-                                  ),
-                                )
                               ],
                             ),
                             const Divider(
@@ -161,6 +138,78 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             SizedBox(
                               height: 12.h,
                             ),
+                            FutureBuilder<UserProfile?>(
+                                future: UserProfileService.getUserProfile(
+                                    arguments.ownerId ?? ""),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    UserProfile? userProfile = snapshot.data;
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Avatar(
+                                              imagePath:
+                                                  userProfile!.profilePicture,
+                                              size: const Size(50, 50),
+                                            ),
+                                            SizedBox(
+                                              width: 12.w,
+                                            ),
+                                            Text(
+                                              userProfile.fullName ?? '',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            PlatformIconButton(
+                                                padding: EdgeInsets.zero,
+                                                icon: Assets.svgs.message.svg(
+                                                    colorFilter:
+                                                        const ColorFilter.mode(
+                                                            ColorName.black,
+                                                            BlendMode.srcIn)),
+                                                onPressed: () async {
+                                                  UserProfile? userProfile =
+                                                      await UserProfileService
+                                                          .getUserProfile(
+                                                              arguments
+                                                                  .ownerId!);
+                                                  List<String> ids = [
+                                                    arguments.ownerId!,
+                                                    AuthService.userId!
+                                                  ];
+
+                                                  final chatRoomDto = ChatRoomDto(
+                                                      chatRoomId: MessageHelper
+                                                          .getChatRoomId(ids),
+                                                      sender: userProfile
+                                                              ?.getDisplayName() ??
+                                                          'User',
+                                                      targetUserId:
+                                                          arguments.ownerId!);
+                                                  if (context.mounted) {
+                                                    context.pushNamedWithParam(
+                                                        Routes.roomChatScreen,
+                                                        chatRoomDto);
+                                                  }
+                                                }),
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  }
+                                  return Container();
+                                }),
                             SizedBox(
                               height: 12.h,
                             ),
@@ -173,7 +222,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 SizedBox(
                                   width: 20.w,
                                 ),
-                                selectQuantityWidget(quantity, context, () {
+                                _selectQuantityWidget(quantity, context, () {
                                   if (quantity < 2) {
                                     quantity = 2;
                                   }
@@ -207,43 +256,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       Text(context.localizations.totalPrice,
                           style: context.blackS10W400),
                       Text(
-                        "\$${arguments.price}",
+                        "${arguments.price} VND",
                         style: context.blackS20W700,
                       ),
                     ],
                   ),
                   SizedBox(
                     width: 10.w,
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      height: 50,
-                      child: PrimaryButtonWithIcon(
-                          svg: Assets.svgs.message.svg(
-                              colorFilter: const ColorFilter.mode(
-                                  ColorName.white, BlendMode.srcIn)),
-                          buttonColor: ColorName.black,
-                          textColor: ColorName.white,
-                          fontSize: 12,
-                          radius: 20.0,
-                          text: context.localizations.chat,
-                          customFunction: () async {
-                            UserProfile? userProfile =
-                                await UserProfileService.getUserProfile(
-                                    arguments.ownerId!);
-                            List<String> ids = [
-                              arguments.ownerId!,
-                              AuthService.userId!
-                            ];
-
-                            final chatRoomDto = ChatRoomDto(
-                                chatRoomId: MessageHelper.getChatRoomId(ids),
-                                sender: userProfile?.getDisplayName() ?? 'User',
-                                targetUserId: arguments.ownerId!);
-                            context.pushNamedWithParam(
-                                Routes.roomChatScreen, chatRoomDto);
-                          }),
-                    ),
                   ),
                   SizedBox(
                     width: 8.w,
@@ -274,7 +293,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   }
 }
 
-Widget selectQuantityWidget(int text, BuildContext context,
+Widget _selectQuantityWidget(int text, BuildContext context,
     VoidCallback subtractFunc, VoidCallback addFunc) {
   return Container(
     decoration: BoxDecoration(
