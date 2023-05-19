@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 14.0, color: Colors.grey),
                                 suffixIcon: IconButton(
                                   icon: Assets.svgs.filter
-                                      .svg(color: Colors.black),
+                                      .svg(colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn)),
                                   onPressed: () {},
                                 ),
                               ),
@@ -169,7 +169,6 @@ class _HomePageState extends State<HomePage> {
 
 class _buildSearchProducts extends StatelessWidget {
   const _buildSearchProducts({
-    super.key,
     required this.defaultAllProducts,
   });
 
@@ -184,10 +183,6 @@ class _buildSearchProducts extends StatelessWidget {
           crossAxisCount: 4,
           mainAxisSpacing: 15.0,
           children: List.generate(listCategories.length, (index) {
-            // List listPost = defaultAllProducts
-            //     .where((element) =>
-            //         element.category == listCategories[index].title)
-            //     .toList();
             return GestureDetector(
                 onTap: () => context.pushNamedWithParam(
                     Routes.category, listCategories[index].title),
@@ -199,7 +194,6 @@ class _buildSearchProducts extends StatelessWidget {
 
 class _buildForYouProducts extends StatelessWidget {
   const _buildForYouProducts({
-    super.key,
     required this.forYouProducts,
   });
 
