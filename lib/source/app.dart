@@ -57,7 +57,7 @@ class App extends StatelessWidget {
             final languageProvider = context.watch<LanguageProvider>();
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              initialRoute: Routes.startApp,
+              initialRoute: Routes.splashScreen,
               locale: languageProvider.locale,
               routes: customRoutes,
               theme: ThemeData(

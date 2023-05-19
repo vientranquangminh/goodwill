@@ -7,6 +7,7 @@ import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/ui/page/auth_wrapper/auth_wrapper.dart';
+import 'package:goodwill/source/ui/page/splash/splash_screen.dart';
 
 class StartApp extends StatelessWidget {
   const StartApp({super.key});
@@ -38,10 +39,10 @@ class StartApp extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const AuthWrapper(),
+                        builder: (_) => const SplashScreen(),
                       ));
                 }
-                },
+              },
             ),
           )
         ],

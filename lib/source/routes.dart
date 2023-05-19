@@ -15,6 +15,7 @@ import 'package:goodwill/source/ui/page/profile/security_screen.dart';
 import 'package:goodwill/source/ui/page/sign_in/fill_profile.dart';
 import 'package:goodwill/source/ui/page/sign_in/sign_in.dart';
 import 'package:goodwill/source/ui/page/sign_in/sign_up.dart';
+import 'package:goodwill/source/ui/page/splash/splash_screen.dart';
 import 'package:goodwill/source/ui/start_app.dart';
 import 'package:goodwill/source/ui/page/chat/room_chat_screen.dart';
 
@@ -24,7 +25,7 @@ import 'ui/page/search/search_product.dart';
 
 class Routes {
   static const startApp = '/';
-  static const signIn = '/sign_in';
+  static const signIn = '/login';
   static const signUp = '/sign_Up';
   static const fillProfile = '/fillProfile';
   static const myPageController = '/pageController';
@@ -43,6 +44,7 @@ class Routes {
   static const createTopic = '/create-topic';
   static const connectWallet = '/connect-wallet';
   static const connectWalletUsePhoneNumber = '/connect-wallet-use-phone-number';
+  static const splashScreen = '/splash';
 
   static pushNamed() {}
   static const changeLanguage = '/change-language';
@@ -70,5 +72,6 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.createTopic: (context) => const CreateTopic(),
   Routes.connectWallet: (context) => const ConnectWallet(),
   Routes.connectWalletUsePhoneNumber: (context) =>
-      const ConnectWalletUsePhoneNumber()
+      const ConnectWalletUsePhoneNumber(),
+  Routes.splashScreen: (context) => const SplashScreen()
 };

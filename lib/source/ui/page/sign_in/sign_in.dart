@@ -142,6 +142,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                         await AuthService.signInWithEmailAndPassword(
                             email, password);
+                        context.pushNamed(Routes.myPageController);
                       }
                     },
                     child: const Text(
