@@ -9,12 +9,15 @@ import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
+import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button_with_icon.dart';
+import 'package:goodwill/source/data/model/chatroom_dto.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';
-import 'package:goodwill/source/ui/page/product/widgets/product_card.dart';
-import 'package:goodwill/source/ui/page/product/widgets/select_color_widget.dart';
-import 'package:goodwill/source/ui/page/product/widgets/select_size_widget.dart';
+import 'package:goodwill/source/service/auth_service.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
+import 'package:goodwill/source/util/message_helper.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({super.key});
@@ -32,182 +35,239 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     log(arguments.toString());
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 30),
-                    child: SizedBox(
-                      height: 300.h,
-                      child: PageView.builder(
-                        itemCount: arguments.images!.length,
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            width: double.infinity,
-                            height: 300.h,
-                            child: CachedNetworkImage(
-                              imageUrl: arguments.images![index],
-                              errorWidget: (context, url, error) {
-                                return const Text('');
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(top: 30),
+                            child: SizedBox(
+                              height: 300.h,
+                              child: PageView.builder(
+                                itemCount: arguments.images!.length,
+                                itemBuilder: (context, index) {
+                                  return SizedBox(
+                                    width: double.infinity,
+                                    height: 300.h,
+                                    child: CachedNetworkImage(
+                                      imageUrl: arguments.images![index],
+                                      errorWidget: (context, url, error) {
+                                        return const Text('');
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          PlatformIconButton(
+                            icon: const Icon(
+                              Icons.arrow_back_ios,
+                              color: ColorName.black,
+                            ),
+                            onPressed: () {
+                              context.pop();
+                            },
+                          ),
+                          Positioned(
+                            right: 0,
+                            child: PlatformIconButton(
+                              icon: const Icon(
+                                Icons.shopping_cart_outlined,
+                                color: ColorName.black,
+                                size: 30,
+                              ),
+                              onPressed: () {
+                                context.pushNamed(Routes.cartProduct);
                               },
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  PlatformIconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: ColorName.black,
-                    ),
-                    onPressed: () {
-                      context.pop();
-                    },
-                  ),
-                  Positioned(
-                    right: 0,
-                    child: PlatformIconButton(
-                      icon: const Icon(
-                        Icons.shopping_cart_outlined,
-                        color: ColorName.black,
-                        size: 30,
-                      ),
-                      onPressed: () {
-                        context.pushNamed(Routes.cartProduct);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          arguments.title.toString(),
-                          style: context.blackS20W700,
-                        ),
-                        PlatformIconButton(
-                          icon: const Icon(
-                            CupertinoIcons.heart_fill,
-                            color: ColorName.black,
                           ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        QuantitySoldContainer(
-                          color: const Color.fromARGB(255, 214, 214, 214),
-                          radius: 4.r,
-                          text: context.localizations.sold('1,234'),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        const Icon(Icons.star_half),
-                        Text('4.8 (${context.localizations.reviews('4,321')})'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    const Divider(
-                      color: ColorName.black,
-                    ),
-                    Text(
-                      context.localizations.description,
-                      style: context.blackS16W700,
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Text(arguments.description.toString()),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        SelectSizeWidget(),
-                        SelectColorWidget(),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          context.localizations.quantity,
-                          style: context.blackS16W500,
-                        ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        selectQuantityWidget(quantity, context, () {
-                          if (quantity < 2) {
-                            quantity = 2;
-                          }
-                          setState(() {
-                            quantity--;
-                          });
-                        }, () {
-                          setState(() {
-                            quantity++;
-                          });
-                        })
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Row(
-                      children: [
-                        Column(
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 12.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(context.localizations.totalPrice,
-                                style: context.blackS10W400),
+                            FutureBuilder<UserProfile?>(
+                                future: UserProfileService.getUserProfile(
+                                    arguments.ownerId ?? ""),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    UserProfile? userProfile = snapshot.data;
+                                    return GestureDetector(
+                                      onTap: () {},
+                                      child: Row(
+                                        children: [
+                                          Avatar(
+                                            imagePath:
+                                                userProfile!.profilePicture,
+                                            size: const Size(50, 50),
+                                          ),
+                                          SizedBox(
+                                            width: 12.w,
+                                          ),
+                                          Text(
+                                            userProfile.fullName ?? '',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                  return Container();
+                                }),
+                            SizedBox(
+                              height: 12.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  arguments.title.toString(),
+                                  style: context.blackS20W700,
+                                ),
+                                PlatformIconButton(
+                                  icon: const Icon(
+                                    CupertinoIcons.heart_fill,
+                                    color: ColorName.black,
+                                  ),
+                                )
+                              ],
+                            ),
+                            const Divider(
+                              color: ColorName.black,
+                            ),
                             Text(
-                              "\$${arguments.price}",
+                              context.localizations.description,
                               style: context.blackS16W700,
+                            ),
+                            SizedBox(
+                              height: 12.h,
+                            ),
+                            Text(arguments.description.toString()),
+                            SizedBox(
+                              height: 12.h,
+                            ),
+                            SizedBox(
+                              height: 12.h,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  context.localizations.quantity,
+                                  style: context.blackS16W500,
+                                ),
+                                SizedBox(
+                                  width: 20.w,
+                                ),
+                                selectQuantityWidget(quantity, context, () {
+                                  if (quantity < 2) {
+                                    quantity = 2;
+                                  }
+                                  setState(() {
+                                    quantity--;
+                                  });
+                                }, () {
+                                  setState(() {
+                                    quantity++;
+                                  });
+                                })
+                              ],
+                            ),
+                            SizedBox(
+                              height: 22.h,
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 16.h,
-                        ),
-                        Expanded(
-                          child: SizedBox(
-                            height: 45,
-                            child: PrimaryButtonWithIcon(
-                                svg: Assets.svgs.bag.svg(
-                                    height: 12.h,
-                                    colorFilter: const ColorFilter.mode(
-                                        ColorName.white, BlendMode.srcIn)),
-                                buttonColor: ColorName.black,
-                                textColor: ColorName.white,
-                                fontSize: 12,
-                                radius: 20.0,
-                                text: context.localizations.addToCart,
-                                customFunction: () {}),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Text(context.localizations.totalPrice,
+                          style: context.blackS10W400),
+                      Text(
+                        "\$${arguments.price}",
+                        style: context.blackS20W700,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: PrimaryButtonWithIcon(
+                          svg: Assets.svgs.message.svg(
+                              colorFilter: const ColorFilter.mode(
+                                  ColorName.white, BlendMode.srcIn)),
+                          buttonColor: ColorName.black,
+                          textColor: ColorName.white,
+                          fontSize: 12,
+                          radius: 20.0,
+                          text: context.localizations.chat,
+                          customFunction: () async {
+                            UserProfile? userProfile =
+                                await UserProfileService.getUserProfile(
+                                    arguments.ownerId!);
+                            List<String> ids = [
+                              arguments.ownerId!,
+                              AuthService.userId!
+                            ];
+
+                            final chatRoomDto = ChatRoomDto(
+                                chatRoomId: MessageHelper.getChatRoomId(ids),
+                                sender: userProfile?.getDisplayName() ?? 'User',
+                                targetUserId: arguments.ownerId!);
+                            context.pushNamedWithParam(
+                                Routes.roomChatScreen, chatRoomDto);
+                          }),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8.w,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      child: PrimaryButtonWithIcon(
+                          svg: Assets.svgs.bag.svg(
+                              height: 12.h,
+                              colorFilter: const ColorFilter.mode(
+                                  ColorName.white, BlendMode.srcIn)),
+                          buttonColor: ColorName.black,
+                          textColor: ColorName.white,
+                          fontSize: 12,
+                          radius: 20.0,
+                          text: context.localizations.addToCart,
+                          customFunction: () {}),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
