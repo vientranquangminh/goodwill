@@ -1,6 +1,6 @@
 {
     "address": "Địa chỉ",
-    "addToCart": "Thêm vào giỏ hàng",
+    "addToCart": "Thêm vào giỏ",
     "adminAccount": "Tài khoản Admin",
     "afterSuccessfulWalletLinkingYourListingWillAllowBuyersToPayOnlineForYourProductViaGoodwill": "Sau khi liên kết ví thành công, danh sách của bạn sẽ cho phép người mua thanh toán trực tuyến cho sản phẩm của bạn thông qua Goodwill",
     "all": "Tất cả",
@@ -106,5 +106,6 @@
     "vietnamese": "Tiếng Việt",
     "yes": "Có",
     "youOnlyGetPaidWhenYouHaveVerifiedEnoughInformation": "Bạn chỉ có thể thanh toán khi bạn xác minh đầy đủ thông tin",
-    "yourTopicTitle": "Tiêu đề bài viết"
+    "yourTopicTitle": "Tiêu đề bài viết",
+    "productDetails": "Chi tiết sản phẩm"
 }

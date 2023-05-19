@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/source/data/model/article_model.dart';
 import 'package:goodwill/source/service/article_service.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
 import 'package:goodwill/source/ui/page/article/dummy/list_article.dart';
 import 'package:goodwill/source/util/file_helper.dart';
