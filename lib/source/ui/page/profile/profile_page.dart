@@ -156,8 +156,7 @@ class ProfilePage extends StatelessWidget {
                                       log('Logout');
                                       context.pop();
                                       AuthService.signOut();
-                                      context
-                                          .pushAndRemoveUntil(Routes.startApp);
+                                      context.pushAndRemoveUntil(Routes.signIn);
                                     }),
                                   );
                                 },

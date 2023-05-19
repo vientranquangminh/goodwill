@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/ui/components/page_controller.dart';
 import 'package:goodwill/source/ui/page/sign_in/sign_in.dart';
+import 'package:goodwill/source/ui/page/sign_in/sign_up.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
@@ -17,7 +18,7 @@ class AuthWrapper extends StatelessWidget {
         if (snapshot.hasData) {
           return const MyPageController();
         } else {
-          return const SignInScreen();
+          return const SignUpScreen();
         }
       },
     );
