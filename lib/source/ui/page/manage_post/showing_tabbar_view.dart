@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/gen/assets.gen.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
-import 'package:goodwill/source/util/constant.dart';
 
 import 'managed_post_listitem.dart';
 
@@ -19,7 +21,21 @@ class _ShowingTabbarViewState extends State<ShowingTabbarView>
   @override
   Widget build(BuildContext context) {
     if (widget.products == null || widget.products!.isEmpty) {
-      return Text(Constant.EMPTY_LIST);
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Assets.images.emptyBox.image(height: 50, width: 50),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              context.localizations.empty,
+              style: context.blackS16W500,
+            ),
+          ],
+        ),
+      );
     }
 
     return ListView.builder(

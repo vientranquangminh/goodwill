@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
@@ -27,7 +30,6 @@ class _ManagePostState extends State<ManagePost> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
@@ -35,11 +37,11 @@ class _ManagePostState extends State<ManagePost> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserProfile?>();
-    String _userName =
+    String userName =
         user?.getDisplayName() ?? AuthService.user?.email ?? 'Anonymous user';
 
     return StreamProvider<List<ProductModel>?>.value(
-        initialData: [],
+        initialData: const [],
         value: _stream,
         builder: (context, snapshot) {
           final products =
@@ -75,26 +77,36 @@ class _ManagePostState extends State<ManagePost> with TickerProviderStateMixin {
             child: Column(
               children: [
                 UserProfileWidget(
-                  userName: _userName,
+                  userName: userName,
                 ),
                 AppBar(
                   automaticallyImplyLeading: false,
                   title: TabBar(
+                    dividerColor: Colors.transparent,
+                    unselectedLabelColor: Colors.grey,
+                    labelColor: Colors.white,
                     controller: _tabController,
+                    isScrollable: true,
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          10), // Adjust the radius as needed
+                    ),
                     tabs: [
                       Tab(
-                        // icon: Icon(Icons.cloud_outlined),
-                        text: "Showing (${showingProducts.length})",
+                        text:
+                            "${context.localizations.showing} (${showingProducts.length})",
                       ),
                       Tab(
-                        text: "Overdate (${overdateProducts.length})",
+                        text:
+                            "${context.localizations.overdate} (${overdateProducts.length})",
                       ),
                       Tab(
-                        text: "Denied (${deniedProducts.length})",
+                        text:
+                            "${context.localizations.denied} (${deniedProducts.length})",
                       ),
                     ],
-                    indicatorColor: Colors.white,
-                    indicatorWeight: 5.0,
+                    indicatorColor: Colors
+                        .transparent, // Set the indicatorColor to transparent
                   ),
                 ),
                 Expanded(
@@ -136,9 +148,9 @@ class UserProfileWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
               Row(
                 children: [
@@ -150,23 +162,30 @@ class UserProfileWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(
                       userName,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 32.0),
                     ),
                   ),
                 ],
               ),
-              OutlinedButton(
-                onPressed: () {
-                  context.pushNamed(Routes.connectWallet);
-                },
-                child: const Text(
-                  'Connect wallet',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
             ],
           ),
+          OutlinedButton(
+              onPressed: () {
+                context.pushNamed(Routes.connectWallet);
+              },
+              child: Row(
+                children: [
+                  Text(
+                    context.localizations.wallet,
+                    style: context.blackS12W500,
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Assets.images.addImage.image(width: 20.w, height: 20.w)
+                ],
+              )),
         ],
       ),
     );

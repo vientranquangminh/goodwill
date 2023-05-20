@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, empty_constructor_bodies
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/ui/components/post_info.dart';
 import 'package:goodwill/source/util/constant.dart';
@@ -18,7 +19,13 @@ class ManagedPostListItem extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Card(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black.withOpacity(0.2)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.r),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(

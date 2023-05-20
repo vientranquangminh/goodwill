@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/product_service.dart';
@@ -19,8 +21,8 @@ class PostInfo extends StatelessWidget {
     final String title = productModel.title ?? Constant.UNKNOWN;
     final int price = productModel.price ?? 0;
 
-    final TextStyle _titleStyle = TextStyle(fontWeight: FontWeight.bold);
-    final TextStyle _priceStyle =
+    const TextStyle titleStyle = TextStyle(fontWeight: FontWeight.bold);
+    const TextStyle priceStyle =
         TextStyle(color: Colors.red, fontWeight: FontWeight.bold);
 
     return IntrinsicHeight(
@@ -30,8 +32,14 @@ class PostInfo extends StatelessWidget {
             flex: 2,
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Image(
-                image: NetworkImage(imagePath),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.r),
+                child: CachedNetworkImage(
+                  imageUrl: imagePath,
+                  fit: BoxFit.fill,
+                  width: 80,
+                  height: 120,
+                ),
               ),
             ),
           ),
@@ -48,11 +56,11 @@ class PostInfo extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: _titleStyle,
+                        style: titleStyle,
                       ),
                       Text(
                         '$price đ',
-                        style: _priceStyle,
+                        style: priceStyle,
                       ),
                       const Text('12:05 13/04/2023'),
                     ],

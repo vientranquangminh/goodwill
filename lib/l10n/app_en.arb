@@ -21,7 +21,7 @@
     "connect": "Connect",
     "connectToMoMoWallet": "Connect to MoMo Wallet",
     "connectUsePhoneNumber": "Connect Use Phone Number",
-    "connectWallet": "Connect Wallet",
+    "wallet": "Wallet",
     "content": "Content",
     "createArticle": "Create Article",
     "createAt": "Create At",
@@ -131,5 +131,8 @@
     "postProductSuccess": "Post Products Success",
     "canNotPostProduct": "Can not post products",
     "uploadImageFailed": "Fail to upload images",
-    "plsInputPrice": "Please enter your price"
+    "plsInputPrice": "Please enter your price",
+    "showing": "Showing",
+    "overdate": "Overdate",
+    "denied": "Denied"
 }

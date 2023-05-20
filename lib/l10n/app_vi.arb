@@ -19,9 +19,9 @@
     "clothes": "Áo quần",
     "color": "Màu sắc",
     "connect": "Kết nối",
-    "connectToMoMoWallet": "Kết nối với ví Momo",
+    "connectToMoMoWallet": "ví điện tử",
     "connectUsePhoneNumber": "Kết nối theo số điện thoại",
-    "connectWallet": "Kết nối ví điện tử",
+    "wallet": "Kết nối ví điện tử",
     "content": "Nội dung",
     "createArticle": "Tạo bài viết",
     "createAt": "Tạo vào lúc",
@@ -129,5 +129,8 @@
     "genericNew": "Mới",
     "postProductSuccess": "Đăng sản phẩm thành công",
     "uploadImageFailed": "Tải ảnh thất bại",
-    "plsInputPrice": "Vui lòng nhập giá tiền"
+    "plsInputPrice": "Vui lòng nhập giá tiền",
+    "showing": "Showing",
+    "overdate": "Hết hạn",
+    "denied": "Từ chối"
 }
