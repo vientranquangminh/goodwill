@@ -41,7 +41,7 @@ class _PostState extends State<Post> {
 
     var res = await CloudStorageService.uploadImage(image,
         destination: FileHelper.getStorageArticleImagePath(image));
-    return await res ?? '';
+    return res ?? '';
   }
 
   Future<void> _submit() async {
