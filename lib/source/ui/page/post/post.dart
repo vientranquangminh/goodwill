@@ -1,12 +1,16 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/app_toast/app_toast.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
@@ -30,24 +34,13 @@ class _PostState extends State<Post> {
   bool valueFirst = false;
   List<File> images = [];
   //final TextEditingController _CategoryController = TextEditingController();
-  final TextEditingController _TitleController = TextEditingController();
-  final TextEditingController _PriceController = TextEditingController();
-  final TextEditingController _DescriptionController = TextEditingController();
-  final TextEditingController _AddressController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var formatter = NumberFormat('#,##,000');
-  var items = [
-    'Clothes',
-    'Shoes',
-    'Bags',
-    'Electronic',
-    'Watch',
-    'Jewelry',
-    'Kitchen',
-    'Toys',
-  ];
 
-  List<String> selections = ['Used', 'New'];
   int selectedIndex = 0;
   Future<List<String>> _uploadImagesToStorage() async {
     List<String> filePaths = [];
@@ -68,8 +61,49 @@ class _PostState extends State<Post> {
     ProductService.addProduct(myProduct);
   }
 
+  Future<String> _getCurrentPositionFromCoordinates() async {
+    Position position = await _getCurrentLocation();
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    return '${placemarks[0].subThoroughfare} ${placemarks[0].thoroughfare}, ${placemarks[0].subAdministrativeArea}. ${placemarks[0].administrativeArea}';
+  }
+
+  Future<Position> _getCurrentLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Locator service is not allowed');
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Something went wrong');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('This feature is permanently denined');
+    }
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var items = [
+      context.localizations.clothes,
+      context.localizations.shoes,
+      context.localizations.bags,
+      context.localizations.electronic,
+      context.localizations.watch,
+      context.localizations.jewelry,
+      context.localizations.kitchen,
+      context.localizations.toys,
+    ];
+    List<String> selections = [
+      context.localizations.used,
+      context.localizations.genericNew,
+    ];
     return Scaffold(
       backgroundColor: ColorName.white,
       appBar: CustomAppBar(
@@ -86,36 +120,51 @@ class _PostState extends State<Post> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Category',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
+                Text(context.localizations.category,
+                    style: context.blackS16W700),
                 SizedBox(
                   height: 5.h,
                 ),
                 InputDecorator(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
                   ),
                   isEmpty: dropdownValue == '',
                   child: DropdownButtonHideUnderline(
-                    child: DropdownButtonFormField<String>(
-                      value: dropdownValue,
-                      elevation: dropdownValue.hashCode,
-                      hint: Text(context.localizations.category),
-                      isDense: true,
-                      onChanged: (value) =>
-                          setState(() => dropdownValue = value!),
-                      validator: (value) =>
-                          value == null ? 'field required' : null,
-                      items: items.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                    child: Container(
+                      height: 50,
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.r))),
+                      child: DropdownButtonFormField<String>(
+                        value: dropdownValue,
+                        elevation: dropdownValue.hashCode,
+                        hint: Text(context.localizations.category),
+                        isDense: true,
+                        onChanged: (value) =>
+                            setState(() => dropdownValue = value!),
+                        validator: (value) =>
+                            value == null ? 'field required' : null,
+                        items: items.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.black,
+                        ),
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 0.0),
+                          filled: true,
+                          border: InputBorder.none,
+                          fillColor:
+                              Colors.transparent, // Optional background color
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -123,22 +172,20 @@ class _PostState extends State<Post> {
                   height: 20.h,
                 ),
                 Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   alignment: Alignment.topLeft,
-                  width: double.infinity,
-                  color: const Color.fromARGB(255, 223, 223, 223),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(context.localizations.details.toUpperCase()),
-                      const Text('View more about ..........'),
+                      Text(
+                        context.localizations.image,
+                        style: context.blackS16W700,
+                      ),
                     ],
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 20.h),
-                  // height: 120.h,
-                  // width: double.infinity,
+                  margin: EdgeInsets.symmetric(vertical: 0.h),
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12.r)),
@@ -156,12 +203,11 @@ class _PostState extends State<Post> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'Images: ${images.length}/6',
-                              style: TextStyle(
+                              context.localizations
+                                  .selectedImage(images.length),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: (images.isEmpty || images.length > 6)
-                                      ? Colors.red
-                                      : Colors.green),
+                                  color: Colors.black),
                             ),
                           ),
                           const Spacer(),
@@ -184,53 +230,48 @@ class _PostState extends State<Post> {
                                 crossAxisCount: 4),
                         itemCount: images.length,
                         itemBuilder: (context, int index) {
-                          return SizedBox(
-                            width: 100,
-                            height: 100,
-                            child: Container(
-                              margin: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.0),
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 2.0,
-                                ),
+                          return Container(
+                            margin: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 2.0,
                               ),
-                              child: Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: (index <= 5)
-                                          ? Image.file(
+                            ),
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: (index <= 5)
+                                        ? Image.file(
+                                            images[index],
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Opacity(
+                                            opacity: 0.4,
+                                            child: Image.file(
                                               images[index],
                                               fit: BoxFit.cover,
-                                            )
-                                          : Opacity(
-                                              opacity: 0.4,
-                                              child: Image.file(
-                                                images[index],
-                                                fit: BoxFit.cover,
-                                              ),
                                             ),
-                                    ),
+                                          ),
                                   ),
-                                  Positioned(
-                                    top: -20,
-                                    right: -20,
-                                    child: IconButton(
-                                      icon: const Icon(Icons.cancel),
-                                      onPressed: () {
-                                        // TODO: Remove image from gridview
-                                        setState(() {
-                                          images.removeAt(index);
-                                        });
-                                      },
-                                    ),
+                                ),
+                                Positioned(
+                                  top: -20,
+                                  right: -20,
+                                  child: IconButton(
+                                    icon: const Icon(Icons.cancel),
+                                    onPressed: () {
+                                      setState(() {
+                                        images.removeAt(index);
+                                      });
+                                    },
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           );
                         },
@@ -239,11 +280,11 @@ class _PostState extends State<Post> {
                   ),
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 20.h,
                 ),
-                const Text(
-                  'Status',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                Text(
+                  context.localizations.status,
+                  style: context.blackS16W700,
                 ),
                 SizedBox(
                   height: 10.h,
@@ -263,7 +304,7 @@ class _PostState extends State<Post> {
                           });
                         },
                         child: RoundedContainer(
-                          padding: 6.w,
+                          padding: 10.w,
                           title: selections[index],
                           color: selectedIndex == index
                               ? ColorName.black
@@ -291,35 +332,36 @@ class _PostState extends State<Post> {
                           valueFirst = val!;
                         });
                       }),
-                  const Text('I want to give away for free.'),
+                  Text(context.localizations.giveAway),
                 ]),
                 SizedBox(
                   height: 10.h,
                 ),
-                const Text(
-                  'Title',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                Text(
+                  context.localizations.title,
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 10.h,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.text,
-                  controller: _TitleController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
+                  controller: _titleController,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.all(
                         Radius.circular(16),
                       ),
                     ),
-                    labelText: 'Example: Bags',
+                    labelText: context.localizations.titleLabel,
                   ),
                   validator: (value) {
                     if (value?.isEmpty ?? true) {
-                      return 'Please enter your Title';
+                      return context.localizations.enterTitle;
                     } else if (value![0] == ' ') {
-                      return 'Please enter your Title';
+                      return context.localizations.enterTitle;
                     } else {
                       return null;
                     }
@@ -328,9 +370,10 @@ class _PostState extends State<Post> {
                 SizedBox(
                   height: 10.h,
                 ),
-                const Text(
-                  'Prices',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                Text(
+                  context.localizations.price,
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 10.h,
@@ -342,66 +385,127 @@ class _PostState extends State<Post> {
                     FilteringTextInputFormatter.digitsOnly,
                     ThousandsSeparatorInputFormatter(),
                   ],
-                  controller: _PriceController,
+                  controller: _priceController,
                   validator: (value) {
-                    if (value == null) return 'Please enter your price';
+                    if (value == null) {
+                      return context.localizations.plsInputPrice;
+                    }
                     final valueRemovingComma = value.trim().replaceAll(',', '');
                     return int.tryParse(valueRemovingComma) == null
                         ? 'Please enter number only'
                         : null;
                   },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(16)),
                     ),
-                    labelText: 'Example: 30,000 đ',
-                    suffixText: 'đ',
+                    labelText: context.localizations.example,
+                    suffixText: 'VND',
                   ),
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 15,
+                ),
+                Text(
+                  context.localizations.description,
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 TextFormField(
-                  maxLength: 1500,
+                  minLines: 1,
                   maxLines: 7,
-                  controller: _DescriptionController,
+                  controller: _descriptionController,
                   textInputAction: TextInputAction.newline,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.all(Radius.circular(16)),
                     ),
-                    labelText: 'Detailed Description',
+                    labelText: context.localizations.detailDescription,
                   ),
                 ),
                 SizedBox(
                   height: 10.h,
                 ),
-                const Text(
-                  'Address ',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                Text(
+                  context.localizations.address,
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
-                  height: 8,
+                SizedBox(
+                  height: 10.h,
                 ),
-                TextFormField(
-                  controller: _AddressController,
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Please enter Address';
-                    } else if (value![0] == ' ') {
-                      return 'Please enter Address';
+                FutureBuilder(
+                  future: _getCurrentPositionFromCoordinates(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return TextFormField(
+                        controller: _addressController,
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value?.isEmpty ?? true) {
+                            return context.localizations.plsEnterAddress;
+                          } else if (value![0] == ' ') {
+                            return context.localizations.plsEnterAddress;
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                          ),
+                          labelText: 'Loading...',
+                        ),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      log(snapshot.data ?? 'no value');
+                      return TextFormField(
+                        controller: _addressController
+                          ..text = snapshot.data.toString(),
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value?.isEmpty ?? true) {
+                            return context.localizations.plsEnterAddress;
+                          } else if (value![0] == ' ') {
+                            return context.localizations.plsEnterAddress;
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                          ),
+                          // labelText: snapshot.data.toString(),
+                        ),
+                      );
                     } else {
-                      return null;
+                      return TextFormField(
+                        controller: _addressController,
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value?.isEmpty ?? true) {
+                            return context.localizations.plsEnterAddress;
+                          } else if (value![0] == ' ') {
+                            return context.localizations.plsEnterAddress;
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                          ),
+                          labelText: 'Da Nang city',
+                        ),
+                      );
                     }
                   },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                    ),
-                    labelText: 'Da Nang',
-                  ),
                 ),
                 const SizedBox(
                   height: 8,
@@ -411,45 +515,38 @@ class _PostState extends State<Post> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.black,
                         minimumSize: const Size(80, 40),
-                        primary: Colors.black,
-                        onPrimary: Colors.white,
                       ),
                       onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Post(),
+                              builder: (context) => const Post(),
                             ));
                       },
-                      child: const Text('Cancle'),
+                      child: Text(context.localizations.cancel),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(80, 40),
-                          primary: Colors.black,
-                          onPrimary: Colors.white),
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.black,
+                          minimumSize: const Size(80, 40)),
                       onPressed: () async {
-                        // debugPrint(dropdownValue);
-                        // debugPrint(_TitleController.text);
-                        // debugPrint(_PriceController.text);
-                        // debugPrint(_DescriptionController.text);
-                        // debugPrint(_AddressController.text);
-                        // debugPrint('-------------------------');
-
                         if (!_formKey.currentState!.validate() ||
                             images.isEmpty ||
                             images.length > 6) {
                           Fluttertoast.showToast(
-                              msg: 'Please enter correct input');
+                              msg: context.localizations.plsCorrectMe);
                           return;
                         }
                         String? category = dropdownValue;
-                        String? title = _TitleController.text;
+                        String? title = _titleController.text;
                         int? price = int.parse(
-                            _PriceController.text.replaceAll(',', ''));
-                        String? description = _DescriptionController.text;
-                        String? location = _AddressController.text;
+                            _priceController.text.replaceAll(',', ''));
+                        String? description = _descriptionController.text;
+                        String? location = _addressController.text;
                         List<String>? imagesPaths = [];
 
                         for (var image in images) {
@@ -463,7 +560,8 @@ class _PostState extends State<Post> {
                         }
 
                         if (imagesPaths.isEmpty) {
-                          Fluttertoast.showToast(msg: "Fail to upload images");
+                          Fluttertoast.showToast(
+                              msg: context.localizations.uploadImageFailed);
                         }
 
                         ProductModel productModel = ProductModel(
@@ -481,14 +579,15 @@ class _PostState extends State<Post> {
                         ProductService.addProduct(productModel).then((value) {
                           context.pop();
                           AppToasts.showToast(
-                              context: context, title: 'Post Products Success');
+                              context: context,
+                              title: context.localizations.postProductSuccess);
                         }).catchError((error) {
                           AppToasts.showErrorToast(
-                              title: 'Can not post products', context: context);
+                              title: context.localizations.canNotPostProduct,
+                              context: context);
                         });
-                        ;
                       },
-                      child: const Text('Post'),
+                      child: Text(context.localizations.post),
                     ),
                   ],
                 ),
@@ -507,8 +606,7 @@ class ThousandsSeparatorInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    // TODO: implement formatEditUpdate
-    if (newValue.text.length == 0) {
+    if (newValue.text.isEmpty) {
       return newValue.copyWith(text: '');
     }
     String oldValueText = oldValue.text.replaceAll(separator, '');
@@ -527,8 +625,9 @@ class ThousandsSeparatorInputFormatter extends TextInputFormatter {
 
       String newString = '';
       for (int i = chars.length - 1; i >= 0; i--) {
-        if ((chars.length - 1 - i) % 3 == 0 && i != chars.length - 1)
+        if ((chars.length - 1 - i) % 3 == 0 && i != chars.length - 1) {
           newString = separator + newString;
+        }
         newString = chars[i] + newString;
       }
 
@@ -540,7 +639,6 @@ class ThousandsSeparatorInputFormatter extends TextInputFormatter {
       );
     }
 
-    // If the new value and old value are the same, just return as-is
     return newValue;
   }
 }
