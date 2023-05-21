@@ -51,25 +51,15 @@ class _ProductCardState extends State<ProductCard> {
               const SizedBox(height: 5),
               Row(
                 children: [
-                  Text(
-                    _location,
-                    style: const TextStyle(fontWeight: FontWeight.w500),
+                  Flexible(
+                    child: Text(
+                      _location,
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   SizedBox(
                     width: 4.w,
-                  ),
-                  Container(
-                    color: ColorName.black,
-                    width: 1,
-                    height: 12.h,
-                  ),
-                  SizedBox(
-                    width: 4.w,
-                  ),
-                  QuantitySoldContainer(
-                    color: const Color.fromARGB(255, 214, 214, 214),
-                    radius: 4.r,
-                    text: context.localizations.sold('1,234'),
                   ),
                 ],
               ),
@@ -80,19 +70,6 @@ class _ProductCardState extends State<ProductCard> {
               )
             ],
           ),
-          Positioned(
-            top: -5.h,
-            right: -5.h,
-            child: PlatformIconButton(
-              icon: const Icon(
-                CupertinoIcons.heart_fill,
-                color: ColorName.black,
-              ),
-              onPressed: () {
-                log('loved');
-              },
-            ),
-          )
         ],
       ),
     );

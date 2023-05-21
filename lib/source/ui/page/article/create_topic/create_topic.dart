@@ -44,7 +44,7 @@ class _CreateTopicState extends State<CreateTopic> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            context.localizations.createNewTopic,
+            context.localizations.createArticle,
             style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
           backgroundColor: Colors.transparent,

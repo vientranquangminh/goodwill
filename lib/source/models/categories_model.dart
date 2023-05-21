@@ -49,7 +49,7 @@ List<Category> listCategories = [
       path: Assets.images.homePage.item.path),
   Category(
       icon: 'assets/svgs/electronic_devices.svg',
-      title: 'Electronics',
+      title: 'Electronic',
       path: Assets.images.homePage.item.path),
   Category(
       icon: 'assets/svgs/hand-watch.svg',

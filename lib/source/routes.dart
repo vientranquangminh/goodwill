@@ -21,6 +21,7 @@ import 'package:goodwill/source/ui/page/chat/room_chat_screen.dart';
 
 import 'ui/page/article/create_topic/create_topic.dart';
 import 'ui/page/connect_wallet/connect_wallet.dart';
+import 'ui/page/purchase_history/purchase_history.dart';
 import 'ui/page/search/search_product.dart';
 
 class Routes {
@@ -45,6 +46,7 @@ class Routes {
   static const connectWallet = '/connect-wallet';
   static const connectWalletUsePhoneNumber = '/connect-wallet-use-phone-number';
   static const splashScreen = '/splash';
+  static const purchaseHistory = '/purchase-history';
 
   static pushNamed() {}
   static const changeLanguage = '/change-language';
@@ -73,5 +75,6 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.connectWallet: (context) => const ConnectWallet(),
   Routes.connectWalletUsePhoneNumber: (context) =>
       const ConnectWalletUsePhoneNumber(),
-  Routes.splashScreen: (context) => const SplashScreen()
+  Routes.splashScreen: (context) => const SplashScreen(),
+  Routes.purchaseHistory: (context) => const PurchaseHistory(),
 };

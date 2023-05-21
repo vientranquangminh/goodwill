@@ -51,7 +51,7 @@ class _ArticlePageState extends State<ArticlePage>
         elevation: 0.0,
         leading: Assets.svgs.mainIcon.svg(),
         title: Text(
-          context.localizations.topic,
+          context.localizations.article,
           style: const TextStyle(color: Colors.black, fontSize: 22),
         ),
       ),
@@ -66,7 +66,7 @@ class _ArticlePageState extends State<ArticlePage>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.localizations.topic,
+                  context.localizations.article,
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 17,
@@ -83,7 +83,7 @@ class _ArticlePageState extends State<ArticlePage>
                       ),
                     ),
                     child: Text(
-                      context.localizations.createNewTopic,
+                      context.localizations.createArticle,
                       style: const TextStyle(fontSize: 16, color: Colors.white),
                     )),
               ],

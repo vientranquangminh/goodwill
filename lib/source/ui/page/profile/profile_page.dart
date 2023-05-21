@@ -22,10 +22,10 @@ final Map<String, dynamic> profileScreenData = {
   'Profile': [
     {"title": "Edit Profile", "iconUrl": Assets.svgs.user.path},
     {"title": "Notification", "iconUrl": 'assets/svgs/icon_bell.svg'},
+    {"title": "Purchase History", "iconUrl": Assets.svgs.eye.path},
     {"title": "Payment", "iconUrl": Assets.svgs.creditCard.path},
     {"title": "Security", "iconUrl": Assets.svgs.shieldCheck.path},
     {"title": "Language", "iconUrl": Assets.svgs.language.path},
-    {"title": "Dark Mode", "iconUrl": Assets.svgs.eye.path},
     {"title": "Help Center", "iconUrl": 'assets/svgs/information_circle.svg'},
     {"title": "Invite Friends", "iconUrl": Assets.svgs.users.path},
   ]
@@ -254,8 +254,8 @@ _onTap(BuildContext context, item) {
       return context.pushNamed(Routes.security);
     case 'Language':
       return context.pushNamed(Routes.changeLanguage);
-    case 'Dark Mode':
-      return log('Dark Mode');
+    case 'Purchase History':
+      return context.pushNamed(Routes.purchaseHistory);
     case 'Help Center':
       return log('Help Center');
     case 'Invite Friends':

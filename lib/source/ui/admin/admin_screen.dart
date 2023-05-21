@@ -24,7 +24,7 @@ class _AdminScreenState extends State<AdminScreen> {
       Menu(item: "Dasboard", icon: 'assets/svgs/dashboard.svg'),
       Menu(item: "User", icon: 'assets/svgs/user_admin.svg'),
       Menu(item: "Product", icon: 'assets/svgs/product.svg'),
-      Menu(item: "Topic", icon: 'assets/svgs/trending-topic.svg')
+      Menu(item: "Article", icon: 'assets/svgs/trending-topic.svg')
     ];
     return Scaffold(
       body: Row(

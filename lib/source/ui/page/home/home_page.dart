@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
@@ -101,6 +102,16 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
+                        PlatformIconButton(
+                          icon: const Icon(
+                            Icons.shopping_cart_outlined,
+                            color: ColorName.black,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            context.pushNamed(Routes.cartProduct);
+                          },
+                        ),
                         IconButton(
                             onPressed: () {
                               context.pushNamed(Routes.chatScreen);
@@ -142,8 +153,9 @@ class _HomePageState extends State<HomePage> {
                                 hintStyle: const TextStyle(
                                     fontSize: 14.0, color: Colors.grey),
                                 suffixIcon: IconButton(
-                                  icon: Assets.svgs.filter
-                                      .svg(colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn)),
+                                  icon: Assets.svgs.filter.svg(
+                                      colorFilter: const ColorFilter.mode(
+                                          Colors.black, BlendMode.srcIn)),
                                   onPressed: () {},
                                 ),
                               ),
