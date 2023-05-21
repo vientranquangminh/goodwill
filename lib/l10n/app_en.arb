@@ -134,5 +134,7 @@
     "plsInputPrice": "Please enter your price",
     "showing": "Showing",
     "overdate": "Overdate",
-    "denied": "Denied"
+    "denied": "Denied",
+    "purchaseHistory": "Purchase History",
+    "viewSeller": "View Seller"
 }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +21,7 @@ import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/cart_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/util/message_helper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({super.key});
@@ -146,6 +148,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
                                     UserProfile? userProfile = snapshot.data;
+                                    String phoneNumber =
+                                        userProfile!.phoneNumber.toString();
                                     return Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -154,11 +158,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           children: [
                                             Avatar(
                                               imagePath:
-                                                  userProfile!.profilePicture,
+                                                  userProfile.profilePicture,
                                               size: const Size(50, 50),
                                             ),
                                             SizedBox(
-                                              width: 12.w,
+                                              width: 8.w,
                                             ),
                                             Text(
                                               userProfile.fullName ?? '',
@@ -204,6 +208,28 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                         Routes.roomChatScreen,
                                                         chatRoomDto);
                                                   }
+                                                }),
+                                            PlatformIconButton(
+                                                padding: EdgeInsets.zero,
+                                                icon: const Icon(
+                                                  Icons.message_outlined,
+                                                  size: 30,
+                                                ),
+                                                onPressed: () {
+                                                  Uri uri = Uri.parse(
+                                                      'sms://$phoneNumber');
+                                                  _launch(uri);
+                                                }),
+                                            PlatformIconButton(
+                                                padding: EdgeInsets.zero,
+                                                icon: const Icon(
+                                                  CupertinoIcons.phone_circle,
+                                                  size: 30,
+                                                ),
+                                                onPressed: () {
+                                                  Uri uri = Uri.parse(
+                                                      'tel://$phoneNumber');
+                                                  _launch(uri);
                                                 }),
                                           ],
                                         )
@@ -301,6 +327,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         ),
       ),
     );
+  }
+}
+
+Future<void> _launch(Uri uri) async {
+  if (!await launchUrl(uri)) {
+    throw Exception('Could not launch $uri');
   }
 }
 

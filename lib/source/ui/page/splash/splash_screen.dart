@@ -2,8 +2,10 @@
 
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:goodwill/source/service/auth_service.dart';
+import 'package:goodwill/source/ui/admin/admin_screen.dart';
 import 'package:goodwill/source/ui/components/page_controller.dart';
 import 'package:goodwill/source/ui/page/splash/widget/onboarding.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -16,26 +18,30 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // Logger logger = Logger(
-  //   printer: PrettyPrinter(),
-  // );
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () async {
-      var _stream = AuthService.authChanges;
-      if (await _stream.first != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const MyPageController()),
-        );
-      } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const OnBoardingPage()),
-        );
-      }
-    });
+    {
+      Timer(const Duration(seconds: 3), () async {
+        var _stream = AuthService.authChanges;
+        if (kIsWeb) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const AdminScreen()),
+          );
+        } else if (await _stream.first != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const MyPageController()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => const OnBoardingPage()),
+          );
+        }
+      });
+    }
   }
 
   @override
