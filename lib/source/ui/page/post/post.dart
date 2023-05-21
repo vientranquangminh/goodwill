@@ -31,7 +31,7 @@ class Post extends StatefulWidget {
 
 class _PostState extends State<Post> {
   String? dropdownValue;
-  bool valueFirst = false;
+  bool isFree = false;
   List<File> images = [];
   //final TextEditingController _CategoryController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
@@ -326,11 +326,14 @@ class _PostState extends State<Post> {
                   Checkbox(
                       checkColor: Colors.white,
                       activeColor: Colors.black,
-                      value: valueFirst,
+                      value: isFree,
                       onChanged: (val) {
                         setState(() {
-                          valueFirst = val!;
+                          isFree = val!;
                         });
+                        isFree
+                            ? _priceController.text = '0'
+                            : _priceController.clear();
                       }),
                   Text(context.localizations.giveAway),
                 ]),
@@ -379,7 +382,7 @@ class _PostState extends State<Post> {
                   height: 10.h,
                 ),
                 TextFormField(
-                  enabled: valueFirst == false,
+                  enabled: isFree == false,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,

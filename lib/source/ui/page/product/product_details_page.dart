@@ -11,11 +11,13 @@ import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button_with_icon.dart';
 import 'package:goodwill/source/common/widgets/indicator/dot_indiccator.dart';
+import 'package:goodwill/source/data/model/cart_item_model.dart';
 import 'package:goodwill/source/data/model/chatroom_dto.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
+import 'package:goodwill/source/service/cart_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/util/message_helper.dart';
 
@@ -280,7 +282,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           fontSize: 12,
                           radius: 20.0,
                           text: context.localizations.addToCart,
-                          customFunction: () {}),
+                          customFunction: () {
+                            // Add to cart
+
+                            CartItemModel cartItemModel = CartItemModel(
+                              productId: arguments.id,
+                              quantity: quantity,
+                              createdAt: DateTime.now(),
+                            );
+                            CartService.addCartItem(cartItemModel);
+                          }),
                     ),
                   )
                 ],

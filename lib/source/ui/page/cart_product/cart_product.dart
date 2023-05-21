@@ -3,7 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
+import 'package:goodwill/source/data/model/cart_item_dto.dart';
+import 'package:goodwill/source/data/model/cart_item_model.dart';
+import 'package:goodwill/source/service/cart_service.dart';
 import 'package:goodwill/source/ui/page/cart_product/component/container_cart.dart';
+import 'package:goodwill/source/ui/page/search/widgets/not_found_screen.dart';
+import 'package:goodwill/source/util/mapper.dart';
+import 'package:provider/provider.dart';
 
 class ProductCartModel {
   String title;
@@ -11,31 +17,33 @@ class ProductCartModel {
   String location;
   bool? payment;
   int price;
-  ProductCartModel(
-      {required this.title,
-      required this.location,
-      this.payment,
-      required this.price,
-      required this.phoneNumber});
+
+  ProductCartModel({
+    required this.title,
+    required this.location,
+    this.payment,
+    required this.price,
+    required this.phoneNumber,
+  });
 }
 
-List<ProductCartModel> listCartProduct = [
-  ProductCartModel(
-      title: "Ipad",
-      price: 3000,
-      phoneNumber: "0905430873",
-      location: "Da Nang"),
-  ProductCartModel(
-      title: "Shoes",
-      price: 500,
-      phoneNumber: "0905430873",
-      location: "Da Nang"),
-  ProductCartModel(
-      title: "Iphone",
-      price: 2000,
-      phoneNumber: "0905430873",
-      location: "Da Nang")
-];
+// List<ProductCartModel> listCartProduct = [
+//   ProductCartModel(
+//       title: "Ipad",
+//       price: 3000,
+//       phoneNumber: "0905430873",
+//       location: "Da Nang"),
+//   ProductCartModel(
+//       title: "Shoes",
+//       price: 500,
+//       phoneNumber: "0905430873",
+//       location: "Da Nang"),
+//   ProductCartModel(
+//       title: "Iphone",
+//       price: 2000,
+//       phoneNumber: "0905430873",
+//       location: "Da Nang")
+// ];
 
 class CartProduct extends StatelessWidget {
   const CartProduct({super.key});
@@ -57,15 +65,34 @@ class CartProduct extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return ContainerCart(
-                      listCartProduct: listCartProduct[index],
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      SizedBox(height: 16.h),
-                  itemCount: listCartProduct.length),
+              child: StreamProvider<List<CartItemModel>?>.value(
+                  initialData: [],
+                  value: CartService.getStreamAllCartItems(),
+                  builder: (context, snapshot) {
+                    final cartItems = context.watch<List<CartItemModel>?>();
+
+                    return FutureProvider<List<CartItemDto>>.value(
+                        initialData: [],
+                        value: Mapper.cartItemListToCartItemDtoList(cartItems),
+                        builder: (context, snapshot) {
+                          final cartProducts =
+                              context.watch<List<CartItemDto>>();
+                          if (cartProducts == null) {
+                            return const NotFoundScreen();
+                          }
+
+                          return ListView.separated(
+                              itemBuilder: (context, index) {
+                                return ContainerCart(
+                                  cartProduct: cartProducts[index],
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      SizedBox(height: 16.h),
+                              itemCount: cartProducts.length);
+                        });
+                  }),
             ),
           ),
           Container(
