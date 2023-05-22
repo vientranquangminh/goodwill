@@ -159,7 +159,15 @@ class PurchaseHistory extends StatelessWidget {
                                 listPurchaseHistory[index].purchaseDate,
                                 style: const TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w500),
-                              )
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              Text(
+                                "Price: ${listPurchaseHistory[index].price}",
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w700),
+                              ),
                             ],
                           )
                         ],
