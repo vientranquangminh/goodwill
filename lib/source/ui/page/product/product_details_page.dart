@@ -13,7 +13,7 @@ import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart'
 import 'package:goodwill/source/common/widgets/custom_button/primary_button_with_icon.dart';
 import 'package:goodwill/source/common/widgets/indicator/dot_indiccator.dart';
 import 'package:goodwill/source/data/model/cart_item_model.dart';
-import 'package:goodwill/source/data/model/chatroom_dto.dart';
+import 'package:goodwill/source/data/dto/chatroom_dto.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';

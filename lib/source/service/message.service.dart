@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:goodwill/source/data/model/message_dto.dart';
+import 'package:goodwill/source/data/dto/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/repository/message_repository.dart';
 import 'package:goodwill/source/util/mapper.dart';

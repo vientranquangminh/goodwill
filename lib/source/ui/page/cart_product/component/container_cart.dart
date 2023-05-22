@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:goodwill/gen/colors.gen.dart';
-import 'package:goodwill/source/data/model/cart_item_dto.dart';
+import 'package:goodwill/source/data/dto/cart_item_dto.dart';
 
 class ContainerCart extends StatefulWidget {
   const ContainerCart({

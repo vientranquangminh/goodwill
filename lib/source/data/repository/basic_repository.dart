@@ -16,12 +16,17 @@ abstract class BasicRepository<E extends BasicModel> {
       SnapshotOptions? options) fromFirestore();
   E fromMap(Map<String, dynamic> map);
 
+  /// This should be replaced for the method fromMap() above
+  /// But it takes time to fix all relevants code
+  /// 
+  // E Function(Map<String, dynamic> map)? fromMap();
+
   Future<void> addWithDocRefs(E element,
       {required List<DocumentReference> docRefs}) async {
     for (var docRef in docRefs) {
       element.id = docRef.id;
       final data = element.toMap();
-      
+
       await docRef
           .set(data)
           .then((value) =>

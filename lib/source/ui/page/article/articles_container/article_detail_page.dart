@@ -7,7 +7,7 @@ import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/data/model/article_model.dart';
-import 'package:goodwill/source/data/model/chatroom_dto.dart';
+import 'package:goodwill/source/data/dto/chatroom_dto.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';

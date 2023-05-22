@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
-import 'package:goodwill/source/data/model/cart_item_dto.dart';
+import 'package:goodwill/source/data/dto/cart_item_dto.dart';
 import 'package:goodwill/source/data/model/cart_item_model.dart';
 import 'package:goodwill/source/service/cart_service.dart';
 import 'package:goodwill/source/ui/page/cart_product/component/container_cart.dart';
