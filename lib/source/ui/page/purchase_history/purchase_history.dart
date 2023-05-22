@@ -148,7 +148,9 @@ class PurchaseHistory extends StatelessWidget {
                                 height: 4.h,
                               ),
                               Text(
-                                "Quantity: ${listPurchaseHistory[index].quantity}",
+                                "Price: ${listPurchaseHistory[index].price}"
+                                " x "
+                                "${listPurchaseHistory[index].quantity}",
                                 style: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -164,9 +166,9 @@ class PurchaseHistory extends StatelessWidget {
                                 height: 4.h,
                               ),
                               Text(
-                                "Price: ${listPurchaseHistory[index].price}",
+                                "Total Price: ${(listPurchaseHistory[index].price * listPurchaseHistory[index].quantity)}",
                                 style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w700),
+                                    fontSize: 16, fontWeight: FontWeight.w700),
                               ),
                             ],
                           )

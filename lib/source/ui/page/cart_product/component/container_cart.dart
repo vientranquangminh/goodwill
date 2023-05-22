@@ -80,7 +80,9 @@ class _ContainerCartState extends State<ContainerCart> {
                                 Icons.delete_outline_rounded,
                                 color: ColorName.black,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                
+                              },
                             ),
                           ],
                         ),
