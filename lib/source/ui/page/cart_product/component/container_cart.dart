@@ -63,7 +63,7 @@ class _ContainerCartState extends State<ContainerCart> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.75,
+                        width: MediaQuery.of(context).size.width / 1.85,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -109,7 +109,7 @@ class _ContainerCartState extends State<ContainerCart> {
                         height: 12,
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.75,
+                        width: MediaQuery.of(context).size.width / 1.85,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
