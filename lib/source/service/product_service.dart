@@ -11,6 +11,14 @@ class ProductService {
     return _productModelRepository.add(productModel);
   }
 
+  static Future<ProductModel?> get(String productId) async {
+    return _productModelRepository.get(productId);
+  }
+
+  static Stream<ProductModel?> getStream(String productId) {
+    return _productModelRepository.getStream(productId);
+  }
+
   static Future<List<ProductModel>?> getAllProducts() async {
     return _productModelRepository.getAll();
   }

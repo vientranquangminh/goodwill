@@ -60,7 +60,6 @@ class ArticleModel extends BasicModel {
       'createdAt': createdAt?.millisecondsSinceEpoch,
       'contactPhoneNumber': contactPhoneNumber,
       'type': type,
-      'id': id,
     };
   }
 
@@ -70,8 +69,12 @@ class ArticleModel extends BasicModel {
       ownerId: map['ownerId'] != null ? map['ownerId'] as String : null,
       title: map['title'] != null ? map['title'] as String : null,
       content: map['content'] != null ? map['content'] as String : null,
-      createdAt: map['createdAt'] != null ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int) : null,
-      contactPhoneNumber: map['contactPhoneNumber'] != null ? map['contactPhoneNumber'] as String : null,
+      createdAt: map['createdAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
+          : null,
+      contactPhoneNumber: map['contactPhoneNumber'] != null
+          ? map['contactPhoneNumber'] as String
+          : null,
       type: map['type'] != null ? map['type'] as String : null,
       id: map['id'] != null ? map['id'] as String : null,
     );

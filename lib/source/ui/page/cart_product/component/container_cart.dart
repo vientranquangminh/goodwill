@@ -1,14 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
-import 'package:goodwill/source/ui/page/cart_product/cart_product.dart';
+import 'package:goodwill/source/data/model/cart_item_dto.dart';
 
 class ContainerCart extends StatefulWidget {
   const ContainerCart({
     super.key,
-    required this.listCartProduct,
+    required this.cartProduct,
   });
-  final ProductCartModel listCartProduct;
+  final CartItemDto cartProduct;
 
   @override
   State<ContainerCart> createState() => _ContainerCartState();
@@ -49,12 +49,13 @@ class _ContainerCartState extends State<ContainerCart> {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      child: Image.asset(
-                        Assets.images.raidenShogun.path,
-                        width: 100,
-                        height: 100,
-                      )),
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    child: CachedNetworkImage(
+                      imageUrl: widget.cartProduct.imageUrl,
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
@@ -68,7 +69,7 @@ class _ContainerCartState extends State<ContainerCart> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              widget.listCartProduct.title,
+                              widget.cartProduct.title,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 17,
@@ -79,14 +80,16 @@ class _ContainerCartState extends State<ContainerCart> {
                                 Icons.delete_outline_rounded,
                                 color: ColorName.black,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                
+                              },
                             ),
                           ],
                         ),
                       ),
                       RichText(
                         text: TextSpan(
-                          text: 'Category',
+                          text: widget.cartProduct.category,
                           style: const TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.w700,
@@ -96,7 +99,7 @@ class _ContainerCartState extends State<ContainerCart> {
                               text: ' | ',
                             ),
                             TextSpan(
-                              text: widget.listCartProduct.location,
+                              text: widget.cartProduct.location,
                               style: const TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w700,
@@ -114,7 +117,7 @@ class _ContainerCartState extends State<ContainerCart> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "\$" "${widget.listCartProduct.price}",
+                              "\$" "${widget.cartProduct.price}",
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
