@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:goodwill/source/data/dto/cart_item_dto.dart';
+import 'package:goodwill/source/data/dto/message_dto.dart';
 import 'package:goodwill/source/data/dto/purchase_history_dto.dart';
 import 'package:goodwill/source/data/model/cart_item_model.dart';
-import 'package:goodwill/source/data/dto/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/data/model/purchase_history_model.dart';
@@ -11,13 +9,8 @@ import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
-import 'package:goodwill/source/ui/page/purchase_history/purchase_history.dart';
 import 'package:goodwill/source/util/constant.dart';
 import 'package:goodwill/source/util/date_time_helper.dart';
-
-import 'package:http/http.dart' as http;
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart' as pathProvider;
 
 class Mapper {
   static bool _isMe(String id) {
@@ -191,7 +184,7 @@ class Mapper {
       List<PurchaseHistoryModel> list) async {
     List<PurchaseHistoryDto> res = [];
 
-    for (var purchaseHistory in list ?? []) {
+    for (var purchaseHistory in list) {
       final purchaseHistoryDto =
           await PurchaseHistoryModelToPurchaseHistoryDto(purchaseHistory);
       res.add(purchaseHistoryDto);

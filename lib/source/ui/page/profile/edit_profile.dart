@@ -61,14 +61,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ],
               );
             }
-            UserProfile? userProfile = snapshot.data! as UserProfile?;
+            UserProfile? userProfile = snapshot.data;
             _nameController.text = userProfile!.fullName ?? '';
-            _nicknameController.text = userProfile!.nickName ?? '';
-            _phoneNumberController.text = userProfile!.phoneNumber ?? '';
-            _addressController.text = userProfile!.address ?? '';
-            // int dob = snapshot[''];
-            // _dateInput.text=userProfile!.dateOfBirth??DateTime.utc(2001);
-            // DateFormat('dd-MM-yyyy').parse(_dateInput.text);
+            _nicknameController.text = userProfile.nickName ?? '';
+            _phoneNumberController.text = userProfile.phoneNumber ?? '';
+            _addressController.text = userProfile.address ?? '';
             return Column(children: [
               Form(
                 key: _formKey,
@@ -154,22 +151,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             context: context,
                             title: context.localizations.updateSuccessfully);
 
-                        String _fullName = _nameController.text;
-                        String _nickName = _nicknameController.text;
-                        DateTime _dob =
+                        String fullName = _nameController.text;
+                        String nickName = _nicknameController.text;
+                        DateTime dob =
                             DateFormat('dd-MM-yyyy').parse(_dateInput.text);
-                        String _gender = textGender;
-                        String _phoneNumber = _phoneNumberController.text;
-                        String _address = _addressController.text;
+                        String gender = textGender;
+                        String phoneNumber = _phoneNumberController.text;
+                        String address = _addressController.text;
 
                         UserProfile up = UserProfile(
                           id: AuthService.userId!,
-                          fullName: _fullName,
-                          nickName: _nickName,
-                          dateOfBirth: _dob,
-                          gender: _gender,
-                          phoneNumber: _phoneNumber,
-                          address: _address,
+                          fullName: fullName,
+                          nickName: nickName,
+                          dateOfBirth: dob,
+                          gender: gender,
+                          phoneNumber: phoneNumber,
+                          address: address,
                         );
 
                         UserProfileService.updateUserProfile(up);
