@@ -12,6 +12,7 @@ import 'package:goodwill/source/data/dto/cart_item_dto.dart';
 import 'package:goodwill/source/data/model/purchase_history_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/routes.dart';
+import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/service/purchase_history_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/payment/component/status_payment.dart';
@@ -312,7 +313,9 @@ class _PaymentState extends State<Payment> {
                           height: 50,
                           child: PrimaryButton(
                             customFunction: () {
-                              FlutterZaloPaySdk.payOrder(zpToken: zpTransToken)
+                              // PAYYYYYY
+                              // FlutterZaloPaySdk.payOrder(zpToken: zpTransToken)
+                              ProductService.buy(selectedCartItems, zpTransToken)
                                   .listen((event) {
                                 setState(() {
                                   paymentStatus = event.name;

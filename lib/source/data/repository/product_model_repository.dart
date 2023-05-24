@@ -10,22 +10,22 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
   final CollectionReference _userCollectionRef =
       FirebaseFirestore.instance.collection("users");
 
-  List<DocumentReference> _getNewDocumentRefs() {
+  List<DocumentReference> _getNewDocumentRefs({String? userId}) {
     DocumentReference productsDocRef = _productsCollectionRef.doc();
     String id = productsDocRef.id;
 
     DocumentReference userProductsDocRef = _userCollectionRef
-        .doc(AuthService.userId)
+        .doc(userId ?? AuthService.userId)
         .collection('products')
         .doc(id);
 
     return [productsDocRef, userProductsDocRef];
   }
 
-  List<DocumentReference> _getDocumentRefs(String id) {
+  List<DocumentReference> _getDocumentRefs(String id, {String? userId}) {
     DocumentReference productsDocRef = _productsCollectionRef.doc(id);
     DocumentReference userProductsDocRef = _userCollectionRef
-        .doc(AuthService.userId)
+        .doc(userId ?? AuthService.userId)
         .collection('products')
         .doc(id);
 
@@ -61,9 +61,27 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
     return updateWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
   }
 
-  @override
   Future<void> replace(ProductModel element) {
     return replaceWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
+  }
+
+  Future<bool> decreaseQuantity(String productId, String ownerId,
+      {int buyQuantity = 1}) async {
+    return FirebaseFirestore.instance.runTransaction((transaction) async {
+      final docRefs = _getDocumentRefs(productId, userId: ownerId);
+      final result = await transaction.get(docRefs[0]);
+
+      int quantity = result.get("quantity");
+      if (quantity - buyQuantity < 0) {
+        return false;
+      }
+      quantity -= buyQuantity;
+      for (var docRef in docRefs) {
+        transaction.update(docRef, {"quantity": quantity});
+      }
+
+      return true;
+    });
   }
 
   /// This function will return the PostModel object
@@ -97,20 +115,23 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
   /// If null, the default collection reference will be: root.collection('products')
   @override
   Future<List<ProductModel>?> getAll({CollectionReference? collectionRef}) {
-    return getAllElementsFromCollectionRef(
-        collectionRef:
-            (collectionRef != null) ? collectionRef : _productsCollectionRef);
+    return getAllElementsFromCollectionQuery(
+        query: (collectionRef != null)
+            ? collectionRef.where("quantity", isGreaterThan: 0)
+            : _productsCollectionRef.where("quantity", isGreaterThan: 0));
   }
 
   @override
   Stream<List<ProductModel>?> getStreamAll(
       {CollectionReference<Object?>? collectionRef, Query<Object?>? query}) {
     if (query != null) {
-      return getStreamAllElementsFromQuery(query: query);
+      return getStreamAllElementsFromQuery(
+          query: query.where("quantity", isGreaterThan: 0));
     } else {
-      return getStreamAllElementsFromCollectionRef(
-          collectionRef:
-              (collectionRef != null) ? collectionRef : _productsCollectionRef);
+      return getStreamAllElementsFromQuery(
+          query: (collectionRef != null)
+              ? collectionRef.where("quantity", isGreaterThan: 0)
+              : _productsCollectionRef.where("quantity", isGreaterThan: 0));
     }
   }
 

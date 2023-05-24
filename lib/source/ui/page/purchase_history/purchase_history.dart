@@ -1,14 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:goodwill/source/data/dto/purchase_history_dto.dart';
 import 'package:goodwill/source/data/model/purchase_history_model.dart';
 import 'package:goodwill/source/service/purchase_history_service.dart';
 import 'package:goodwill/source/ui/page/manage_post/showing_tabbar_view.dart';
-import 'package:goodwill/source/ui/page/search/widgets/not_found_screen.dart';
 import 'package:goodwill/source/util/date_time_helper.dart';
 import 'package:goodwill/source/util/mapper.dart';
 import 'package:provider/provider.dart';
@@ -90,14 +88,6 @@ class PurchaseHistory extends StatelessWidget {
         leading: const BackButton(
           color: Colors.black,
         ),
-        actions: [
-          TextButton(
-              onPressed: () {
-                PurchaseHistoryService.addPurchaseHistory(
-                    PurchaseHistoryModel.sample);
-              },
-              child: const Text('Add dummy Purchased Item')),
-        ],
       ),
       body: StreamProvider<List<PurchaseHistoryModel>?>.value(
           initialData: [],
