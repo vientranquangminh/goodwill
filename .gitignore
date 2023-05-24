@@ -52,3 +52,6 @@ app.*.map.json
 *.freezed.dart
 *.mocks.dart
 *.lock
+
+# ignore linux
+linux/

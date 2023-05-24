@@ -21,21 +21,7 @@ class _ShowingTabbarViewState extends State<ShowingTabbarView>
   @override
   Widget build(BuildContext context) {
     if (widget.products == null || widget.products!.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Assets.images.emptyBox.image(height: 50, width: 50),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              context.localizations.empty,
-              style: context.blackS16W500,
-            ),
-          ],
-        ),
-      );
+      return const EmptyScreen();
     }
 
     return ListView.builder(
@@ -51,4 +37,29 @@ class _ShowingTabbarViewState extends State<ShowingTabbarView>
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+}
+
+class EmptyScreen extends StatelessWidget {
+  const EmptyScreen({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Assets.images.emptyBox.image(height: 50, width: 50),
+          const SizedBox(
+            height: 10,
+          ),
+          Text(
+            context.localizations.empty,
+            style: context.blackS16W500,
+          ),
+        ],
+      ),
+    );
+  }
 }
