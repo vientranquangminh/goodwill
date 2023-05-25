@@ -120,7 +120,7 @@ class _TopicScreenState extends State<TopicScreen> {
                                     padding: EdgeInsets.zero,
                                     onPressed: () {
                                       ArticleService.deleteArticleById(
-                                          snapshot.data![i]);
+                                          snapshot.data![i].id!);
                                     },
                                     icon: const Icon(
                                         CupertinoIcons.xmark_circle_fill)),

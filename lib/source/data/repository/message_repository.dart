@@ -51,7 +51,7 @@ class MessageRepository extends BasicRepository<MessageModel> {
 
   @override
   Future<void> delete(MessageModel element) {
-    return deleteWithDocRefs(element,
+    return deleteWithDocRefs(
         docRefs: _getDocumentRefs(element.getChatRoomId(), element.id!));
   }
 
@@ -149,16 +149,18 @@ class MessageRepository extends BasicRepository<MessageModel> {
 
   Stream<List<String>?> getStreamRecentChatRoomIds() {
     Query query = _chatRoomsCollectionRef
-        .orderBy("updatedAt", descending: true) 
+        .orderBy("updatedAt", descending: true)
         .where("members", arrayContains: AuthService.userId);
 
     return query.snapshots(includeMetadataChanges: true).map((querySnapshot) =>
         querySnapshot.docs.map<String>((doc) => doc.id).toList());
   }
-  
+
   @override
-  Future<void> deleteById(MessageModel element) {
+  Future<void> deleteById(String elementId) {
     // TODO: implement deleteById
+
+    // Need more chatRoomId, so this method can not be implemented
     throw UnimplementedError();
   }
 }

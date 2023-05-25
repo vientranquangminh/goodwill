@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/util/constant.dart';
 import 'package:goodwill/source/util/date_time_helper.dart';
+import 'package:intl/intl.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({super.key, required this.postCard});
@@ -33,16 +35,18 @@ class PostCard extends StatelessWidget {
           Text(
             postCardTitle,
             style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 5),
           Text(
-            "$price VND",
+            "${NumberFormat('#,##0').format(price)} ${Constant.VN_CURRENCY}",
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           const SizedBox(height: 5),
           Text(
             "$time • $location",
             style: const TextStyle(fontSize: 14, color: Colors.grey),
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

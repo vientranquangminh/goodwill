@@ -31,12 +31,12 @@ class PurchaseHistoryRepository extends BasicRepository<PurchaseHistoryModel> {
 
   @override
   Future<void> delete(PurchaseHistoryModel element) {
-    return deleteWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
+    return deleteWithDocRefs(docRefs: _getDocumentRefs(element.id!));
   }
 
   @override
-  Future<void> deleteById(PurchaseHistoryModel element) {
-    return deleteWithDocRefId(element, docRefs: _getDocumentRefs(element.id!));
+  Future<void> deleteById(String elementId) {
+    return deleteWithDocRefs(docRefs: _getDocumentRefs(elementId));
   }
 
   @override

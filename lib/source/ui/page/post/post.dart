@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
@@ -30,6 +31,8 @@ class Post extends StatefulWidget {
 }
 
 class _PostState extends State<Post> {
+  int quantity = 1;
+
   String? dropdownValue;
   bool isFree = false;
   List<File> images = [];
@@ -403,11 +406,37 @@ class _PostState extends State<Post> {
                       borderRadius: BorderRadius.all(Radius.circular(16)),
                     ),
                     labelText: context.localizations.example,
-                    suffixText: 'VND',
+                    suffixText: Constant.VN_CURRENCY,
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: 10.h,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      context.localizations.quantity,
+                      style: context.blackS16W500,
+                    ),
+                    SizedBox(
+                      width: 20.w,
+                    ),
+                    _selectQuantityWidget(quantity, context, () {
+                      if (quantity < 2) {
+                        quantity = 2;
+                      }
+                      setState(() {
+                        quantity--;
+                      });
+                    }, () {
+                      setState(() {
+                        quantity++;
+                      });
+                    })
+                  ],
+                ),
+                SizedBox(
+                  height: 12.h,
                 ),
                 Text(
                   context.localizations.description,
@@ -601,6 +630,43 @@ class _PostState extends State<Post> {
       ),
     );
   }
+}
+
+Widget _selectQuantityWidget(int text, BuildContext context,
+    VoidCallback subtractFunc, VoidCallback addFunc) {
+  return Container(
+    decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 236, 236, 236),
+        borderRadius: BorderRadius.all(Radius.circular(30.r))),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        PlatformIconButton(
+          padding: EdgeInsets.zero,
+          icon: const Icon(
+            Icons.remove,
+            color: ColorName.black,
+          ),
+          onPressed: subtractFunc,
+        ),
+        SizedBox(
+          width: 5.w,
+        ),
+        Text(
+          text.toString(),
+          style: context.blackS16W500,
+        ),
+        SizedBox(
+          width: 5.w,
+        ),
+        PlatformIconButton(
+          padding: EdgeInsets.zero,
+          icon: const Icon(Icons.add, color: ColorName.black),
+          onPressed: addFunc,
+        )
+      ],
+    ),
+  );
 }
 
 class ThousandsSeparatorInputFormatter extends TextInputFormatter {

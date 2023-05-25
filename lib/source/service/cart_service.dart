@@ -40,7 +40,7 @@ class CartService {
     return _cartItemRepository.delete(cartItemModel);
   }
 
-  static Future<void> deleteCartItemById(CartItemModel cartItemModel) {
-    return _cartItemRepository.deleteById(cartItemModel);
+  static Future<void> deleteCartItemById(String cartItemModelId) {
+    return _cartItemRepository.deleteById(cartItemModelId);
   }
 }

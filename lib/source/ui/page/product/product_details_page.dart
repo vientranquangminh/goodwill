@@ -20,7 +20,9 @@ import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/cart_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
+import 'package:goodwill/source/util/constant.dart';
 import 'package:goodwill/source/util/message_helper.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailsPage extends StatefulWidget {
@@ -142,6 +144,42 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             SizedBox(
                               height: 12.h,
                             ),
+                            RichText(
+                              text: TextSpan(
+                                text: "Category: ",
+                                style: context.blackS16W700,
+                                children: [
+                                  TextSpan(
+                                    text: arguments.category,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 12.h,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                text: "Address: ",
+                                style: context.blackS16W700,
+                                children: [
+                                  TextSpan(
+                                    text: arguments.location,
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 12.h,
+                            ),
                             FutureBuilder<UserProfile?>(
                                 future: UserProfileService.getUserProfile(
                                     arguments.ownerId ?? ""),
@@ -150,7 +188,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     UserProfile? userProfile = snapshot.data;
                                     String phoneNumber =
                                         userProfile!.phoneNumber.toString();
-                                    return Row(
+                                    return Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
@@ -164,14 +202,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                             SizedBox(
                                               width: 8.w,
                                             ),
-                                            Text(
-                                              userProfile.fullName ?? '',
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  userProfile.fullName ?? '',
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -239,7 +282,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                   return Container();
                                 }),
                             SizedBox(
-                              height: 12.h,
+                              height: 6.h,
                             ),
                             Row(
                               children: [
@@ -264,9 +307,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 })
                               ],
                             ),
-                            SizedBox(
-                              height: 22.h,
-                            ),
                           ],
                         ),
                       )
@@ -284,7 +324,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       Text(context.localizations.totalPrice,
                           style: context.blackS10W400),
                       Text(
-                        "${arguments.price} VND",
+                        "${NumberFormat('#,##0').format(arguments.price)} ${Constant.VN_CURRENCY}",
                         style: context.blackS20W700,
                       ),
                     ],

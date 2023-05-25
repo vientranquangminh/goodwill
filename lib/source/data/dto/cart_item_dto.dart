@@ -8,6 +8,7 @@ class CartItemDto {
   int price;
   int quantity;
   String sellerId;
+  String productId;
   String? phoneNumber;
   String? category;
   String imageUrl;
@@ -19,6 +20,7 @@ class CartItemDto {
     required this.price,
     required this.quantity,
     required this.sellerId,
+    required this.productId,
     this.phoneNumber,
     this.category,
     required this.imageUrl,
@@ -31,6 +33,7 @@ class CartItemDto {
     int? price,
     int? quantity,
     String? sellerId,
+    String? productId,
     String? phoneNumber,
     String? category,
     String? imageUrl,
@@ -42,6 +45,7 @@ class CartItemDto {
       price: price ?? this.price,
       quantity: quantity ?? this.quantity,
       sellerId: sellerId ?? this.sellerId,
+      productId: productId ?? this.productId,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       category: category ?? this.category,
       imageUrl: imageUrl ?? this.imageUrl,
@@ -56,6 +60,7 @@ class CartItemDto {
       'price': price,
       'quantity': quantity,
       'sellerId': sellerId,
+      'productId': productId,
       'phoneNumber': phoneNumber,
       'category': category,
       'imageUrl': imageUrl,
@@ -70,6 +75,7 @@ class CartItemDto {
       price: map['price'] as int,
       quantity: map['quantity'] as int,
       sellerId: map['sellerId'] as String,
+      productId: map['productId'] as String,
       phoneNumber:
           map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
       category: map['category'] != null ? map['category'] as String : null,
@@ -84,7 +90,7 @@ class CartItemDto {
 
   @override
   String toString() {
-    return 'CartItemDto(id: $id, title: $title, location: $location, price: $price, quantity: $quantity, sellerId: $sellerId, phoneNumber: $phoneNumber, category: $category, imageUrl: $imageUrl)';
+    return 'CartItemDto(id: $id, title: $title, location: $location, price: $price, quantity: $quantity, sellerId: $sellerId, productId: $productId, phoneNumber: $phoneNumber, category: $category, imageUrl: $imageUrl)';
   }
 
   @override
@@ -97,6 +103,7 @@ class CartItemDto {
         other.price == price &&
         other.quantity == quantity &&
         other.sellerId == sellerId &&
+        other.productId == productId &&
         other.phoneNumber == phoneNumber &&
         other.category == category &&
         other.imageUrl == imageUrl;
@@ -110,6 +117,7 @@ class CartItemDto {
         price.hashCode ^
         quantity.hashCode ^
         sellerId.hashCode ^
+        productId.hashCode ^
         phoneNumber.hashCode ^
         category.hashCode ^
         imageUrl.hashCode;
