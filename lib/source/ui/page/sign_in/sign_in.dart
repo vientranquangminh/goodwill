@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
@@ -63,16 +64,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(height: 44.0),
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Please enter your email address';
-                  //   } else if (!EmailValidator.validate(value)) {
-                  //     return 'Please enter a valid email address';
-                  //   }
-                  //   return null;
-                  // },
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email address';
+                    } else if (!EmailValidator.validate(value)) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderSide:
@@ -95,6 +96,12 @@ class _SignInScreenState extends State<SignInScreen> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _passwordController,
                   obscureText: _passwordVisible,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderSide:
@@ -142,7 +149,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
                         await AuthService.signInWithEmailAndPassword(
                             email, password);
-                        context.pushNamed(Routes.myPageController);
                       }
                     },
                     child: const Text(
