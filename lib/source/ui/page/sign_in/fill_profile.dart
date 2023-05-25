@@ -73,126 +73,136 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
       appBar: AppBar(
           backgroundColor: Colors.black,
           title: const Text('Fill Your Profile')),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Center(
-                          child: CircleAvatar(
-                            radius: 65,
-                            backgroundImage:
-                                AssetImage(Assets.images.homePage.person.path),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Center(
+                            child: CircleAvatar(
+                              radius: 65,
+                              backgroundImage:
+                                  AssetImage(Assets.images.raidenShogun.path),
+                            ),
                           ),
-                        ),
-                        Positioned(
-                            bottom: 0,
-                            left: 230,
-                            child: Container(
-                              height: 35,
-                              width: 35,
-                              decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: IconButton(
-                                icon: Assets.svgs.editPen.svg(),
-                                onPressed: () {},
-                              ),
-                            )),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    CustomTextFiled(
-                      controller: _nameController,
-                      hint: 'Full name',
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Can not be empty';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    CustomTextFiled(
-                      controller: _nicknameController,
-                      hint: 'Nick name',
-                    ),
-                    InputAge(dateInput: _dateInput),
-                    Gender(
-                      onChanged: (value) => _getGender(value),
-                    ),
-                    CustomTextFiled(
-                      surfixIcon: const Icon(
-                        Icons.phone_android,
-                        color: Colors.black,
+                          Positioned(
+                              bottom: 0,
+                              left: 230,
+                              child: Container(
+                                height: 35,
+                                width: 35,
+                                decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: IconButton(
+                                  icon: Assets.svgs.editPen
+                                      .svg(color: Colors.white),
+                                  onPressed: () {},
+                                ),
+                              )),
+                        ],
                       ),
-                      hint: 'Phone number',
-                      keyboardType: TextInputType.number,
-                      controller: _phoneNumberController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter your phone number";
-                        } else if (value.length > 11 || value[0] != '0') {
-                          return "Please enter valid phone number";
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ],
-                )),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 60,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      showDialog(
-                        context: context,
-                        builder: (context) => const DialogBuilder(),
-                      );
-                      Timer(const Duration(seconds: 3), () {
-                        context.pushNamed(Routes.myPageController);
-                      });
-                      final DateFormat format = DateFormat('dd-MM-yyyy');
+                      const SizedBox(height: 20),
+                      CustomTextFiled(
+                        controller: _nameController,
+                        hint: 'Full name',
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Can not be empty';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      CustomTextFiled(
+                        controller: _nicknameController,
+                        hint: 'Nick name',
+                      ),
+                      InputAge(dateInput: _dateInput),
+                      Gender(
+                        onChanged: (value) => _getGender(value),
+                      ),
+                      CustomTextFiled(
+                        surfixIcon: const Icon(
+                          Icons.phone_android,
+                          color: Colors.black,
+                        ),
+                        hint: 'Phone number',
+                        keyboardType: TextInputType.number,
+                        controller: _phoneNumberController,
+                        validator: (value) {
+                          if (value == null) {
+                            return "Please enter your phone number";
+                          } else if (value.isEmpty) {
+                            return "Please enter your phone number";
+                          } else if (!RegExp(r'^0[0-9]{9,10}$')
+                              .hasMatch(value)) {
+                            return "Please enter a valid phone number";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                    ],
+                  )),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 60,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const DialogBuilder(),
+                        );
+                        Timer(const Duration(seconds: 3), () {
+                          context.pushNamed(Routes.myPageController);
+                        });
+                        final DateFormat format = DateFormat('dd-MM-yyyy');
 
-                      Position userPosition = await _getCurrentLocation();
-                      String address = await _getCurrentPositionFromCoordinates(userPosition);
-                      final submitUserProfile = UserProfile(
-                        id: AuthService.userId ?? '',
-                        fullName: _nameController.text,
-                        phoneNumber: _phoneNumberController.text,
-                        gender: textGender,
-                        address: address,
-                        dateOfBirth: format.parse(_dateInput.text),
-                        nickName: _nicknameController.text,
-                        userPosition: UserPosition(
-                            lat: userPosition.latitude,
-                            long: userPosition.longitude),
-                      );
-                      print(submitUserProfile);
-                      UserProfileService.addUserProfile(submitUserProfile);
-                    }
-                    // test when press 'sign up' button
-                  },
-                  style: ElevatedButton.styleFrom(
-                      shape: const StadiumBorder(),
-                      backgroundColor: Colors.black),
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(fontSize: 15),
+                        Position userPosition = await _getCurrentLocation();
+                        String address =
+                            await _getCurrentPositionFromCoordinates(
+                                userPosition);
+                        final submitUserProfile = UserProfile(
+                          id: AuthService.userId ?? '',
+                          fullName: _nameController.text,
+                          phoneNumber: _phoneNumberController.text,
+                          gender: textGender,
+                          address: address,
+                          dateOfBirth: format.parse(_dateInput.text),
+                          nickName: _nicknameController.text,
+                          userPosition: UserPosition(
+                              lat: userPosition.latitude,
+                              long: userPosition.longitude),
+                        );
+                        print(submitUserProfile);
+                        UserProfileService.addUserProfile(submitUserProfile);
+                      }
+                      // test when press 'sign up' button
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: const StadiumBorder(),
+                        backgroundColor: Colors.black),
+                    child: const Text(
+                      'Continue',
+                      style: TextStyle(fontSize: 15),
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -229,7 +239,8 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   }
 
   Future<String> _getCurrentPositionFromCoordinates(Position position) async {
-    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
     return placemarks[0].locality.toString();
   }
 }

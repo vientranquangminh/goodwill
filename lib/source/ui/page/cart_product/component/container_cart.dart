@@ -114,13 +114,13 @@ class _ContainerCartState extends State<ContainerCart> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width / 2.9,
+                              width: MediaQuery.of(context).size.width / 3,
                               child: Text(
                                 "${NumberFormat('#,##0').format(widget.cartProduct.price)} ${Constant.VN_CURRENCY}",
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20,
+                                  fontSize: 16,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),

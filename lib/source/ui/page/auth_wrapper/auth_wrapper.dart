@@ -18,7 +18,7 @@ class AuthWrapper extends StatelessWidget {
         if (snapshot.hasData) {
           return const MyPageController();
         } else {
-          return const SignUpScreen();
+          return const SignInScreen();
         }
       },
     );
