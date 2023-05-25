@@ -150,5 +150,7 @@
     "paymentFailed": "Payment Failed",
     "paymentSuccessful": "Payment Successful",
     "paidFor": "Paid For",
-    "thisProductIsAlreadyInTheCart": "This product is already in the cart"
+    "thisProductIsAlreadyInTheCart": "This product is already in the cart",
+    "editPost": "Edit Post",
+    "deliveryAddress": "Delivery Address"
 }
