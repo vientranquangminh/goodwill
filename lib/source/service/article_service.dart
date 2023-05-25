@@ -41,8 +41,8 @@ class ArticleService {
     return _articleModelRepository.delete(articleModel);
   }
 
-  static Future<void> deleteArticleById(ArticleModel articleModel) {
-    return _articleModelRepository.deleteById(articleModel);
+  static Future<void> deleteArticleById(String articleModelId) {
+    return _articleModelRepository.deleteById(articleModelId);
   }
 
   static Stream<List<ArticleModel>?> getAllArticlesByCondition(String type) {

@@ -49,41 +49,36 @@ class _MyPageControllerState extends State<MyPageController> {
   @override
   Widget build(BuildContext context) {
     // return FutureProvider<UserProfile?>.value(
-    return StreamProvider<UserProfile?>.value(
-      // value: _userProfileFuture,
-      value: _userProfileStream,
-      initialData: null,
-      child: Scaffold(
-        body: _widgetOptions.elementAt(_selectedIndex),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.home_filled),
-              label: context.localizations.home,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.article_outlined),
-              label: context.localizations.managePosts,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.post_add),
-              label: context.localizations.post,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.article),
-              label: context.localizations.article,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.person),
-              label: context.localizations.person,
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: selectedColor,
-          onTap: _onItemTapped,
-        ),
-      ).animate().fadeIn(duration: const Duration(milliseconds: 400)),
-    );
+    return Scaffold(
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.home_filled),
+            label: context.localizations.home,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.article_outlined),
+            label: context.localizations.managePosts,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.post_add),
+            label: context.localizations.post,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.article),
+            label: context.localizations.article,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person),
+            label: context.localizations.person,
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: selectedColor,
+        onTap: _onItemTapped,
+      ),
+    ).animate().fadeIn(duration: const Duration(milliseconds: 400));
   }
 }

@@ -127,7 +127,7 @@ class _ProductPageState extends State<ProductPage> {
                                     CupertinoIcons.xmark_circle_fill),
                                 onPressed: () {
                                   ProductService.deleteProductById(
-                                      snapshot.data![i]);
+                                      snapshot.data![i].id!);
                                 },
                               )),
                             ],

@@ -1,14 +1,11 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/colors.gen.dart';
-import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/util/constant.dart';
+import 'package:intl/intl.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({super.key, required this.category});
@@ -65,7 +62,7 @@ class _ProductCardState extends State<ProductCard> {
               ),
               const SizedBox(height: 5),
               Text(
-                "\$ $_price",
+                "${NumberFormat('#,##0').format(_price)} ${Constant.VN_CURRENCY}",
                 style: context.blackS16W700,
               )
             ],

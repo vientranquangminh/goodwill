@@ -30,8 +30,7 @@ class PurchaseHistoryService {
     return _purchaseHistoryRepository.delete(purchaseHistoryModel);
   }
 
-  static Future<void> deletePurchaseHistoryById(
-      PurchaseHistoryModel purchaseHistoryModel) {
-    return _purchaseHistoryRepository.deleteById(purchaseHistoryModel);
+  static Future<void> deletePurchaseHistoryById(String purchaseHistoryModelId) {
+    return _purchaseHistoryRepository.deleteById(purchaseHistoryModelId);
   }
 }

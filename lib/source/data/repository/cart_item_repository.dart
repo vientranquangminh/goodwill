@@ -31,12 +31,12 @@ class CartItemRepository extends BasicRepository<CartItemModel> {
 
   @override
   Future<void> delete(CartItemModel element) {
-    return deleteWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
+    return deleteWithDocRefs(docRefs: _getDocumentRefs(element.id!));
   }
 
   @override
-  Future<void> deleteById(CartItemModel element) {
-    return deleteWithDocRefId(element, docRefs: _getDocumentRefs(element.id!));
+  Future<void> deleteById(String elementId) {
+    return deleteWithDocRefs(docRefs: _getDocumentRefs(elementId));
   }
 
   @override

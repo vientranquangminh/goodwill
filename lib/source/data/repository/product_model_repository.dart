@@ -42,7 +42,7 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
 
   @override
   Future<void> delete(ProductModel element) {
-    return deleteWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
+    return deleteWithDocRefs(docRefs: _getDocumentRefs(element.id!));
   }
 
   @override
@@ -110,7 +110,7 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
   }
 
   @override
-  Future<void> deleteById(ProductModel element) {
-    return deleteWithDocRefId(element, docRefs: _getDocumentRefs(element.id!));
+  Future<void> deleteById(String elementId) {
+    return deleteWithDocRefs(docRefs: _getDocumentRefs(elementId));
   }
 }

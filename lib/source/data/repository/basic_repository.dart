@@ -10,7 +10,7 @@ abstract class BasicRepository<E extends BasicModel> {
   Stream<List<E>?> getStreamAll({CollectionReference? collectionRef});
   Future<void> update(E element);
   Future<void> delete(E element);
-  Future<void> deleteById(E element);
+  Future<void> deleteById(String elementId);
 
   E Function(DocumentSnapshot<Map<String, dynamic>> snapshot,
       SnapshotOptions? options) fromFirestore();
@@ -124,12 +124,12 @@ abstract class BasicRepository<E extends BasicModel> {
     }
   }
 
-  Future<void> deleteWithDocRefs(E element,
+  Future<void> deleteWithDocRefs(
       {required List<DocumentReference> docRefs}) async {
     for (var docRef in docRefs) {
       await docRef
           .delete()
-          .then((value) => debugPrint('${element.id} deleted'))
+          .then((value) => debugPrint('${docRef.id} deleted'))
           .onError((error, stackTrace) {
         debugPrint('Error $error');
         debugPrint('Stack $stackTrace');
@@ -137,18 +137,18 @@ abstract class BasicRepository<E extends BasicModel> {
     }
   }
 
-  Future<void> deleteWithDocRefId(E element,
-      {required List<DocumentReference> docRefs}) async {
-    for (var docRef in docRefs) {
-      element.id = docRef.id;
-      docRef
-          .delete()
-          .then((value) =>
-              debugPrint('${E.runtimeType.toString()} $element.id deleted'))
-          .onError((error, stackTrace) {
-        debugPrint('Error $error');
-        debugPrint('Stack $stackTrace');
-      });
-    }
-  }
+  // Future<void> deleteWithDocRefId(E element,
+  //     {required List<DocumentReference> docRefs}) async {
+  //   for (var docRef in docRefs) {
+  //     element.id = docRef.id;
+  //     docRef
+  //         .delete()
+  //         .then((value) =>
+  //             debugPrint('${E.runtimeType.toString()} $element.id deleted'))
+  //         .onError((error, stackTrace) {
+  //       debugPrint('Error $error');
+  //       debugPrint('Stack $stackTrace');
+  //     });
+  //   }
+  // }
 }

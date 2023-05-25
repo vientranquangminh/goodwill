@@ -63,8 +63,8 @@ class ProductService {
     return _productModelRepository.delete(productModel);
   }
 
-  static Future<void> deleteProductById(ProductModel productModel) async {
-    return _productModelRepository.deleteById(productModel);
+  static Future<void> deleteProductById(String productModelId) async {
+    return _productModelRepository.deleteById(productModelId);
   }
 
   static Stream<List<ProductModel>?> getProductsByCondition(String category) {

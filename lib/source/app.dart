@@ -51,6 +51,14 @@ class App extends StatelessWidget {
                 debugPrint('Error fetching products: $error');
                 return [];
               },
+            ),
+            StreamProvider<UserProfile?>(
+              create: (context) => UserProfileService.getMyUserProfileStream(),
+              initialData: null,
+              catchError: (context, error) {
+                debugPrint('Error fetching products: $error');
+                return null;
+              },
             )
           ],
           builder: (context, child) {

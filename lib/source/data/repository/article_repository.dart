@@ -42,12 +42,12 @@ class ArticleRepository extends BasicRepository<ArticleModel> {
 
   @override
   Future<void> delete(ArticleModel element) {
-    return deleteWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
+    return deleteWithDocRefs(docRefs: _getDocumentRefs(element.id!));
   }
 
   @override
-  Future<void> deleteById(ArticleModel element) {
-    return deleteWithDocRefId(element, docRefs: _getDocumentRefs(element.id!));
+  Future<void> deleteById(String elementId) {
+    return deleteWithDocRefs(docRefs: _getDocumentRefs(elementId));
   }
 
   @override

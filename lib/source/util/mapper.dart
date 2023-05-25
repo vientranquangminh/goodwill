@@ -137,6 +137,7 @@ class Mapper {
     String phoneNumber =
         sellerProfile?.phoneNumber ?? Constant.FAKE_PHONENUMBER;
     String? category = product?.category;
+    String productId = product?.id ?? 'test';
 
     return CartItemDto(
       id: id,
@@ -145,6 +146,7 @@ class Mapper {
       location: location,
       quantity: quantity,
       sellerId: sellerId,
+      productId: productId,
       imageUrl: imageUrl,
       phoneNumber: phoneNumber,
       category: category,

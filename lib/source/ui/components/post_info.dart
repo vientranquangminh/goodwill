@@ -5,6 +5,7 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/util/constant.dart';
+import 'package:intl/intl.dart';
 
 class PostInfo extends StatelessWidget {
   const PostInfo({
@@ -59,7 +60,7 @@ class PostInfo extends StatelessWidget {
                         style: titleStyle,
                       ),
                       Text(
-                        '$price đ',
+                        "${NumberFormat('#,##0').format(price)} ${Constant.VN_CURRENCY}",
                         style: priceStyle,
                       ),
                       const Text('12:05 13/04/2023'),
