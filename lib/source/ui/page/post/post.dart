@@ -14,6 +14,7 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
 import 'package:goodwill/source/common/widgets/app_bar/custom_app_bar.dart';
 import 'package:goodwill/source/common/widgets/app_toast/app_toast.dart';
+import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
@@ -172,7 +173,7 @@ class _PostState extends State<Post> {
                   ),
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 10),
@@ -280,46 +281,6 @@ class _PostState extends State<Post> {
                         },
                       ),
                     ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Text(
-                  context.localizations.status,
-                  style: context.blackS16W700,
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                SizedBox(
-                  height: 40,
-                  width: 500,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: selections.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                        child: RoundedContainer(
-                          padding: 10.w,
-                          title: selections[index],
-                          color: selectedIndex == index
-                              ? ColorName.black
-                              : const Color.fromARGB(255, 231, 231, 231),
-                          radius: 16.r,
-                          titleStyle: TextStyle(
-                              color: selectedIndex == index
-                                  ? Colors.white
-                                  : Colors.black),
-                        ),
-                      );
-                    },
                   ),
                 ),
                 SizedBox(
@@ -540,88 +501,75 @@ class _PostState extends State<Post> {
                   },
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.black,
-                        minimumSize: const Size(80, 40),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Post(),
-                            ));
-                      },
-                      child: Text(context.localizations.cancel),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.black,
-                          minimumSize: const Size(80, 40)),
-                      onPressed: () async {
-                        if (!_formKey.currentState!.validate() ||
-                            images.isEmpty ||
-                            images.length > 6) {
-                          Fluttertoast.showToast(
-                              msg: context.localizations.plsCorrectMe);
-                          return;
-                        }
-                        String? category = dropdownValue;
-                        String? title = _titleController.text;
-                        int? price = int.parse(
-                            _priceController.text.replaceAll(',', ''));
-                        String? description = _descriptionController.text;
-                        String? location = _addressController.text;
-                        List<String>? imagesPaths = [];
+                Center(
+                  child: SizedBox(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    child: PrimaryButton(
+                        radius: 16,
+                        textColor: Colors.white,
+                        buttonColor: Colors.black,
+                        fontSize: 16,
+                        customFunction: () async {
+                          if (!_formKey.currentState!.validate() ||
+                              images.isEmpty ||
+                              images.length > 6) {
+                            Fluttertoast.showToast(
+                                msg: context.localizations.plsCorrectMe);
+                            return;
+                          }
+                          String? category = dropdownValue;
+                          String? title = _titleController.text;
+                          int? price = int.parse(
+                              _priceController.text.replaceAll(',', ''));
+                          String? description = _descriptionController.text;
+                          String? location = _addressController.text;
+                          List<String>? imagesPaths = [];
 
-                        for (var image in images) {
-                          final imagePath =
-                              await CloudStorageService.uploadImage(image,
-                                  destination:
-                                      FileHelper.getStorageProductImagePath(
-                                          image));
-                          imagesPaths
-                              .add(imagePath ?? Constant.SAMPLE_AVATAR_URL);
-                        }
+                          for (var image in images) {
+                            final imagePath =
+                                await CloudStorageService.uploadImage(
+                                    image,
+                                    destination:
+                                        FileHelper.getStorageProductImagePath(
+                                            image));
+                            imagesPaths
+                                .add(imagePath ?? Constant.SAMPLE_AVATAR_URL);
+                          }
 
-                        if (imagesPaths.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: context.localizations.uploadImageFailed);
-                        }
+                          if (imagesPaths.isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: context.localizations.uploadImageFailed);
+                          }
 
-                        ProductModel productModel = ProductModel(
-                          title: title,
-                          ownerId: AuthService.userId,
-                          category: category,
-                          createdAt: DateTime.now(),
-                          price: price,
-                          quantity: quantity,
-                          description: description,
-                          location: location,
-                          images: imagesPaths,
-                          status: OwnProductStatus.SHOWING,
-                        );
+                          ProductModel productModel = ProductModel(
+                            title: title,
+                            ownerId: AuthService.userId,
+                            category: category,
+                            createdAt: DateTime.now(),
+                            price: price,
+                            quantity: quantity,
+                            description: description,
+                            location: location,
+                            images: imagesPaths,
+                            status: OwnProductStatus.SHOWING,
+                          );
 
-                        ProductService.addProduct(productModel).then((value) {
-                          AppToasts.showToast(
-                              context: context,
-                              title: context.localizations.postProductSuccess);
-                        }).catchError((error) {
-                          AppToasts.showErrorToast(
-                              title: context.localizations.canNotPostProduct,
-                              context: context);
-                        });
-                      },
-                      child: Text(context.localizations.post),
-                    ),
-                  ],
+                          ProductService.addProduct(productModel).then((value) {
+                            AppToasts.showToast(
+                                context: context,
+                                title:
+                                    context.localizations.postProductSuccess);
+                          }).catchError((error) {
+                            AppToasts.showErrorToast(
+                                title: context.localizations.canNotPostProduct,
+                                context: context);
+                          });
+                        },
+                        text: context.localizations.post),
+                  ),
                 ),
               ],
             ),

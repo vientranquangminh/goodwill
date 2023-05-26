@@ -305,20 +305,26 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 SizedBox(
                                   width: 20.w,
                                 ),
-                                _selectQuantityWidget(quantity, context, () {
-                                  if (quantity < 2) {
-                                    quantity = 2;
-                                  }
-                                  setState(() {
-                                    quantity--;
-                                  });
-                                }, () {
-                                  if (quantity < arguments.quantity) {
-                                    setState(() {
-                                      quantity++;
-                                    });
-                                  }
-                                })
+                                _selectQuantityWidget(
+                                  quantity,
+                                  context,
+                                  () {
+                                    if (quantity >= 2) {
+                                      setState(() {
+                                        quantity--;
+                                      });
+                                    }
+                                  },
+                                  () {
+                                    if (quantity < arguments.quantity) {
+                                      setState(() {
+                                        quantity++;
+                                      });
+                                    }
+                                  },
+                                  quantity == 1,
+                                  quantity >= arguments.quantity,
+                                )
                               ],
                             ),
                           ],
@@ -410,22 +416,28 @@ Future<void> _launch(Uri uri) async {
   }
 }
 
-Widget _selectQuantityWidget(int text, BuildContext context,
-    VoidCallback subtractFunc, VoidCallback addFunc) {
+Widget _selectQuantityWidget(
+    int text,
+    BuildContext context,
+    VoidCallback subtractFunc,
+    VoidCallback addFunc,
+    bool isSubtractDisabled,
+    bool isAddDisabled) {
   return Container(
     decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 236, 236, 236),
-        borderRadius: BorderRadius.all(Radius.circular(30.r))),
+      color: const Color.fromARGB(255, 236, 236, 236),
+      borderRadius: BorderRadius.all(Radius.circular(30.r)),
+    ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         PlatformIconButton(
           padding: EdgeInsets.zero,
-          icon: const Icon(
+          icon: Icon(
             Icons.remove,
-            color: ColorName.black,
+            color: isSubtractDisabled ? Colors.grey.shade400 : Colors.black,
           ),
-          onPressed: subtractFunc,
+          onPressed: isSubtractDisabled ? null : subtractFunc,
         ),
         SizedBox(
           width: 5.w,
@@ -439,9 +451,10 @@ Widget _selectQuantityWidget(int text, BuildContext context,
         ),
         PlatformIconButton(
           padding: EdgeInsets.zero,
-          icon: const Icon(Icons.add, color: ColorName.black),
-          onPressed: addFunc,
-        )
+          icon: Icon(Icons.add,
+              color: isAddDisabled ? Colors.grey.shade400 : Colors.black),
+          onPressed: isAddDisabled ? null : addFunc,
+        ),
       ],
     ),
   );
