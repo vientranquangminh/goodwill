@@ -138,98 +138,88 @@ class PurchaseHistory extends StatelessWidget {
                               SizedBox(
                                 height: 8,
                               ),
-                              Stack(
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20)),
+                                    ),
+                                    child: ClipRRect(
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            purchaseHistoryList[index].imageUrl,
+                                        fit: BoxFit.fill,
+                                        height: 100,
+                                        width: 100,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20.w,
+                                  ),
+                                  Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.shade300,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(20)),
-                                        ),
-                                        child: ClipRRect(
-                                          child: CachedNetworkImage(
-                                            imageUrl: purchaseHistoryList[index]
-                                                .imageUrl,
-                                            fit: BoxFit.fill,
-                                            height: 100,
-                                            width: 100,
-                                          ),
-                                        ),
+                                      Text(
+                                        purchaseHistoryList[index].title,
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
-                                        width: 20.w,
+                                        height: 4.h,
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            purchaseHistoryList[index].title,
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(
-                                            height: 4.h,
-                                          ),
-                                          Text(
-                                            "Category: ${purchaseHistoryList[index].category}",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          SizedBox(
-                                            height: 4.h,
-                                          ),
-                                          Text(
-                                            "Quantity: ${purchaseHistoryList[index].quantity}",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          SizedBox(
-                                            height: 4.h,
-                                          ),
-                                          Text(
-                                            DateTimeHelper
-                                                .toVietnameseStandardDate(
-                                                    purchaseHistoryList[index]
-                                                        .createdAt),
-                                            style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          SizedBox(
-                                            height: 4.h,
-                                          ),
-                                          Text(
-                                            "Price: ${purchaseHistoryList[index].price}",
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                        ],
-                                      )
+                                      Text(
+                                        "Category: ${purchaseHistoryList[index].category}",
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      SizedBox(
+                                        height: 4.h,
+                                      ),
+                                      Text(
+                                        "Quantity: ${purchaseHistoryList[index].quantity}",
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      SizedBox(
+                                        height: 4.h,
+                                      ),
+                                      Text(
+                                        DateTimeHelper.toVietnameseStandardDate(
+                                            purchaseHistoryList[index]
+                                                .createdAt),
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      SizedBox(
+                                        height: 4.h,
+                                      ),
+                                      Text(
+                                        "Price: ${purchaseHistoryList[index].price}",
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w700),
+                                      ),
                                     ],
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: PrimaryButton(
-                                      customFunction: () {},
-                                      text: context.localizations.viewSeller,
-                                      buttonColor: Colors.black,
-                                      textColor: Colors.white,
-                                      fontSize: 14,
-                                      radius: 12,
-                                    ),
-                                  ),
+                                  )
                                 ],
-                              )
+                              ),
+                              PrimaryButton(
+                                customFunction: () {},
+                                text: context.localizations.viewSeller,
+                                buttonColor: Colors.black,
+                                textColor: Colors.white,
+                                fontSize: 14,
+                                radius: 12,
+                              ),
                             ],
                           ),
                         ),

@@ -140,5 +140,6 @@
     "viewSeller": "View Seller",
     "deliveryAddress": "Delivery Address",
     "addCartProductSuccess": "Add Products To Cart Success",
-    "canNotAddCartProduct": "Can add post products to cart"
+    "canNotAddCartProduct": "Can add post products to cart",
+    "youCannotAddYourProductsToTheCart": "You cannot add your products to the cart"
 }
