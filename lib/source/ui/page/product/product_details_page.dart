@@ -204,31 +204,34 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Row(
-                                          children: [
-                                            Avatar(
-                                              imagePath:
-                                                  userProfile.profilePicture,
-                                              size: const Size(50, 50),
-                                            ),
-                                            SizedBox(
-                                              width: 8.w,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  userProfile.fullName ?? '',
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20,
+                                        GestureDetector(
+                                          onTap: () => context.pushNamedWithParam(Routes.externalProfile, userProfile),
+                                          child: Row(
+                                            children: [
+                                              Avatar(
+                                                imagePath:
+                                                    userProfile.profilePicture,
+                                                size: const Size(50, 50),
+                                              ),
+                                              SizedBox(
+                                                width: 8.w,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    userProfile.fullName ?? '',
+                                                    style: const TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 20,
+                                                    ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
                                                   ),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         Row(
                                           children: [
