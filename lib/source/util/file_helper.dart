@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -75,6 +76,25 @@ class FileHelper {
 
     try {
       List<File> files = res.files.map((file) => File(file.path!)).toList();
+      (handleFiles != null) ? handleFiles(files) : null;
+    } on Exception catch (e) {
+      debugPrint('Fail to browse images, ${e.toString()}');
+    }
+  }
+
+  static void browseWebImages({Function(List<Uint8List>)? handleFiles}) async {
+    final res = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.image,
+    );
+
+    if (res == null) {
+      Fluttertoast.showToast(msg: "Fail to browse this images");
+      return;
+    }
+
+    try {
+      List<Uint8List> files = res.files.map((file) => file.bytes!).toList();
       (handleFiles != null) ? handleFiles(files) : null;
     } on Exception catch (e) {
       debugPrint('Fail to browse images, ${e.toString()}');
