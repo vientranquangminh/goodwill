@@ -61,9 +61,10 @@ class PurchaseHistoryRepository extends BasicRepository<PurchaseHistoryModel> {
   @override
   Future<List<PurchaseHistoryModel>?> getAll(
       {CollectionReference<Object?>? collectionRef}) {
-    return getAllElementsFromCollectionRef(
-        collectionRef:
-            (collectionRef != null) ? collectionRef : _historyCollectionRef);
+    return getAllElementsFromCollectionQuery(
+        query: (collectionRef != null)
+            ? collectionRef.orderBy("createdAt", descending: true)
+            : _historyCollectionRef.orderBy("createdAt", descending: true));
   }
 
   @override
@@ -77,9 +78,10 @@ class PurchaseHistoryRepository extends BasicRepository<PurchaseHistoryModel> {
   @override
   Stream<List<PurchaseHistoryModel>?> getStreamAll(
       {CollectionReference<Object?>? collectionRef}) {
-    return getStreamAllElementsFromCollectionRef(
-        collectionRef:
-            (collectionRef != null) ? collectionRef : _historyCollectionRef);
+    return getStreamAllElementsFromQuery(
+        query: (collectionRef != null)
+            ? collectionRef.orderBy("createdAt", descending: true)
+            : _historyCollectionRef.orderBy("createdAt", descending: true));
   }
 
   @override
