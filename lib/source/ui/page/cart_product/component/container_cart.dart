@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/colors.gen.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/dto/cart_item_dto.dart';
 import 'package:goodwill/source/service/cart_service.dart';
 import 'package:goodwill/source/util/constant.dart';
@@ -13,10 +14,12 @@ class ContainerCart extends StatefulWidget {
     required this.cartProduct,
     required this.index,
     required this.selectedIndexes,
+    required this.quantity,
     this.onCheckboxChanged,
   });
   final CartItemDto cartProduct;
   final int index;
+  final int quantity;
   final List<int> selectedIndexes;
   final ValueChanged<bool>? onCheckboxChanged;
 
@@ -107,6 +110,14 @@ class _ContainerCartState extends State<ContainerCart> {
                       ),
                       const SizedBox(
                         height: 12,
+                      ),
+                      Text(
+                        "${context.localizations.quantity} : ${widget.quantity}",
+                        style: const TextStyle(
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14),
+                        overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 2,

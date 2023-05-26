@@ -122,7 +122,7 @@
     "clothes": "Clothes",
     "shoes": "Shoes",
     "bags": "Bags",
-    "electronic" :"Electronic",
+    "electronics" :"Electronics",
     "watch" :"Watch",
     "jewelry": "Jewelry",
     "kitchen": "Kitchen",
@@ -138,5 +138,7 @@
     "denied": "Denied",
     "purchaseHistory": "Purchase History",
     "viewSeller": "View Seller",
-    "deliveryAddress": "Delivery Address"
+    "deliveryAddress": "Delivery Address",
+    "addCartProductSuccess": "Add Products To Cart Success",
+    "canNotAddCartProduct": "Can add post products to cart"
 }
