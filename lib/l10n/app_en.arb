@@ -141,5 +141,13 @@
     "deliveryAddress": "Delivery Address",
     "addCartProductSuccess": "Add Products To Cart Success",
     "canNotAddCartProduct": "Can add post products to cart",
-    "youCannotAddYourProductsToTheCart": "You cannot add your products to the cart"
+    "youCannotAddYourProductsToTheCart": "You cannot add your products to the cart",
+    "paymentConfirmation": "Payment Confirmation",
+    "amountPaid": "Amount Paid",
+    "paidBy": "Paid By",
+    "backToHome": "Back to home",
+    "backToCart": "Back to cart",
+    "paymentFailed": "Payment Failed",
+    "paymentSuccessful": "Payment Successful",
+    "paidFor": "Paid For"
 }
