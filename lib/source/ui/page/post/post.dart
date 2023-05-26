@@ -97,7 +97,7 @@ class _PostState extends State<Post> {
       context.localizations.clothes,
       context.localizations.shoes,
       context.localizations.bags,
-      context.localizations.electronic,
+      context.localizations.electronics,
       context.localizations.watch,
       context.localizations.jewelry,
       context.localizations.kitchen,
@@ -610,7 +610,6 @@ class _PostState extends State<Post> {
                         );
 
                         ProductService.addProduct(productModel).then((value) {
-                          context.pop();
                           AppToasts.showToast(
                               context: context,
                               title: context.localizations.postProductSuccess);
