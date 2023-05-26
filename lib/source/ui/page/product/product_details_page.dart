@@ -364,27 +364,33 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           text: context.localizations.addToCart,
                           customFunction: () {
                             // Add to cart
-
-                            CartItemModel cartItemModel = CartItemModel(
-                              productId: arguments.id,
-                              quantity: quantity,
-                              createdAt: DateTime.now(),
-                            );
-                            CartService.addCartItem(cartItemModel)
-                                .then((value) {
-                              setState(() {
-                                isAddedToCart = true;
+                            if (arguments.ownerId != AuthService.userId) {
+                              CartItemModel cartItemModel = CartItemModel(
+                                productId: arguments.id,
+                                quantity: quantity,
+                                createdAt: DateTime.now(),
+                              );
+                              CartService.addCartItem(cartItemModel)
+                                  .then((value) {
+                                setState(() {
+                                  isAddedToCart = true;
+                                });
+                                AppToasts.showToast(
+                                    context: context,
+                                    title: context
+                                        .localizations.addCartProductSuccess);
+                              }).catchError((error) {
+                                AppToasts.showErrorToast(
+                                    title: context
+                                        .localizations.canNotAddCartProduct,
+                                    context: context);
                               });
-                              AppToasts.showToast(
-                                  context: context,
-                                  title:
-                                      context.localizations.addCartProductSuccess);
-                            }).catchError((error) {
+                            } else {
                               AppToasts.showErrorToast(
-                                  title:
-                                      context.localizations.canNotAddCartProduct,
+                                  title: context.localizations
+                                      .youCannotAddYourProductsToTheCart,
                                   context: context);
-                            });
+                            }
                           }),
                     ),
                   )

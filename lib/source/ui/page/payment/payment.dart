@@ -170,10 +170,16 @@ class _PaymentState extends State<Payment> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                selectedCartItems[index].title,
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 1.8,
+                                child: Text(
+                                  selectedCartItems[index].title,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.clip,
+                                ),
                               ),
                               SizedBox(
                                 height: 4.h,

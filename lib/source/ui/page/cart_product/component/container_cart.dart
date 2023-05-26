@@ -77,12 +77,16 @@ class _ContainerCartState extends State<ContainerCart> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              widget.cartProduct.title,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.8,
+                              child: Text(
+                                widget.cartProduct.title,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+                                overflow: TextOverflow.clip,
+                              ),
                             ),
                             IconButton(
                               icon: const Icon(
