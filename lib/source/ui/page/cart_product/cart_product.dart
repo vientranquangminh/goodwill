@@ -99,6 +99,7 @@ class _CartProductState extends State<CartProduct> {
                                         }
                                       });
                                     },
+                                    quantity: cartProducts[index].quantity,
                                   );
                                 },
                                 separatorBuilder:

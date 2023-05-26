@@ -18,7 +18,7 @@ abstract class BasicRepository<E extends BasicModel> {
 
   /// This should be replaced for the method fromMap() above
   /// But it takes time to fix all relevants code
-  /// 
+  ///
   // E Function(Map<String, dynamic> map)? fromMap();
 
   Future<void> addWithDocRefs(E element,
@@ -115,6 +115,23 @@ abstract class BasicRepository<E extends BasicModel> {
 
       await docRef
           .update(data)
+          .then((value) =>
+              debugPrint('${E.runtimeType.toString()} ${element.id} updated'))
+          .onError((error, stackTrace) {
+        debugPrint('Error $error');
+        debugPrint('Stack $stackTrace');
+      });
+    }
+  }
+
+  Future<void> replaceWithDocRefs(E element,
+      {required List<DocumentReference> docRefs}) async {
+    for (var docRef in docRefs) {
+      element.id = docRef.id;
+      final data = element.toMap();
+
+      await docRef
+          .set(data)
           .then((value) =>
               debugPrint('${E.runtimeType.toString()} ${element.id} updated'))
           .onError((error, stackTrace) {

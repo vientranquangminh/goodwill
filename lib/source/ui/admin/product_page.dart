@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/service/product_service.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/admin/widget/appbar_admin.dart';
 import 'package:provider/provider.dart';
 
@@ -119,7 +121,13 @@ class _ProductPageState extends State<ProductPage> {
                               DataCell(
                                   Text(snapshot.data![i].createdAt.toString())),
                               DataCell(Text(snapshot.data?[i].location ?? '')),
-                              DataCell(Text(snapshot.data?[i].ownerId ?? '')),
+                              DataCell(FutureBuilder<UserProfile?>(
+                                  future: UserProfileService.getUserProfile(
+                                      snapshot.data?[i].ownerId ?? ""),
+                                  builder: (context, snapshot) {
+                                    UserProfile? userProfile = snapshot.data;
+                                    return Text(userProfile?.fullName ?? "Loading...");
+                                  })),
                               DataCell(
                                   Text(snapshot.data![i].price.toString())),
                               DataCell(IconButton(
@@ -149,7 +157,7 @@ class _ProductPageState extends State<ProductPage> {
                                       fontWeight: FontWeight.bold)),
                             ),
                             DataColumn(
-                              label: Text(context.localizations.productTitle,
+                              label: Text(context.localizations.title,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold)),
                             ),

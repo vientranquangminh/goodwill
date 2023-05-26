@@ -196,7 +196,7 @@ class _buildSearchProducts extends StatelessWidget {
           children: List.generate(listCategories.length, (index) {
             return GestureDetector(
                 onTap: () => context.pushNamedWithParam(
-                    Routes.category, listCategories[index].title),
+                    Routes.category, listCategories[index].title.toLowerCase()),
                 child: CategoriesCard(categories: listCategories[index]));
           })),
     );

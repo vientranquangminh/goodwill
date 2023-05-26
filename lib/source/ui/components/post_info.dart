@@ -55,9 +55,13 @@ class PostInfo extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: titleStyle,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: Text(
+                          title,
+                          style: titleStyle,
+                          overflow: TextOverflow.clip,
+                        ),
                       ),
                       Text(
                         "${NumberFormat('#,##0').format(price)} ${Constant.VN_CURRENCY}",

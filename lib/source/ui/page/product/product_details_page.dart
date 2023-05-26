@@ -9,6 +9,7 @@ import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/extensions/text_style_ext.dart';
+import 'package:goodwill/source/common/widgets/app_toast/app_toast.dart';
 import 'package:goodwill/source/common/widgets/circle_avatar/circle_avatar.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button_with_icon.dart';
 import 'package:goodwill/source/common/widgets/indicator/dot_indiccator.dart';
@@ -33,6 +34,7 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  bool isAddedToCart = false;
   int quantity = 1;
   int _currentIndex = 0;
   @override
@@ -58,11 +60,17 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         ),
         actions: [
           PlatformIconButton(
-            icon: const Icon(
-              Icons.shopping_cart_outlined,
-              color: ColorName.black,
-              size: 30,
-            ),
+            icon: isAddedToCart
+                ? const Icon(
+                    Icons.add_shopping_cart_outlined,
+                    color: Colors.red,
+                    size: 30,
+                  )
+                : const Icon(
+                    Icons.shopping_cart_outlined,
+                    color: ColorName.black,
+                    size: 30,
+                  ),
             onPressed: () {
               context.pushNamed(Routes.cartProduct);
             },
@@ -125,9 +133,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  arguments.title.toString(),
-                                  style: context.blackS20W700,
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width - 48,
+                                  child: Text(
+                                    arguments.title.toString(),
+                                    style: context.blackS20W700,
+                                    overflow: TextOverflow.clip,
+                                  ),
                                 ),
                               ],
                             ),
@@ -302,9 +314,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     quantity--;
                                   });
                                 }, () {
-                                  setState(() {
-                                    quantity++;
-                                  });
+                                  if (quantity < arguments.quantity) {
+                                    setState(() {
+                                      quantity++;
+                                    });
+                                  }
                                 })
                               ],
                             ),
@@ -325,7 +339,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       Text(context.localizations.totalPrice,
                           style: context.blackS10W400),
                       Text(
-                        "${NumberFormat('#,##0').format(arguments.price)} ${Constant.VN_CURRENCY}",
+                        "${NumberFormat('#,##0').format(arguments.price! * quantity)} ${Constant.VN_CURRENCY}",
                         style: context.blackS20W700,
                       ),
                     ],
@@ -351,13 +365,33 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           text: context.localizations.addToCart,
                           customFunction: () {
                             // Add to cart
-
-                            CartItemModel cartItemModel = CartItemModel(
-                              productId: arguments.id,
-                              quantity: quantity,
-                              createdAt: DateTime.now(),
-                            );
-                            CartService.addCartItem(cartItemModel);
+                            if (arguments.ownerId != AuthService.userId) {
+                              CartItemModel cartItemModel = CartItemModel(
+                                productId: arguments.id,
+                                quantity: quantity,
+                                createdAt: DateTime.now(),
+                              );
+                              CartService.addCartItem(cartItemModel)
+                                  .then((value) {
+                                setState(() {
+                                  isAddedToCart = true;
+                                });
+                                AppToasts.showToast(
+                                    context: context,
+                                    title: context
+                                        .localizations.addCartProductSuccess);
+                              }).catchError((error) {
+                                AppToasts.showErrorToast(
+                                    title: context
+                                        .localizations.canNotAddCartProduct,
+                                    context: context);
+                              });
+                            } else {
+                              AppToasts.showErrorToast(
+                                  title: context.localizations
+                                      .youCannotAddYourProductsToTheCart,
+                                  context: context);
+                            }
                           }),
                     ),
                   )

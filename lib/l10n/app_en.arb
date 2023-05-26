@@ -122,7 +122,7 @@
     "clothes": "Clothes",
     "shoes": "Shoes",
     "bags": "Bags",
-    "electronic" :"Electronic",
+    "electronics" :"Electronics",
     "watch" :"Watch",
     "jewelry": "Jewelry",
     "kitchen": "Kitchen",
@@ -188,5 +188,8 @@
     "importantNotification": "By doing so. you will receive important notification and information about your account",
     "uploadSampleArticles": "Upload sample articles",
     "browseImages": "Browse Images",
-    "personalProfile": "Personal Profile"
+    "personalProfile": "Personal Profile",
+    "addCartProductSuccess": "Add Products To Cart Success",
+    "canNotAddCartProduct": "Can add post products to cart",
+    "youCannotAddYourProductsToTheCart": "You cannot add your products to the cart"
 }
