@@ -227,13 +227,13 @@ class _PaymentState extends State<Payment> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  children: const [
-                    Icon(Icons.monetization_on_outlined),
-                    SizedBox(
+                  children: [
+                    const Icon(Icons.monetization_on_outlined),
+                    const SizedBox(
                       width: 8,
                     ),
                     Text(
-                      "Payment Method",
+                      context.localizations.paymentMethod,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                     ),
@@ -340,7 +340,8 @@ class _PaymentState extends State<Payment> {
                                           builder: (context) => StatusPayment(
                                                 image:
                                                     'assets/images/payment_fail.png',
-                                                status: 'Payment Failed',
+                                                status: context.localizations
+                                                    .paymentFailed,
                                                 owner: fullName,
                                               )),
                                     );

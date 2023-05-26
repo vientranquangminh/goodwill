@@ -63,7 +63,6 @@ class _RoomChatScreenState extends State<RoomChatScreen> {
                           itemBuilder: (context, int index) {
                             final message = allMessages[index];
                             bool isMe = message.senderId == AuthService.userId;
-                            // bool isMe = message.sender.id == currentUser.id;
                             return Container(
                               margin: const EdgeInsets.only(top: 10).r,
                               child: Column(

@@ -106,7 +106,6 @@ class _TopicScreenState extends State<TopicScreen> {
                       List<DataRow> rows = [];
                       int length = snapshot.data?.length ?? 0;
                       for (int i = 0; i < length; i++) {
-                        // log(articles[i].toString(), name: 'articles');
                         rows.add(
                           DataRow(
                             cells: <DataCell>[

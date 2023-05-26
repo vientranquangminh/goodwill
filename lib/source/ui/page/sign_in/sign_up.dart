@@ -60,17 +60,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fit: BoxFit.cover),
                   ),
                 ),
-                const Text("Create New Account",
-                    style:
-                        TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+                Text(context.localizations.createNewAccount,
+                    style: const TextStyle(
+                        fontSize: 35, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 44.0),
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email address';
+                      return context.localizations.plseAddEmail;
                     } else if (!EmailValidator.validate(value)) {
-                      return 'Please enter a valid email address';
+                      return context.localizations.plseValidEmail;
                     }
                     return null;
                   },
@@ -82,7 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const BorderSide(color: Colors.black, width: 2.0),
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      hintText: "User Email",
+                      hintText: context.localizations.userEmail,
                       prefixIcon: const Icon(
                         color: Colors.black,
                         Icons.email,
@@ -104,7 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const BorderSide(color: Colors.black, width: 2.0),
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      hintText: "Password",
+                      hintText: context.localizations.password,
                       suffixIcon: IconButton(
                         icon: Icon(
                           color: Colors.black,
@@ -126,9 +126,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.circular(16))),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
+                      return context.localizations.plsePass;
                     } else if (value.length < 8) {
-                      return "Length of password's characters must be 8 or greater";
+                      return context.localizations.plseLengthPass;
                     }
                     return null;
                   },
@@ -146,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const BorderSide(color: Colors.black, width: 2.0),
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      hintText: "Confirm Password",
+                      hintText: context.localizations.confirmPassword,
                       suffixIcon: IconButton(
                         icon: Icon(
                           color: Colors.black,
@@ -168,9 +168,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.circular(16))),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please confirm your password';
+                      return context.localizations.confirmPassword;
                     } else if (value != _passwordController.text) {
-                      return "Password does not match";
+                      return context.localizations.passwordNotMatch;
                     }
                     return null;
                   },
@@ -210,16 +210,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             // ignore: use_build_context_synchronously
                             : AppToasts.showErrorToast(
                                 context: context,
-                                title:
-                                    'This email has been used! Please try another email.');
+                                title: context.localizations.emailused);
                       } else {
-                        showSnackBar('Error',
-                            'This email has been used! Please try another email');
+                        showSnackBar(context.localizations.error,
+                            context.localizations.emailused);
                       }
                     },
-                    child: const Text(
-                      "Sign up",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    child: Text(
+                      context.localizations.signUp,
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),
@@ -227,17 +226,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Already have an account?",
-                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    Text(
+                      context.localizations.alreadyAccount,
+                      style: const TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, Routes.signIn);
                       },
-                      child: const Text(
-                        "Sign in",
-                        style: TextStyle(color: Colors.black),
+                      child: Text(
+                        context.localizations.signIn,
+                        style: const TextStyle(color: Colors.black),
                       ),
                     )
                   ],

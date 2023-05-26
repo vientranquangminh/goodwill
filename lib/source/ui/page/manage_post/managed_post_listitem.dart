@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/ui/components/post_info.dart';
 import 'package:goodwill/source/util/constant.dart';
@@ -49,7 +50,7 @@ class ManagedPostListItem extends StatelessWidget {
                       color: Colors.black,
                     ),
                     label: Text(
-                      'Hide post',
+                      context.localizations.hidePost,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
@@ -60,7 +61,7 @@ class ManagedPostListItem extends StatelessWidget {
                       color: Colors.black,
                     ),
                     label: Text(
-                      'Statcs',
+                      context.localizations.statcs,
                       style: TextStyle(color: Colors.black),
                     ),
                   )

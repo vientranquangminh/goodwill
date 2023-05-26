@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 
 // ignore: must_be_immutable
 class ContainerOfContent extends StatefulWidget {
@@ -28,14 +27,13 @@ class _ContainerOfContentState extends State<ContainerOfContent> {
           children: [
             Expanded(
               child: TextFormField(
-                // keyboardType: TextInputType.multiline,
                 minLines: 1,
                 maxLines: null,
                 controller: widget.content,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Write something here...',
-                    hintStyle: TextStyle(
+                    hintText: context.localizations.writeSomething,
+                    hintStyle: const TextStyle(
                         color: Colors.grey,
                         fontSize: 15,
                         fontWeight: FontWeight.w400)),

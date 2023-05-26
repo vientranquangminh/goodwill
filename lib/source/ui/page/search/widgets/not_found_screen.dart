@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 
 class NotFoundScreen extends StatelessWidget {
   const NotFoundScreen({Key? key}) : super(key: key);
@@ -13,13 +14,13 @@ class NotFoundScreen extends StatelessWidget {
             Image.asset('assets/images/not_found.png'),
             const SizedBox(height: 16),
             Text(
-              'Not Found',
+              context.localizations.notFound,
               style: const TextStyle(color: Colors.black)
                   .copyWith(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Text(
-              'Sorry, the keyword you entered cannot be found, please check again or search with another keyword.',
+              context.localizations.sorryYou,
               textAlign: TextAlign.center,
               style:
                   const TextStyle(color: Colors.black).copyWith(fontSize: 16),

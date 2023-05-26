@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:intl/intl.dart';
 
 class InputDate extends StatefulWidget {
@@ -36,7 +37,6 @@ class _InputDateState extends State<InputDate> {
         readOnly: true,
         keyboardType: TextInputType.datetime,
         decoration: InputDecoration(
-          // hintText: DateFormat("dd-MM-yyyy").parse(widget.date).toIso8601String(),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -47,7 +47,7 @@ class _InputDateState extends State<InputDate> {
         ),
         validator: (value) {
           if (value!.isEmpty) {
-            return 'Can not be empty';
+            return context.localizations.canNotBeEmpty;
           }
           return null;
         },

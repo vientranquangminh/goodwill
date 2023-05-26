@@ -37,9 +37,12 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
               child: Column(
                 children: [
                   Assets.svgs.mainIcon.svg(),
-                  const Text(
-                    'Welcome To \nGoodwill',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+                  Text(
+                    context.localizations.welcomeTo +
+                        '\n' +
+                        context.localizations.goodwill,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 40),
                   ),
                 ],
               ),
@@ -67,9 +70,9 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your email address';
+                              return context.localizations.plseAddEmail;
                             } else if (!EmailValidator.validate(value)) {
-                              return 'Please enter a valid email address';
+                              return context.localizations.plseValidEmail;
                             }
                             return null;
                           },
@@ -96,9 +99,9 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
                           controller: _passwordController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
+                              return context.localizations.plsePass;
                             } else if (value.length < 8) {
-                              return "Length of password's characters must be 8 or greater";
+                              return context.localizations.plseLengthPass;
                             }
                             return null;
                           },

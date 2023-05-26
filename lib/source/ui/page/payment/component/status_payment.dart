@@ -29,9 +29,9 @@ class StatusPayment extends StatelessWidget {
             )),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: const Text(
-          "Payment Confirmation",
-          style: TextStyle(color: Colors.black, fontSize: 22),
+        title: Text(
+          context.localizations.paymentConfirmation,
+          style: const TextStyle(color: Colors.black, fontSize: 22),
         ),
       ),
       body: Padding(
@@ -55,8 +55,8 @@ class StatusPayment extends StatelessWidget {
                 height: 20.h,
               ),
               Text(
-                "Amount Paid: "
-                "${NumberFormat('#,##0').format(amountPaid)} ${Constant.VN_CURRENCY}",
+                context.localizations.amountPaid +
+                    "${NumberFormat('#,##0').format(amountPaid)} ${Constant.VN_CURRENCY}",
                 style: const TextStyle(color: Colors.black, fontSize: 18),
               ),
               Text(
@@ -72,7 +72,7 @@ class StatusPayment extends StatelessWidget {
                   customFunction: () {
                     context.pushNamed(Routes.myPageController);
                   },
-                  text: "Back To Home",
+                  text: context.localizations.backToHome,
                   textColor: Colors.white,
                   fontSize: 16,
                   buttonColor: Colors.black,

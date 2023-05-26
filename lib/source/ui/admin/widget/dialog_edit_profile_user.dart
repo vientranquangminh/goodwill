@@ -77,7 +77,7 @@ class _EditUserInformationState extends State<EditUserInformation> {
                         borderRadius: BorderRadius.circular(8))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter user name';
+                    return context.localizations.plsEnterUserName;
                   } else {
                     return null;
                   }
@@ -100,7 +100,7 @@ class _EditUserInformationState extends State<EditUserInformation> {
                         borderRadius: BorderRadius.circular(8))),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter nick name of user';
+                    return context.localizations.plsNickUser;
                   } else {
                     return null;
                   }
@@ -113,13 +113,13 @@ class _EditUserInformationState extends State<EditUserInformation> {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Please enter phone number of user";
+                    return context.localizations.plsPhoneUsser;
                   } else if (value.length > 10 ||
                       value[0] != '0' ||
                       value.length < 10) {
-                    return "Please enter valid phone number";
+                    return context.localizations.plsEnterValid;
                   } else if (value[0] == '0' && value[1] == '0') {
-                    return "Please enter valid phone number";
+                    return context.localizations.plsEnterValid;
                   } else {
                     return null;
                   }
@@ -182,7 +182,8 @@ class _EditUserInformationState extends State<EditUserInformation> {
 
                     UserProfileService.updateUserProfile(up);
                     AppToasts.showToast(
-                        context: context, title: 'Update successfully');
+                        context: context,
+                        title: context.localizations.updateSuccessfully);
                     context.pop();
                   }
                 },

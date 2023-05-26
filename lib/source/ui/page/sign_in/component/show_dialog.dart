@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class DialogBuilder extends StatelessWidget {
@@ -17,14 +18,15 @@ class DialogBuilder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Image.asset('assets/images/sign_in/congratulation.png'),
-              const Text(
-                'Congratulations!',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+              Text(
+                context.localizations.congratulations,
+                style:
+                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
               ),
-              const Text(
-                'Your account is ready to use. You will be redirected to the Home page in a few seconds',
+              Text(
+                context.localizations.yourAccountReadly,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.w500),
+                style: const TextStyle(fontWeight: FontWeight.w500),
               ),
               const SizedBox(
                 width: 80,

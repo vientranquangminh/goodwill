@@ -56,8 +56,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         fit: BoxFit.cover),
                   ),
                 ),
-                const Text("Login to Your Account",
-                    style: TextStyle(
+                Text(context.localizations.loginAccount,
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 35,
                         fontWeight: FontWeight.bold)),
@@ -68,9 +68,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email address';
+                      return context.localizations.plseAddEmail;
                     } else if (!EmailValidator.validate(value)) {
-                      return 'Please enter a valid email address';
+                      return context.localizations.plseValidEmail;
                     }
                     return null;
                   },
@@ -80,7 +80,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             const BorderSide(color: Colors.black, width: 2.0),
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      hintText: "Email",
+                      hintText: context.localizations.email,
                       prefixIcon: const Icon(
                         color: Colors.black,
                         Icons.email,
@@ -98,7 +98,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   obscureText: _passwordVisible,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
+                      return context.localizations.plsePass;
                     }
                     return null;
                   },
@@ -108,7 +108,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             const BorderSide(color: Colors.black, width: 2.0),
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      hintText: "Password",
+                      hintText: context.localizations.password,
                       suffixIcon: IconButton(
                         icon: Icon(
                           color: Colors.black,
@@ -151,9 +151,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             email, password);
                       }
                     },
-                    child: const Text(
-                      "Sign in",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    child: Text(
+                      context.localizations.signIn,
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),
@@ -164,13 +164,13 @@ class _SignInScreenState extends State<SignInScreen> {
                   onPressed: () {
                     Navigator.pushNamed(context, Routes.signUp);
                   },
-                  child: const Text('Sign up'),
+                  child: Text(context.localizations.signUp),
                 ),
                 GestureDetector(
                   onTap: () {},
-                  child: const Text(
-                    "Forgot the password?",
-                    style: TextStyle(
+                  child: Text(
+                    context.localizations.forgotPassword,
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                 ),

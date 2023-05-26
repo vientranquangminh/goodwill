@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/message.service.dart';
@@ -49,7 +50,7 @@ class InputMessage extends StatelessWidget {
                       controller: _messageController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Type a message ...',
+                        hintText: context.localizations.typeMessage,
                         hintStyle: const TextStyle(color: Colors.grey)
                             .copyWith(fontSize: 14),
                       ),

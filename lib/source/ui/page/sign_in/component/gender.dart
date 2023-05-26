@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 
 class Gender extends StatefulWidget {
   final Function(String value) onChanged;
@@ -29,7 +30,7 @@ class _GenderState extends State<Gender> {
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: dropdownvalue,
-              hint: const Text('Gender'),
+              hint: Text(context.localizations.gender),
               isDense: true,
               onChanged: (value) {
                 widget.onChanged(value ?? '');

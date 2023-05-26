@@ -30,25 +30,6 @@ class ProductCartModel {
     required this.phoneNumber,
   });
 }
-
-// List<ProductCartModel> listCartProduct = [
-//   ProductCartModel(
-//       title: "Ipad",
-//       price: 3000,
-//       phoneNumber: "0905430873",
-//       location: "Da Nang"),
-//   ProductCartModel(
-//       title: "Shoes",
-//       price: 500,
-//       phoneNumber: "0905430873",
-//       location: "Da Nang"),
-//   ProductCartModel(
-//       title: "Iphone",
-//       price: 2000,
-//       phoneNumber: "0905430873",
-//       location: "Da Nang")
-// ];
-
 class CartProduct extends StatefulWidget {
   const CartProduct({super.key});
 

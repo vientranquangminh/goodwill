@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 
 class ContainerProduct extends StatelessWidget {
@@ -127,9 +128,9 @@ class ContainerProduct extends StatelessWidget {
                                   // onPressed: () => Navigator.pushNamed(
                                   //     context, PatientRoutes.selectDate),
                                   onPressed: () {},
-                                  child: const Text(
-                                    'Chat',
-                                    style: TextStyle(color: Colors.white),
+                                  child:  Text(
+                                    context.localizations.chat,
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ))
                           ],

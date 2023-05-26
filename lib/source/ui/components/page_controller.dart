@@ -48,7 +48,6 @@ class _MyPageControllerState extends State<MyPageController> {
 
   @override
   Widget build(BuildContext context) {
-    // return FutureProvider<UserProfile?>.value(
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/routes.dart';
 
 class WaitingVerifyScreen extends StatefulWidget {
@@ -42,17 +43,17 @@ class _WaitingVerifyScreenState extends State<WaitingVerifyScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset('assets/images/sign_in/zyro-image.png'),
-            const Text(
-              'Please Verify Your Email Address',
-              style: TextStyle(
+            Text(
+              context.localizations.verifyEmail,
+              style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                   color: Colors.black),
             ),
             const SizedBox(height: 15),
-            const Text(
-              'We noticed your email address has not been verified. '
-              'By doing so. you will receive important notification and information about your account',
+            Text(
+              context.localizations.notBeenVerified +
+                  context.localizations.importantNotification,
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.black,

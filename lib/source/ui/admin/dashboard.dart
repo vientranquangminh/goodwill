@@ -64,11 +64,11 @@ class DashBoardScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
                     child: Text(
-                      'Statistics',
-                      style: TextStyle(
+                      context.localizations.statistics,
+                      style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 20),

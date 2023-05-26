@@ -97,7 +97,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                   fit: BoxFit.fitHeight,
                                   imageUrl: arguments.images![index],
                                   errorWidget: (context, url, error) {
-                                    return const Text('Something went wrong!');
+                                    return Text(context
+                                        .localizations.somethingWentWrong);
                                   },
                                 ),
                               );
@@ -146,7 +147,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             ),
                             RichText(
                               text: TextSpan(
-                                text: "Category: ",
+                                text: context.localizations.category,
                                 style: context.blackS16W700,
                                 children: [
                                   TextSpan(
@@ -164,7 +165,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             ),
                             RichText(
                               text: TextSpan(
-                                text: "Address: ",
+                                text: context.localizations.address,
                                 style: context.blackS16W700,
                                 children: [
                                   TextSpan(

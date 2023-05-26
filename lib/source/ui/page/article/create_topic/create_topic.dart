@@ -252,7 +252,7 @@ class _CreateTopicState extends State<CreateTopic> {
                       onPressed: () async {
                         if (images.isEmpty) {
                           Fluttertoast.showToast(
-                              msg: 'Please choose one picture');
+                              msg: context.localizations.plsChoosepicture);
                           return;
                         }
                         String? type = item[selectedIndex].toLowerCase();
@@ -274,10 +274,12 @@ class _CreateTopicState extends State<CreateTopic> {
                         ArticleService.addArticle(articleModel).then((value) {
                           context.pop();
                           AppToasts.showToast(
-                              context: context, title: 'Post Topic Success');
+                              context: context,
+                              title: context.localizations.postTopicSuccess);
                         }).catchError((error) {
                           AppToasts.showErrorToast(
-                              title: 'Can not post topic', context: context);
+                              title: context.localizations.canNotPostTopic,
+                              context: context);
                         });
                       },
                       child: Text(context.localizations.upload,

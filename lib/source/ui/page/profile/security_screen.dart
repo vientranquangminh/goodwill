@@ -20,7 +20,7 @@ class _SecurityPageState extends State<SecurityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Security',
+        title: context.localizations.security,
         leading: IconButton(
             onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back)),
       ),

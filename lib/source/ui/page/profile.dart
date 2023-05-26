@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -6,7 +7,7 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: AppBar(title: const Text("Personal Profile")),
+      child: AppBar(title: Text(context.localizations.personalProfile)),
     );
   }
 }

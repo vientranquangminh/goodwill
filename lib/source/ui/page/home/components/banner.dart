@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 
 class BannerAds extends StatelessWidget {
   const BannerAds({
@@ -34,22 +35,22 @@ class BannerAds extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text("Find Your",
-                    style: TextStyle(
+              children: [
+                Text(context.localizations.findYour,
+                    style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w700,
                         color: Colors.black)),
-                Text("Perfect Items",
+                Text(context.localizations.perfectItems,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.w600)),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                     "Lorem Ipsum is simply dummy \ntext of the printing\nand typesetting industry",
                     textAlign: TextAlign.start,
                     style: TextStyle(

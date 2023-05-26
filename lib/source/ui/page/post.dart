@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/article_model.dart';
 import 'package:goodwill/source/service/article_service.dart';
 import 'package:goodwill/source/service/cloud_storage_service.dart';
@@ -65,7 +66,7 @@ class _PostState extends State<Post> {
             onPressed: () {
               _uploadSampleArticles();
             },
-            child: const Text('Upload sample articles'),
+            child: Text(context.localizations.uploadSampleArticles),
           ),
           TextButton(
             onPressed: () {
@@ -75,7 +76,7 @@ class _PostState extends State<Post> {
                 });
               });
             },
-            child: const Text('Browse Images'),
+            child: Text(context.localizations.browseImages),
           ),
           SizedBox(
             height: 10.h,

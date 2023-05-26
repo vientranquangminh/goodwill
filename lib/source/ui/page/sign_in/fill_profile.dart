@@ -72,7 +72,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.black,
-          title: const Text('Fill Your Profile')),
+          title: Text(context.localizations.fillYourProfile)),
       body: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: SingleChildScrollView(
@@ -112,10 +112,10 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       const SizedBox(height: 20),
                       CustomTextFiled(
                         controller: _nameController,
-                        hint: 'Full name',
+                        hint: context.localizations.fullName,
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'Can not be empty';
+                            return context.localizations.canNotBeEmpty;
                           } else {
                             return null;
                           }
@@ -123,7 +123,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       ),
                       CustomTextFiled(
                         controller: _nicknameController,
-                        hint: 'Nick name',
+                        hint: context.localizations.nickname,
                       ),
                       InputAge(dateInput: _dateInput),
                       Gender(
@@ -134,17 +134,17 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                           Icons.phone_android,
                           color: Colors.black,
                         ),
-                        hint: 'Phone number',
+                        hint: context.localizations.phoneNumber,
                         keyboardType: TextInputType.number,
                         controller: _phoneNumberController,
                         validator: (value) {
                           if (value == null) {
-                            return "Please enter your phone number";
+                            return context.localizations.plsEnterYourPhone;
                           } else if (value.isEmpty) {
-                            return "Please enter your phone number";
+                            return context.localizations.plsEnterYourPhone;
                           } else if (!RegExp(r'^0[0-9]{9,10}$')
                               .hasMatch(value)) {
-                            return "Please enter a valid phone number";
+                            return context.localizations.plsEnterValid;
                           } else {
                             return null;
                           }
@@ -189,14 +189,13 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         print(submitUserProfile);
                         UserProfileService.addUserProfile(submitUserProfile);
                       }
-                      // test when press 'sign up' button
                     },
                     style: ElevatedButton.styleFrom(
                         shape: const StadiumBorder(),
                         backgroundColor: Colors.black),
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(fontSize: 15),
+                    child: Text(
+                      context.localizations.ccontinue,
+                      style: const TextStyle(fontSize: 15),
                     ),
                   ),
                 ),

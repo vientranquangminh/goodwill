@@ -529,11 +529,11 @@ class _PostState extends State<Post> {
                             return null;
                           }
                         },
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
-                          labelText: 'Da Nang city',
+                          labelText: context.localizations.daNangCity,
                         ),
                       );
                     }

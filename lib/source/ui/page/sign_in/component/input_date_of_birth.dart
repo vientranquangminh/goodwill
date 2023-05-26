@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:intl/intl.dart';
 
 class InputAge extends StatefulWidget {
@@ -24,7 +25,7 @@ class _InputAgeState extends State<InputAge> {
         readOnly: true,
         keyboardType: TextInputType.datetime,
         decoration: InputDecoration(
-          hintText: 'Date of birth',
+          hintText: context.localizations.dateOfBirth,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -35,7 +36,7 @@ class _InputAgeState extends State<InputAge> {
         ),
         validator: (value) {
           if (value!.isEmpty) {
-            return 'Can not be empty';
+            return context.localizations.canNotBeEmpty;
           }
           return null;
         },

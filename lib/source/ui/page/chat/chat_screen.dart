@@ -29,9 +29,9 @@ class _ChatScreenState extends State<ChatScreen> {
       builder: (BuildContext context, Widget? child) {
         return Scaffold(
             appBar: AppBar(
-              title: const Text(
-                "Chats",
-                style: TextStyle(color: Colors.black, fontSize: 20),
+              title: Text(
+                context.localizations.chat,
+                style: const TextStyle(color: Colors.black, fontSize: 20),
               ),
               backgroundColor: Colors.transparent,
               leading: const BackButton(
@@ -104,8 +104,6 @@ class _ChatScreenState extends State<ChatScreen> {
                                             children: [
                                               CircleAvatar(
                                                 radius: 25,
-                                                // backgroundImage: AssetImage(
-                                                //     recentMessageDTOs[index].avatar!),
                                                 backgroundImage:
                                                     CachedNetworkImageProvider(
                                                         msgDto.avatar!),
@@ -161,7 +159,6 @@ class _ChatScreenState extends State<ChatScreen> {
                             },
                           );
                         });
-                    // return _buildRecentChat(chatRoomIds: chatRoomIds);
                   }),
             ));
       },
@@ -222,8 +219,6 @@ class _buildRecentChat extends StatelessWidget {
                                   children: [
                                     CircleAvatar(
                                       radius: 25,
-                                      // backgroundImage: AssetImage(
-                                      //     recentMessageDTOs[index].avatar!),
                                       backgroundImage:
                                           CachedNetworkImageProvider(
                                               msgDto.avatar!),

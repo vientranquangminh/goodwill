@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
 import 'package:goodwill/source/enum/category_enum.dart';
 import 'package:goodwill/source/ui/page/search/widgets/my_list_product.dart';
@@ -47,9 +48,9 @@ class _SearchScreenState extends State<SearchScreen>
     TabController tabController = TabController(length: 9, vsync: this);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Search Item",
-          style: TextStyle(color: Colors.black, fontSize: 20),
+        title: Text(
+          context.localizations.searchItem,
+          style: const TextStyle(color: Colors.black, fontSize: 20),
         ),
         iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.grey[50],
@@ -79,7 +80,7 @@ class _SearchScreenState extends State<SearchScreen>
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(Radius.circular(18))),
                     fillColor: Colors.grey[200],
-                    hintText: 'Search',
+                    hintText: context.localizations.search,
                     hintStyle: const TextStyle(fontSize: 16.0),
                     suffixIcon: IconButton(
                         icon: Assets.svgs.filter.svg(color: Colors.black),
@@ -99,16 +100,16 @@ class _SearchScreenState extends State<SearchScreen>
                 indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: Colors.black),
-                tabs: const [
-                  TabbarTitle(title: 'All'),
-                  TabbarTitle(title: 'Clothes'),
-                  TabbarTitle(title: 'Shoes'),
-                  TabbarTitle(title: 'Bags'),
-                  TabbarTitle(title: 'Electronic'),
-                  TabbarTitle(title: 'Watch'),
-                  TabbarTitle(title: 'Jewelry'),
-                  TabbarTitle(title: 'Kitchen'),
-                  TabbarTitle(title: 'Toys'),
+                tabs: [
+                  TabbarTitle(title: context.localizations.all),
+                  TabbarTitle(title: context.localizations.clothes),
+                  TabbarTitle(title: context.localizations.shoes),
+                  TabbarTitle(title: context.localizations.bags),
+                  TabbarTitle(title: context.localizations.electronic),
+                  TabbarTitle(title: context.localizations.watch),
+                  TabbarTitle(title: context.localizations.jewelry),
+                  TabbarTitle(title: context.localizations.kitchen),
+                  TabbarTitle(title: context.localizations.toys),
                 ],
               ),
             ),

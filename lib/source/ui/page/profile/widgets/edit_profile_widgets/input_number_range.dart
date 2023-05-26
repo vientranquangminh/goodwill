@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goodwill/gen/colors.gen.dart';
+import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 
 class InputPhoneNumber extends StatelessWidget {
   const InputPhoneNumber({
@@ -17,22 +18,24 @@ class InputPhoneNumber extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 16),
         child: Row(
-          children: const [
-            Text("(+84)"),
-            SizedBox(width: 5),
-            Padding(
+          children: [
+            const Text("(+84)"),
+            const SizedBox(width: 5),
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 8.0),
-              child: VerticalDivider(color: Colors.grey,),
+              child: VerticalDivider(
+                color: Colors.grey,
+              ),
             ),
-            SizedBox(width: 5),
+            const SizedBox(width: 5),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(bottom: 12.0),
+                padding: const EdgeInsets.only(bottom: 12.0),
                 child: TextField(
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: "Enter Phone Number",
-                      hintStyle: TextStyle(
+                      hintText: context.localizations.plsEnterYourPhone,
+                      hintStyle: const TextStyle(
                           color: ColorName.black,
                           fontSize: 15,
                           fontWeight: FontWeight.w400)),
