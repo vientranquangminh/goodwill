@@ -602,6 +602,7 @@ class _PostState extends State<Post> {
                           category: category,
                           createdAt: DateTime.now(),
                           price: price,
+                          quantity: quantity,
                           description: description,
                           location: location,
                           images: imagesPaths,

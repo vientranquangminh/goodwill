@@ -61,6 +61,11 @@ class ProductModelRepository extends BasicRepository<ProductModel> {
     return updateWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
   }
 
+  @override
+  Future<void> replace(ProductModel element) {
+    return replaceWithDocRefs(element, docRefs: _getDocumentRefs(element.id!));
+  }
+
   /// This function will return the PostModel object
   /// from collection reference given
   ///
