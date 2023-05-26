@@ -14,6 +14,7 @@ class ProductModel extends BasicModel {
   String? category;
   String? status;
   int? price;
+  int quantity;
   DateTime? createdAt;
   List<String>? images;
   String? location;
@@ -27,6 +28,7 @@ class ProductModel extends BasicModel {
     this.price,
     this.createdAt,
     this.images,
+    required this.quantity,
     this.location,
     this.status,
   }) : super(id: id);
@@ -41,6 +43,7 @@ class ProductModel extends BasicModel {
       if (category != null) 'category': category,
       if (status != null) 'status': status,
       if (price != null) 'price': price,
+      if (quantity != null) 'quantity': quantity,
       if (createdAt != null) 'createdAt': createdAt?.millisecondsSinceEpoch,
       if (images != null) 'images': images,
       if (location != null) 'location': location,
@@ -57,6 +60,7 @@ class ProductModel extends BasicModel {
       category: map['category'] != null ? map['category'] as String : null,
       status: map['status'] != null ? map['status'] as String : null,
       price: map['price'] != null ? map['price'] as int : null,
+      quantity: map['quantity'] != null ? map['quantity'] as int : 1,
       createdAt: map['createdAt'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
           : null,
@@ -81,7 +85,7 @@ class ProductModel extends BasicModel {
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, ownerId: $ownerId, title: $title, description: $description, category: $category, status: $status, price: $price, createdAt: $createdAt, images: $images, location: $location)';
+    return 'ProductModel(id: $id, ownerId: $ownerId, title: $title, description: $description, category: $category, status: $status, price: $price, quantity: $quantity, createdAt: $createdAt, images: $images, location: $location)';
   }
 
   ProductModel copyWith({
@@ -92,6 +96,7 @@ class ProductModel extends BasicModel {
     String? category,
     String? status,
     int? price,
+    required int quantity,
     DateTime? createdAt,
     List<String>? images,
     String? location,
@@ -105,6 +110,7 @@ class ProductModel extends BasicModel {
       status: status ?? this.status,
       price: price ?? this.price,
       createdAt: createdAt ?? this.createdAt,
+      quantity: quantity,
       images: images ?? this.images,
       location: location ?? this.location,
     );
@@ -121,6 +127,7 @@ class ProductModel extends BasicModel {
         other.category == category &&
         other.status == status &&
         other.price == price &&
+        other.quantity == quantity &&
         other.createdAt == createdAt &&
         listEquals(other.images, images) &&
         other.location == location;
@@ -135,6 +142,7 @@ class ProductModel extends BasicModel {
         category.hashCode ^
         status.hashCode ^
         price.hashCode ^
+        quantity.hashCode ^
         createdAt.hashCode ^
         images.hashCode ^
         location.hashCode;
@@ -146,6 +154,7 @@ class ProductModel extends BasicModel {
       ownerId: AuthService.userId,
       description: "an iPhone",
       price: 20000,
+      quantity: 1,
       createdAt: DateTime.now(),
       location: 'Da Nang',
       status: OwnProductStatus.OVERDATE,
@@ -161,6 +170,7 @@ class ProductModel extends BasicModel {
           ],
           title: 'Nike Air Force 1',
           price: 200,
+          quantity: 1,
           createdAt: DateTime.now(),
           category: CategoryEnum.CLOTHES,
           location: "Da Nang"),
@@ -170,6 +180,7 @@ class ProductModel extends BasicModel {
           ],
           title: 'Nike Air Force 1',
           price: 200,
+          quantity: 1,
           createdAt: DateTime.now(),
           category: CategoryEnum.TOYS,
           location: "Da Nang"),
@@ -179,6 +190,7 @@ class ProductModel extends BasicModel {
           ],
           title: 'Nike Air Force 1',
           price: 200,
+          quantity: 1,
           createdAt: DateTime.now(),
           category: CategoryEnum.KITCHEN,
           location: "Da Nang"),
@@ -188,6 +200,7 @@ class ProductModel extends BasicModel {
           ],
           title: 'Nike Air Force 1',
           price: 200,
+          quantity: 1,
           createdAt: DateTime.now(),
           category: CategoryEnum.SHOES,
           location: "Da Nang"),
@@ -197,6 +210,7 @@ class ProductModel extends BasicModel {
           ],
           title: 'Nike Air Force 1',
           price: 200,
+          quantity: 1,
           createdAt: DateTime.now(),
           category: CategoryEnum.BAGS,
           location: "Da Nang"),

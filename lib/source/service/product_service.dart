@@ -59,6 +59,10 @@ class ProductService {
     return _productModelRepository.update(productModel);
   }
 
+  static Future<void> replaceProduct(ProductModel productModel) {
+    return _productModelRepository.replace(productModel);
+  }
+
   static Future<void> deleteProduct(ProductModel productModel) {
     return _productModelRepository.delete(productModel);
   }
