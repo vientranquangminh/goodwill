@@ -34,29 +34,37 @@ class UserProfile {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'profilePicture': profilePicture,
-      'fullName': fullName,
-      'nickName': nickName,
-      'dateOfBirth': dateOfBirth?.millisecondsSinceEpoch,
-      'gender': gender,
-      'phoneNumber': phoneNumber,
-      'address': address,
-      'userPosition': userPosition?.toMap(),
+      if (id != null) 'id': id,
+      if (profilePicture != null) 'profilePicture': profilePicture,
+      if (fullName != null) 'fullName': fullName,
+      if (nickName != null) 'nickName': nickName,
+      if (dateOfBirth != null)
+        'dateOfBirth': dateOfBirth?.millisecondsSinceEpoch,
+      if (gender != null) 'gender': gender,
+      if (phoneNumber != null) 'phoneNumber': phoneNumber,
+      if (address != null) 'address': address,
+      if (userPosition != null) 'userPosition': userPosition?.toMap(),
     };
   }
 
   factory UserProfile.fromMap(Map<String, dynamic> map) {
     return UserProfile(
       id: map['id'] as String,
-      profilePicture: map['profilePicture'] != null ? map['profilePicture'] as String : null,
+      profilePicture: map['profilePicture'] != null
+          ? map['profilePicture'] as String
+          : null,
       fullName: map['fullName'] != null ? map['fullName'] as String : null,
       nickName: map['nickName'] != null ? map['nickName'] as String : null,
-      dateOfBirth: map['dateOfBirth'] != null ? DateTime.fromMillisecondsSinceEpoch(map['dateOfBirth'] as int) : null,
+      dateOfBirth: map['dateOfBirth'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['dateOfBirth'] as int)
+          : null,
       gender: map['gender'] != null ? map['gender'] as String : null,
-      phoneNumber: map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
+      phoneNumber:
+          map['phoneNumber'] != null ? map['phoneNumber'] as String : null,
       address: map['address'] != null ? map['address'] as String : null,
-      userPosition: map['userPosition'] != null ? UserPosition.fromMap(map['userPosition'] as Map<String,dynamic>) : null,
+      userPosition: map['userPosition'] != null
+          ? UserPosition.fromMap(map['userPosition'] as Map<String, dynamic>)
+          : null,
     );
   }
 
@@ -117,30 +125,29 @@ class UserProfile {
   @override
   bool operator ==(covariant UserProfile other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.profilePicture == profilePicture &&
-      other.fullName == fullName &&
-      other.nickName == nickName &&
-      other.dateOfBirth == dateOfBirth &&
-      other.gender == gender &&
-      other.phoneNumber == phoneNumber &&
-      other.address == address &&
-      other.userPosition == userPosition;
+
+    return other.id == id &&
+        other.profilePicture == profilePicture &&
+        other.fullName == fullName &&
+        other.nickName == nickName &&
+        other.dateOfBirth == dateOfBirth &&
+        other.gender == gender &&
+        other.phoneNumber == phoneNumber &&
+        other.address == address &&
+        other.userPosition == userPosition;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      profilePicture.hashCode ^
-      fullName.hashCode ^
-      nickName.hashCode ^
-      dateOfBirth.hashCode ^
-      gender.hashCode ^
-      phoneNumber.hashCode ^
-      address.hashCode ^
-      userPosition.hashCode;
+        profilePicture.hashCode ^
+        fullName.hashCode ^
+        nickName.hashCode ^
+        dateOfBirth.hashCode ^
+        gender.hashCode ^
+        phoneNumber.hashCode ^
+        address.hashCode ^
+        userPosition.hashCode;
   }
 
   String getDisplayName() {
@@ -182,7 +189,8 @@ class UserPosition {
 
   String toJson() => json.encode(toMap());
 
-  factory UserPosition.fromJson(String source) => UserPosition.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserPosition.fromJson(String source) =>
+      UserPosition.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'UserPosition(lat: $lat, long: $long)';
@@ -190,10 +198,8 @@ class UserPosition {
   @override
   bool operator ==(covariant UserPosition other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.lat == lat &&
-      other.long == long;
+
+    return other.lat == lat && other.long == long;
   }
 
   @override
