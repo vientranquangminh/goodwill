@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/ui/admin/add_article.dart';
+import 'package:goodwill/source/ui/admin/add_product.dart';
 import 'package:goodwill/source/ui/admin/dashboard.dart';
 import 'package:goodwill/source/ui/admin/user_screen.dart';
 import 'package:goodwill/source/ui/admin/topic_screen.dart';
@@ -24,7 +26,9 @@ class _AdminScreenState extends State<AdminScreen> {
       Menu(item: "Dasboard", icon: 'assets/svgs/dashboard.svg'),
       Menu(item: "User", icon: 'assets/svgs/user_admin.svg'),
       Menu(item: "Product", icon: 'assets/svgs/product.svg'),
-      Menu(item: "Article", icon: 'assets/svgs/trending-topic.svg')
+      Menu(item: "Article", icon: 'assets/svgs/trending-topic.svg'),
+      Menu(item: "Add Product", icon: 'assets/svgs/trending-topic.svg'),
+      Menu(item: "Add Article", icon: 'assets/svgs/trending-topic.svg'),
     ];
     return Scaffold(
       body: Row(
@@ -105,7 +109,9 @@ class _AdminScreenState extends State<AdminScreen> {
               DashBoardScreen(),
               UserPage(),
               ProductPage(),
-              TopicScreen()
+              TopicScreen(),
+              AddProductScreen(),
+              AddArticle()
             ],
           ))
         ],
