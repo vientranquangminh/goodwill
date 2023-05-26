@@ -11,6 +11,7 @@ import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart
 import 'package:goodwill/source/data/dto/cart_item_dto.dart';
 import 'package:goodwill/source/data/model/purchase_history_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
+import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/purchase_history_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/payment/component/status_payment.dart';
@@ -37,7 +38,7 @@ class _PaymentState extends State<Payment> {
     String fullName = user?.fullName ?? Constant.UNKNOWN;
     String phoneNumber = user?.phoneNumber ?? Constant.FAKE_PHONENUMBER;
     String address = user?.address ?? Constant.FAKE_PHONENUMBER;
-
+    String productOwner = "";
     final selectedCartItems = context.getParam() as List<CartItemDto>;
     int calculateTotalPrice() {
       int total = 0;
@@ -129,10 +130,10 @@ class _PaymentState extends State<Payment> {
                           }
 
                           UserProfile? userProfile = snapshot.data;
-                          String name = userProfile?.fullName ?? 'Loading...';
+                          productOwner = userProfile?.fullName ?? 'Loading...';
 
                           return Text(
-                            name,
+                            productOwner,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -321,24 +322,37 @@ class _PaymentState extends State<Payment> {
                                         selectedCartItems, zpTransToken);
 
                                     // Back to mainpage
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => StatusPayment(
+                                                status: context.localizations
+                                                    .paymentSuccessful,
                                                 amountPaid:
                                                     calculateTotalPrice(),
                                                 owner: fullName,
+                                                callback: () => context
+                                                    .pushReplacementNamed(Routes
+                                                        .myPageController),
+                                                textButton: context
+                                                    .localizations.backToHome,
+                                                productOwner: productOwner,
                                               )),
                                     );
                                   } else {
-                                    Navigator.push(
+                                    Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => StatusPayment(
                                                 image:
                                                     'assets/images/payment_fail.png',
-                                                status: 'Payment Failed',
+                                                status: context.localizations
+                                                    .paymentFailed,
                                                 owner: fullName,
+                                                callback: () => context.pop(),
+                                                textButton: context
+                                                    .localizations.backToCart,
+                                                productOwner: productOwner,
                                               )),
                                     );
                                   }

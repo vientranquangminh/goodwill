@@ -72,7 +72,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     size: 30,
                   ),
             onPressed: () {
-              context.pushNamed(Routes.cartProduct);
+              context.pushReplacementNamed(Routes.cartProduct);
             },
           ),
         ],

@@ -141,5 +141,13 @@
     "deliveryAddress": "Địa chỉ giao hàng",
     "addCartProductSuccess": "Thêm sản phẩm thành công",
     "canNotAddCartProduct": "không thể thêm sản phẩm vào giỏ",
-    "youCannotAddYourProductsToTheCart": "Bạn không thể thêm sản phẩm của bạn vào giỏ"
+    "youCannotAddYourProductsToTheCart": "Bạn không thể thêm sản phẩm của bạn vào giỏ",
+    "paymentConfirmation": "Xác nhận thanh toán",
+    "amountPaid": "Số tiền đã thanh toán",
+    "paidBy": "Thanh toán bởi",
+    "backToHome": "Trở về trang chủ",
+    "backToCart": "Trở về giỏ hàng",
+    "paymentFailed": "Thanh toán thất bại",
+    "paymentSuccessful": "Thanh toán thành công",
+    "paidFor": "Thanh toán cho"
 }
