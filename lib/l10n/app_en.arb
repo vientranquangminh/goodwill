@@ -72,6 +72,7 @@
     "owner": "Owner",
     "password": "Password",
     "payment": "Payment",
+    "pay": "Pay",
     "person": "Person",
     "phoneNumber": "Phone number",
     "plsEnterValid": "Please enter valid phone number",
@@ -136,5 +137,6 @@
     "overdate": "Overdate",
     "denied": "Denied",
     "purchaseHistory": "Purchase History",
-    "viewSeller": "View Seller"
+    "viewSeller": "View Seller",
+    "deliveryAddress": "Delivery Address"
 }

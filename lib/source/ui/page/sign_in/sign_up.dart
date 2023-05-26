@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
+import 'package:goodwill/source/common/widgets/app_toast/app_toast.dart';
+import 'package:goodwill/source/common/widgets/snack_bar/snack_bar.dart';
 import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 
@@ -187,14 +189,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fillColor: Colors.black,
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        // TODO: SIGN UP
                         String email = _emailController.text;
                         String password = _passwordController.text;
-                        var newUserCredential =
-                            await AuthService.signUp(email, password);
-                        if (newUserCredential == null) return;
-                        Navigator.pushReplacementNamed(
-                            context, Routes.fillProfile);
+                        bool isOk = false;
+                        try {
+                          await AuthService.signUp(email, password, context);
+                          isOk = true;
+                        } catch (signUpError) {
+                          if (signUpError is PlatformException) {
+                            if (signUpError.code ==
+                                'ERROR_EMAIL_ALREADY_IN_USE') {
+                              AppToasts.showToast(
+                                  context: context, title: 'error');
+                            }
+                          }
+                        }
+                        FirebaseAuth.instance.currentUser != null
+                            // ignore: use_build_context_synchronously
+                            ? context.pushReplacementNamed(Routes.waitScreen)
+                            // ignore: use_build_context_synchronously
+                            : AppToasts.showErrorToast(
+                                context: context,
+                                title:
+                                    'This email has been used! Please try another email.');
+                      } else {
+                        showSnackBar('Error',
+                            'This email has been used! Please try another email');
                       }
                     },
                     child: const Text(

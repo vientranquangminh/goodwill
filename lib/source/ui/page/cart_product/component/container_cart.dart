@@ -1,14 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:goodwill/gen/colors.gen.dart';
-import 'package:goodwill/source/data/model/cart_item_dto.dart';
+import 'package:goodwill/source/data/dto/cart_item_dto.dart';
+import 'package:goodwill/source/service/cart_service.dart';
+import 'package:goodwill/source/util/constant.dart';
+import 'package:intl/intl.dart';
 
 class ContainerCart extends StatefulWidget {
   const ContainerCart({
     super.key,
     required this.cartProduct,
+    required this.index,
+    required this.selectedIndexes,
+    this.onCheckboxChanged,
   });
   final CartItemDto cartProduct;
+  final int index;
+  final List<int> selectedIndexes;
+  final ValueChanged<bool>? onCheckboxChanged;
 
   @override
   State<ContainerCart> createState() => _ContainerCartState();
@@ -16,20 +26,16 @@ class ContainerCart extends StatefulWidget {
 
 class _ContainerCartState extends State<ContainerCart> {
   bool isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isChecked = widget.selectedIndexes.contains(widget.index);
+  }
+
   @override
   Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.blue;
-      }
-      return Colors.red;
-    }
-
+    bool isChecked = widget.selectedIndexes.contains(widget.index);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
@@ -52,8 +58,8 @@ class _ContainerCartState extends State<ContainerCart> {
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                     child: CachedNetworkImage(
                       imageUrl: widget.cartProduct.imageUrl,
-                      width: 100,
-                      height: 100,
+                      width: 100.w,
+                      height: 100.h,
                     ),
                   ),
                 ),
@@ -64,7 +70,7 @@ class _ContainerCartState extends State<ContainerCart> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.85,
+                        width: MediaQuery.of(context).size.width / 2,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -81,52 +87,48 @@ class _ContainerCartState extends State<ContainerCart> {
                                 color: ColorName.black,
                               ),
                               onPressed: () {
-                                
+                                final cartItemId = widget.cartProduct.id;
+                                CartService.deleteCartItemById(cartItemId);
                               },
                             ),
                           ],
                         ),
                       ),
-                      RichText(
-                        text: TextSpan(
-                          text: widget.cartProduct.category,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: Text(
+                          "${widget.cartProduct.category} | ${widget.cartProduct.location}",
                           style: const TextStyle(
                               color: Colors.black54,
                               fontWeight: FontWeight.w700,
                               fontSize: 14),
-                          children: [
-                            const TextSpan(
-                              text: ' | ',
-                            ),
-                            TextSpan(
-                              text: widget.cartProduct.location,
-                              style: const TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14),
-                            ),
-                          ],
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       const SizedBox(
                         height: 12,
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.85,
+                        width: MediaQuery.of(context).size.width / 2,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "\$" "${widget.cartProduct.price}",
-                              style: const TextStyle(
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 3,
+                              child: Text(
+                                "${NumberFormat('#,##0').format(widget.cartProduct.price)} ${Constant.VN_CURRENCY}",
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 22),
+                                  fontSize: 16,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                             Row(
                               children: [
-                                const SizedBox(
-                                  width: 8,
+                                SizedBox(
+                                  width: 8.w,
                                 ),
                                 Transform.scale(
                                   scale: 1.5,
@@ -137,9 +139,12 @@ class _ContainerCartState extends State<ContainerCart> {
                                     checkColor: Colors.white,
                                     activeColor: Colors.black,
                                     value: isChecked,
-                                    onChanged: (bool? value) {
+                                    onChanged: (newValue) {
                                       setState(() {
-                                        isChecked = value!;
+                                        isChecked = newValue ?? false;
+                                        if (widget.onCheckboxChanged != null) {
+                                          widget.onCheckboxChanged!(isChecked);
+                                        }
                                       });
                                     },
                                   ),

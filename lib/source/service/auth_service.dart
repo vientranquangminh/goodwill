@@ -40,7 +40,8 @@ class AuthService {
   }
 
   // register wit email & pw
-  static Future<UserCredential?> signUp(email, password) async {
+  static Future<UserCredential?> signUp(
+      email, password, BuildContext context) async {
     UserCredential? newUserCredential;
     try {
       newUserCredential =

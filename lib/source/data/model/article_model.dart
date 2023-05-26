@@ -52,14 +52,14 @@ class ArticleModel extends BasicModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'image': image,
-      'ownerId': ownerId,
-      'title': title,
-      'content': content,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
-      'contactPhoneNumber': contactPhoneNumber,
-      'type': type,
+      if (id != null) 'id': id,
+      if (image != null) 'image': image,
+      if (ownerId != null) 'ownerId': ownerId,
+      if (title != null) 'title': title,
+      if (content != null) 'content': content,
+      if (createdAt != null) 'createdAt': createdAt?.millisecondsSinceEpoch,
+      if (contactPhoneNumber != null) 'contactPhoneNumber': contactPhoneNumber,
+      if (type != null) 'type': type,
     };
   }
 

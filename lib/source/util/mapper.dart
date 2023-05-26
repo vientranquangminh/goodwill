@@ -1,14 +1,17 @@
 import 'dart:io';
 
-import 'package:goodwill/source/data/model/cart_item_dto.dart';
+import 'package:goodwill/source/data/dto/cart_item_dto.dart';
+import 'package:goodwill/source/data/dto/purchase_history_dto.dart';
 import 'package:goodwill/source/data/model/cart_item_model.dart';
-import 'package:goodwill/source/data/model/message_dto.dart';
+import 'package:goodwill/source/data/dto/message_dto.dart';
 import 'package:goodwill/source/data/model/message_model.dart';
 import 'package:goodwill/source/data/model/product_model.dart';
+import 'package:goodwill/source/data/model/purchase_history_model.dart';
 import 'package:goodwill/source/data/model/user_profile.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/service/product_service.dart';
 import 'package:goodwill/source/service/user_profile_service.dart';
+import 'package:goodwill/source/ui/page/purchase_history/purchase_history.dart';
 import 'package:goodwill/source/util/constant.dart';
 import 'package:goodwill/source/util/date_time_helper.dart';
 
@@ -17,6 +20,10 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
 class Mapper {
+  static bool _isMe(String id) {
+    return AuthService.userId == id;
+  }
+
   static Future<MessageDto> messageModelToRecentMessageDto(
       MessageModel messageData) async {
     String id = (AuthService.userId == messageData.senderId)
@@ -62,10 +69,6 @@ class Mapper {
         day: day,
         targetUserId: targetUserId,
         chatRoomId: messageData.getChatRoomId());
-  }
-
-  static bool _isMe(String id) {
-    return AuthService.userId == id;
   }
 
   static Future<List<MessageDto>> messageModelListDataToMessageDtoList(
@@ -134,6 +137,7 @@ class Mapper {
     String phoneNumber =
         sellerProfile?.phoneNumber ?? Constant.FAKE_PHONENUMBER;
     String? category = product?.category;
+    String productId = product?.id ?? 'test';
 
     return CartItemDto(
       id: id,
@@ -142,9 +146,57 @@ class Mapper {
       location: location,
       quantity: quantity,
       sellerId: sellerId,
+      productId: productId,
       imageUrl: imageUrl,
       phoneNumber: phoneNumber,
       category: category,
     );
+  }
+
+  static Future<PurchaseHistoryDto> PurchaseHistoryModelToPurchaseHistoryDto(
+      PurchaseHistoryModel purchaseHistoryModel) async {
+    ProductModel? productModel =
+        await ProductService.get(purchaseHistoryModel.productId!);
+    String? productOwnerId = productModel?.ownerId;
+    UserProfile? userProfile =
+        await UserProfileService.getUserProfile(productOwnerId!);
+
+    String id = purchaseHistoryModel.id ?? Constant.NOT_FOUND;
+    String title = productModel?.title ?? Constant.UNKNOWN;
+    String imageUrl = productModel?.images!.first ?? Constant.SAMPLE_AVATAR_URL;
+    String category = productModel?.category ?? '';
+    String ownerId = productModel?.ownerId ?? Constant.NOT_FOUND;
+    String productOwnerName = userProfile?.getDisplayName() ?? 'Seller#';
+    int quantity = purchaseHistoryModel.quantity ?? 0;
+    int price = productModel?.price ?? 0;
+    DateTime createdAt = purchaseHistoryModel.createdAt ?? DateTime.now();
+    String transactionId =
+        purchaseHistoryModel.transactionId ?? Constant.NOT_FOUND;
+
+    return PurchaseHistoryDto(
+      id: id,
+      title: title,
+      imageUrl: imageUrl,
+      category: category,
+      ownerId: ownerId,
+      productOwnerName: productOwnerName,
+      quantity: quantity,
+      price: price,
+      createdAt: createdAt,
+      transactionId: transactionId,
+    );
+  }
+
+  static Future<List<PurchaseHistoryDto>> PHistoryListToPHistoryDtoList(
+      List<PurchaseHistoryModel> list) async {
+    List<PurchaseHistoryDto> res = [];
+
+    for (var purchaseHistory in list ?? []) {
+      final purchaseHistoryDto =
+          await PurchaseHistoryModelToPurchaseHistoryDto(purchaseHistory);
+      res.add(purchaseHistoryDto);
+    }
+
+    return res;
   }
 }

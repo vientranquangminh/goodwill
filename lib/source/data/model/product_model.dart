@@ -34,16 +34,16 @@ class ProductModel extends BasicModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'ownerId': ownerId,
-      'title': title,
-      'description': description,
-      'category': category,
-      'status': status,
-      'price': price,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
-      'images': images,
-      'location': location,
+      if (id != null) 'id': id,
+      if (ownerId != null) 'ownerId': ownerId,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+      if (category != null) 'category': category,
+      if (status != null) 'status': status,
+      if (price != null) 'price': price,
+      if (createdAt != null) 'createdAt': createdAt?.millisecondsSinceEpoch,
+      if (images != null) 'images': images,
+      if (location != null) 'location': location,
     };
   }
 

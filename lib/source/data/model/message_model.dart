@@ -42,11 +42,11 @@ class MessageModel extends BasicModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'senderId': senderId,
-      'targetUserId': targetUserId,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
-      'text': text,
+      if (id != null) 'id': id,
+      if (senderId != null) 'senderId': senderId,
+      if (targetUserId != null) 'targetUserId': targetUserId,
+      if (createdAt != null) 'createdAt': createdAt?.millisecondsSinceEpoch,
+      if (text != null) 'text': text,
     };
   }
 

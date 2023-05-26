@@ -31,10 +31,10 @@ class CartItemModel extends BasicModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'productId': productId,
-      'quantity': quantity,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
+      if (id != null) 'id': id,
+      if (productId != null) 'productId': productId,
+      if (quantity != null) 'quantity': quantity,
+      if (createdAt != null) 'createdAt': createdAt?.millisecondsSinceEpoch,
     };
   }
 
