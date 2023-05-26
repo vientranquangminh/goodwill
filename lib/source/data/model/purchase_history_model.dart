@@ -37,11 +37,11 @@ class PurchaseHistoryModel extends BasicModel {
   @override
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'productId': productId,
-      'quantity': quantity,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
-      'transactionId': transactionId,
+      if (id != null) 'id': id,
+      if (productId != null) 'productId': productId,
+      if (quantity != null) 'quantity': quantity,
+      if (createdAt != null) 'createdAt': createdAt?.millisecondsSinceEpoch,
+      if (transactionId != null) 'transactionId': transactionId,
     };
   }
 
