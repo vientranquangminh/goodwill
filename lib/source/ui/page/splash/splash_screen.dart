@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:goodwill/source/service/auth_service.dart';
 import 'package:goodwill/source/ui/admin/admin_screen.dart';
 import 'package:goodwill/source/ui/components/page_controller.dart';
+import 'package:goodwill/source/ui/page/auth_wrapper/auth_wrapper.dart';
 import 'package:goodwill/source/ui/page/splash/widget/onboarding.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
         } else if (await _stream.first != null) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => const MyPageController()),
+            MaterialPageRoute(builder: (_) => const AuthWrapper()),
           );
         } else {
           Navigator.pushReplacement(
