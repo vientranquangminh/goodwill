@@ -17,28 +17,28 @@ class _SearchScreenState extends State<SearchScreen>
     with TickerProviderStateMixin {
   List<ProductModel> posts = ProductModel.sampleProductModels;
   List<ProductModel> clothes = ProductModel.sampleProductModels
-      .where((element) => element.category == 'Clothes')
+      .where((element) => element.category == 'clothes')
       .toList();
   List<ProductModel> shoes = ProductModel.sampleProductModels
-      .where((element) => element.category == 'Shoes')
+      .where((element) => element.category == 'shoes')
       .toList();
   List<ProductModel> bags = ProductModel.sampleProductModels
-      .where((element) => element.category == 'Bags')
+      .where((element) => element.category == 'bags')
       .toList();
   List<ProductModel> electronic = ProductModel.sampleProductModels
-      .where((element) => element.category == 'Electronics')
+      .where((element) => element.category == 'electronics')
       .toList();
   List<ProductModel> watch = ProductModel.sampleProductModels
-      .where((element) => element.category == 'Watch')
+      .where((element) => element.category == 'watchs')
       .toList();
   List<ProductModel> jewelry = ProductModel.sampleProductModels
-      .where((element) => element.category == 'Jewelry')
+      .where((element) => element.category == 'jewelry')
       .toList();
   List<ProductModel> kitchen = ProductModel.sampleProductModels
-      .where((element) => element.category == 'Kitchen')
+      .where((element) => element.category == 'kitchens')
       .toList();
   List<ProductModel> toys = ProductModel.sampleProductModels
-      .where((element) => element.category == 'Toys')
+      .where((element) => element.category == 'toys')
       .toList();
   final TextEditingController _searchController = TextEditingController();
 
@@ -124,35 +124,35 @@ class _SearchScreenState extends State<SearchScreen>
                     searchText: _searchController.text,
                   ),
                   MyListProduct(
-                    category: CategoryEnum.CLOTHES,
+                    category: CategoryEnum.CLOTHES.toLowerCase(),
                     searchText: _searchController.text,
                   ),
                   MyListProduct(
-                    category: CategoryEnum.SHOES,
+                    category: CategoryEnum.SHOES.toLowerCase(),
                     searchText: _searchController.text,
                   ),
                   MyListProduct(
-                    category: CategoryEnum.BAGS,
+                    category: CategoryEnum.BAGS.toLowerCase(),
                     searchText: _searchController.text,
                   ),
                   MyListProduct(
-                    category: CategoryEnum.ELECTRONIC,
+                    category: CategoryEnum.ELECTRONIC.toLowerCase(),
                     searchText: _searchController.text,
                   ),
                   MyListProduct(
-                    category: CategoryEnum.WATCH,
+                    category: CategoryEnum.WATCH.toLowerCase(),
                     searchText: _searchController.text,
                   ),
                   MyListProduct(
-                    category: CategoryEnum.JEWELRY,
+                    category: CategoryEnum.JEWELRY.toLowerCase(),
                     searchText: _searchController.text,
                   ),
                   MyListProduct(
-                    category: CategoryEnum.KITCHEN,
+                    category: CategoryEnum.KITCHEN.toLowerCase(),
                     searchText: _searchController.text,
                   ),
                   MyListProduct(
-                    category: CategoryEnum.TOYS,
+                    category: CategoryEnum.TOYS.toLowerCase(),
                     searchText: _searchController.text,
                   ),
                 ],
