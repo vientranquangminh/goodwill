@@ -149,5 +149,6 @@
     "backToCart": "Trở về giỏ hàng",
     "paymentFailed": "Thanh toán thất bại",
     "paymentSuccessful": "Thanh toán thành công",
-    "paidFor": "Thanh toán cho"
+    "paidFor": "Thanh toán cho",
+    "thisProductIsAlreadyInTheCart": "Sản Phẩm này đã có trong giỏ hàng"
 }
