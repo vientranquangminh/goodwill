@@ -6,6 +6,8 @@ import 'package:goodwill/source/ui/page/category/category_page.dart';
 import 'package:goodwill/source/ui/page/chat/chat_screen.dart';
 import 'package:goodwill/source/ui/page/connect_wallet/connect_use_phonenumber.dart';
 import 'package:goodwill/source/ui/page/external_profile.dart/external_profile.dart';
+import 'package:goodwill/source/ui/page/manage_post.dart';
+import 'package:goodwill/source/ui/page/manage_post/edit_showing.dart';
 import 'package:goodwill/source/ui/page/payment/payment.dart';
 import 'package:goodwill/source/ui/page/post/post.dart';
 import 'package:goodwill/source/ui/page/product/product_details_page.dart';
@@ -53,6 +55,8 @@ class Routes {
   static const waitScreen = '/wait_screen';
   static const payment = '/payment';
   static const externalProfile = '/external-profile';
+  static const editShowing = '/edit-showing';
+  static const managePost = '/manage-post';  
 
   static pushNamed() {}
   static const changeLanguage = '/change-language';
@@ -86,4 +90,7 @@ var customRoutes = <String, WidgetBuilder>{
   Routes.waitScreen: (context) => const WaitingVerifyScreen(),
   Routes.payment: (context) => const Payment(),
   Routes.externalProfile:(context) => const ExternalProfile(),
+  Routes.editShowing: (context) => const EditShowing(),
+  Routes.managePost: (context) => const ManagePost(),
+  Routes.payment: (context) => const Payment()
 };
