@@ -149,10 +149,10 @@ class Mapper {
   static Future<PurchaseHistoryDto> PurchaseHistoryModelToPurchaseHistoryDto(
       PurchaseHistoryModel purchaseHistoryModel) async {
     ProductModel? productModel =
-        await ProductService.get(purchaseHistoryModel.productId!);
+        await ProductService.get(purchaseHistoryModel.productId ?? 'test');
     String? productOwnerId = productModel?.ownerId;
     UserProfile? userProfile =
-        await UserProfileService.getUserProfile(productOwnerId!);
+        await UserProfileService.getUserProfile(productOwnerId ?? 'test');
 
     String id = purchaseHistoryModel.id ?? Constant.NOT_FOUND;
     String title = productModel?.title ?? Constant.UNKNOWN;
