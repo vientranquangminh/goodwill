@@ -1,11 +1,8 @@
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goodwill/gen/assets.gen.dart';
 import 'package:goodwill/gen/colors.gen.dart';
 import 'package:goodwill/source/common/extensions/build_context_ext.dart';
@@ -18,24 +15,98 @@ import 'package:goodwill/source/ui/page/profile/widgets/edit_profile_widgets/bot
 import 'package:goodwill/source/util/constant.dart';
 import 'package:goodwill/source/util/file_helper.dart';
 
-final Map<String, dynamic> profileScreenData = {
-  'Profile': [
-    {"title": "Edit Profile", "iconUrl": Assets.svgs.user.path},
-    {"title": "Notification", "iconUrl": 'assets/svgs/icon_bell.svg'},
-    {"title": "Purchase History", "iconUrl": Assets.svgs.eye.path},
-    {"title": "Payment", "iconUrl": Assets.svgs.creditCard.path},
-    {"title": "Security", "iconUrl": Assets.svgs.shieldCheck.path},
-    {"title": "Language", "iconUrl": Assets.svgs.language.path},
-    {"title": "Help Center", "iconUrl": 'assets/svgs/information_circle.svg'},
-    {"title": "Invite Friends", "iconUrl": Assets.svgs.users.path},
-  ]
-};
-
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> profileScreenData = {
+      'Profile': [
+        {
+          "title": context.localizations.editProfile,
+          "iconUrl": Assets.svgs.user.path
+        },
+        {
+          "title": context.localizations.notification,
+          "iconUrl": 'assets/svgs/icon_bell.svg'
+        },
+        {
+          "title": context.localizations.purchaseHistory,
+          "iconUrl": Assets.svgs.eye.path
+        },
+        {
+          "title": context.localizations.payment,
+          "iconUrl": Assets.svgs.creditCard.path
+        },
+        {
+          "title": context.localizations.security,
+          "iconUrl": Assets.svgs.shieldCheck.path
+        },
+        {
+          "title": context.localizations.language,
+          "iconUrl": Assets.svgs.language.path
+        },
+        {
+          "title": context.localizations.helpCenter,
+          "iconUrl": 'assets/svgs/information_circle.svg'
+        },
+        {
+          "title": context.localizations.inviteFriends,
+          "iconUrl": Assets.svgs.users.path
+        },
+      ]
+    };
+    Theme expansionTileCustom(int type, List keys, BuildContext context) {
+      List maps = profileScreenData[keys[type]];
+      return Theme(
+        data: Theme.of(context).copyWith(
+            unselectedWidgetColor: Colors.white,
+            colorScheme: const ColorScheme.light(
+              primary: Colors.white,
+            ),
+            dividerColor: Colors.transparent),
+        child: ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: maps.length,
+          itemBuilder: (context, index) {
+            final item = maps[index];
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+              child: InkWell(
+                onTap: () {
+                  _onTap(context, item);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset(maps[index]['iconUrl']),
+                        const SizedBox(width: 8),
+                        Text(
+                          maps[index]['title'],
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 7, 3, 3),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
+                    const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 20,
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    }
+
     final userProfile = context.watch<UserProfile?>();
     String _fullName = userProfile?.fullName ?? Constant.UNKNOWN;
     String _userProfilePicture =
@@ -143,11 +214,11 @@ class ProfilePage extends StatelessWidget {
                                 context: context,
                                 builder: (context) {
                                   return BottomSheetLogout(
-                                    text: 'Log out',
-                                    content: const Text(
-                                        'Are you sure you want to logout?'),
-                                    buttonText1: 'Cancel',
-                                    buttonText2: 'Logout',
+                                    text: context.localizations.logOut,
+                                    content: Text(context.localizations
+                                        .areYouSureYouWantToLogout),
+                                    buttonText1: context.localizations.cancel,
+                                    buttonText2: context.localizations.logOut,
                                     function1: (() {
                                       log('cancel');
                                       context.pop();
@@ -165,9 +236,9 @@ class ProfilePage extends StatelessWidget {
                               children: [
                                 Assets.svgs.logout.svg(),
                                 const SizedBox(width: 8),
-                                const Text(
-                                  "Logout",
-                                  style: TextStyle(
+                                Text(
+                                  context.localizations.logOut,
+                                  style: const TextStyle(
                                     color: Colors.red,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
@@ -188,77 +259,26 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
-
-  Theme expansionTileCustom(int type, List keys, BuildContext context) {
-    List maps = profileScreenData[keys[type]];
-    return Theme(
-      data: Theme.of(context).copyWith(
-          unselectedWidgetColor: Colors.white,
-          colorScheme: const ColorScheme.light(
-            primary: Colors.white,
-          ),
-          dividerColor: Colors.transparent),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: maps.length,
-        itemBuilder: (context, index) {
-          final item = maps[index];
-          return Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-            child: InkWell(
-              onTap: () {
-                _onTap(context, item);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      SvgPicture.asset(maps[index]['iconUrl']),
-                      const SizedBox(width: 8),
-                      Text(
-                        maps[index]['title'],
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 7, 3, 3),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: 20,
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
 }
 
-_onTap(BuildContext context, item) {
-  switch (item['title']) {
-    case 'Edit Profile':
-      return context.pushNamed(Routes.editProfile);
-    case 'Notification':
-      return context.pushNamed(Routes.notification);
-    case 'Payment':
-      return log('Payment');
-    case 'Security':
-      return context.pushNamed(Routes.security);
-    case 'Language':
-      return context.pushNamed(Routes.changeLanguage);
-    case 'Purchase History':
-      return context.pushNamed(Routes.purchaseHistory);
-    case 'Help Center':
-      return log('Help Center');
-    case 'Invite Friends':
-      return log('Invite Friends');
-    default:
+void _onTap(BuildContext context, item) {
+  if (item['title'] == context.localizations.editProfile) {
+    return context.pushNamed(Routes.editProfile);
+  } else if (item['title'] == context.localizations.notification) {
+    return context.pushNamed(Routes.notification);
+  } else if (item['title'] == context.localizations.purchaseHistory) {
+    return context.pushNamed(Routes.purchaseHistory);
+  } else if (item['title'] == context.localizations.payment) {
+    print('payment');
+  } else if (item['title'] == context.localizations.security) {
+    return context.pushNamed(Routes.security);
+  } else if (item['title'] == context.localizations.language) {
+    return context.pushNamed(Routes.changeLanguage);
+  } else if (item['title'] == context.localizations.helpCenter) {
+    print('Help Center');
+  } else if (item['title'] == context.localizations.inviteFriends) {
+    print('Invite Friends');
+  } else {
+    // Handle the default case here
   }
 }
