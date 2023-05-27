@@ -34,7 +34,6 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  bool isAddedToCart = false;
   int quantity = 1;
   int _currentIndex = 0;
   @override
@@ -60,17 +59,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         ),
         actions: [
           PlatformIconButton(
-            icon: isAddedToCart
-                ? const Icon(
-                    Icons.add_shopping_cart_outlined,
-                    color: Colors.red,
-                    size: 30,
-                  )
-                : const Icon(
-                    Icons.shopping_cart_outlined,
-                    color: ColorName.black,
-                    size: 30,
-                  ),
+            icon: const Icon(
+              Icons.shopping_cart_outlined,
+              color: ColorName.black,
+              size: 30,
+            ),
             onPressed: () {
               context.pushReplacementNamed(Routes.cartProduct);
             },
@@ -152,7 +145,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             SizedBox(
                               height: 12.h,
                             ),
-                            Text(arguments.description.toString()),
+                            Text(
+                              arguments.description.toString(),
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16),
+                            ),
                             SizedBox(
                               height: 12.h,
                             ),
@@ -166,7 +165,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 14),
+                                        fontSize: 16),
                                   ),
                                 ],
                               ),
@@ -184,7 +183,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.normal,
-                                        fontSize: 14),
+                                        fontSize: 16),
                                   ),
                                 ],
                               ),
@@ -205,7 +204,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         GestureDetector(
-                                          onTap: () => context.pushNamedWithParam(Routes.externalProfile, userProfile),
+                                          onTap: () =>
+                                              context.pushNamedWithParam(
+                                                  Routes.externalProfile,
+                                                  userProfile),
                                           child: Row(
                                             children: [
                                               Avatar(
@@ -221,7 +223,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                                   Text(
                                                     userProfile.fullName ?? '',
                                                     style: const TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 20,
                                                     ),
                                                     overflow:
@@ -379,19 +382,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 quantity: quantity,
                                 createdAt: DateTime.now(),
                               );
-                              CartService.addCartItem(cartItemModel)
-                                  .then((value) {
-                                setState(() {
-                                  isAddedToCart = true;
-                                });
-                                AppToasts.showToast(
-                                    context: context,
-                                    title: context
-                                        .localizations.addCartProductSuccess);
-                              }).catchError((error) {
+                              CartService.addCartItem(cartItemModel, context)
+                                  .then((value) {})
+                                  .catchError((error) {
                                 AppToasts.showErrorToast(
-                                    title: context
-                                        .localizations.canNotAddCartProduct,
+                                    title: context.localizations
+                                        .thisProductIsAlreadyInTheCart,
                                     context: context);
                               });
                             } else {

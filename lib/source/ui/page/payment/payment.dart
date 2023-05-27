@@ -169,10 +169,15 @@ class _PaymentState extends State<Payment> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                selectedCartItems[index].title,
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 1.8,
+                                child: Text(
+                                  selectedCartItems[index].title,
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.clip,
+                                ),
                               ),
                               SizedBox(
                                 height: 4.h,
@@ -315,7 +320,8 @@ class _PaymentState extends State<Payment> {
                             customFunction: () {
                               // PAYYYYYY
                               // FlutterZaloPaySdk.payOrder(zpToken: zpTransToken)
-                              ProductService.buy(selectedCartItems, zpTransToken)
+                              ProductService.buy(
+                                      selectedCartItems, zpTransToken)
                                   .listen((event) {
                                 setState(() {
                                   paymentStatus = event.name;
@@ -325,22 +331,24 @@ class _PaymentState extends State<Payment> {
                                         selectedCartItems, zpTransToken);
 
                                     // Back to mainpage
-                                    Navigator.pushReplacement(
+                                    Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => StatusPayment(
-                                                status: context.localizations
-                                                    .paymentSuccessful,
-                                                amountPaid:
-                                                    calculateTotalPrice(),
-                                                owner: fullName,
-                                                callback: () => context
-                                                    .pushReplacementNamed(Routes
-                                                        .myPageController),
-                                                textButton: context
-                                                    .localizations.backToHome,
-                                                productOwner: productOwner,
-                                              )),
+                                        builder: (context) => StatusPayment(
+                                          status: context
+                                              .localizations.paymentSuccessful,
+                                          amountPaid: calculateTotalPrice(),
+                                          owner: fullName,
+                                          callback: () =>
+                                              Navigator.pushReplacementNamed(
+                                                  context,
+                                                  Routes.myPageController),
+                                          textButton:
+                                              context.localizations.backToHome,
+                                          productOwner: productOwner,
+                                        ),
+                                      ),
+                                      (route) => false,
                                     );
                                   } else {
                                     Navigator.pushReplacement(

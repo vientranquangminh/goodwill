@@ -149,5 +149,6 @@
     "backToCart": "Back to cart",
     "paymentFailed": "Payment Failed",
     "paymentSuccessful": "Payment Successful",
-    "paidFor": "Paid For"
+    "paidFor": "Paid For",
+    "thisProductIsAlreadyInTheCart": "This product is already in the cart"
 }
