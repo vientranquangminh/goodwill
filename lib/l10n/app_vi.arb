@@ -51,7 +51,7 @@
     "id": "Id",
     "image": "Hình ảnh",
     "inviteFriends": "Mời bạn bè",
-    "language": "Ngô ngữ",
+    "language": "Ngôn ngữ",
     "location": "Địa chỉ",
     "login": "Đăng nhập",
     "loginAccount": "Đăng nhập vào tài khoản",
@@ -150,5 +150,6 @@
     "paymentFailed": "Thanh toán thất bại",
     "paymentSuccessful": "Thanh toán thành công",
     "paidFor": "Thanh toán cho",
-    "thisProductIsAlreadyInTheCart": "Sản Phẩm này đã có trong giỏ hàng"
+    "thisProductIsAlreadyInTheCart": "Sản Phẩm này đã có trong giỏ hàng",
+    "logOut": "Đăng xuất"
 }
