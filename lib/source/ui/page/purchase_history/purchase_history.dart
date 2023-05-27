@@ -5,7 +5,10 @@ import 'package:goodwill/source/common/extensions/build_context_ext.dart';
 import 'package:goodwill/source/common/widgets/custom_button/primary_button.dart';
 import 'package:goodwill/source/data/dto/purchase_history_dto.dart';
 import 'package:goodwill/source/data/model/purchase_history_model.dart';
+import 'package:goodwill/source/data/model/user_profile.dart';
+import 'package:goodwill/source/routes.dart';
 import 'package:goodwill/source/service/purchase_history_service.dart';
+import 'package:goodwill/source/service/user_profile_service.dart';
 import 'package:goodwill/source/ui/page/manage_post/showing_tabbar_view.dart';
 import 'package:goodwill/source/util/date_time_helper.dart';
 import 'package:goodwill/source/util/mapper.dart';
@@ -202,14 +205,27 @@ class PurchaseHistory extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              PrimaryButton(
-                                customFunction: () {},
-                                text: context.localizations.viewSeller,
-                                buttonColor: Colors.black,
-                                textColor: Colors.white,
-                                fontSize: 14,
-                                radius: 12,
-                              ),
+                              FutureBuilder<UserProfile?>(
+                                  future: UserProfileService.getUserProfile(
+                                      purchaseHistoryList[index].ownerId),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      UserProfile? userProfile = snapshot.data;
+                                      return PrimaryButton(
+                                        customFunction: () {
+                                          context.pushNamedWithParam(
+                                              Routes.externalProfile,
+                                              userProfile);
+                                        },
+                                        text: context.localizations.viewSeller,
+                                        buttonColor: Colors.black,
+                                        textColor: Colors.white,
+                                        fontSize: 14,
+                                        radius: 12,
+                                      );
+                                    }
+                                    return Container();
+                                  }),
                             ],
                           ),
                         ),
